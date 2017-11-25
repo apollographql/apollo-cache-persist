@@ -1,0 +1,14 @@
+{
+  "name": "apollo-cache-persist",
+  "version": "0.0.1",
+  "description": "Simple persistence for all Apollo cache implementations",
+  "author": "James Reggio <james.reggio@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesreggio/apollo-cache-persist.git"
+  },
+  "homepage": "https://github.com/jamesreggio/apollo-cache-persist",
+  "bugs": "https://github.com/jamesreggio/apollo-cache-persist/issues",
+  "main": "src/index.js"
+}
