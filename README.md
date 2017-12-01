@@ -1,13 +1,13 @@
 # apollo-cache-persist
 
-__NOTE: This repo is in 'pre-release' (it is lacking tests, and its API may change) and not quite ready to production use yet.__
+__NOTE: This repo is in 'pre-release' and not quite ready to production use yet.__
 
 Simple persistence for all Apollo Cache 2.0+ implementations, including [`apollo-cache-inmemory`][0] and [`apollo-cache-hermes`][1].
 
-Support web and React Native. [See all storage providers.](#storage)
+Supports web and React Native. [See all storage providers.](#storage-providers)
 
-[0] https://github.com/apollographql/apollo-client/tree/master/packages/apollo-cache-inmemory
-[1] https://github.com/convoyinc/apollo-cache-hermes
+[0]: https://github.com/apollographql/apollo-client/tree/master/packages/apollo-cache-inmemory
+[1]: https://github.com/convoyinc/apollo-cache-hermes
 
 ## Basic Usage
 
@@ -128,17 +128,10 @@ The following storage providers work 'out of the box', with no additional depend
 * `AsyncStorage` on React Native
 * `document.localStorage` on web
 * `document.sessionStorage` on web
-* [`localForage`][2] on web
+* [`localForage`](https://github.com/localForage/localForage) on web
 
-`apollo-cache-persist` uses the same storage provider API as [`redux-persist`][3], so you can also make use of the providers [listed here][4], including:
+`apollo-cache-persist` uses the same storage provider API as [`redux-persist`][2], so you can also make use of the providers [listed here][3], including:
 
-* [`redux-persist-node-storage`][5]
-* [`redux-persist-fs-storage`][6]
-* [`redux-persist-cookie-storage`][7]
-
-[2] https://github.com/localForage/localForage
-[3] https://github.com/rt2zz/redux-persist
-[4] https://github.com/rt2zz/redux-persist#storage-engines
-[5] https://github.com/pellejacobs/redux-persist-node-storage
-[6] https://github.com/leethree/redux-persist-fs-storage
-[7] https://github.com/abersager/redux-persist-cookie-storage
+* [`redux-persist-node-storage`](https://github.com/pellejacobs/redux-persist-node-storage)
+* [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
+* [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage)
