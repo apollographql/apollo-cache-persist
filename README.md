@@ -11,7 +11,7 @@ Supports web and React Native. [See all storage providers.](#storage-providers)
 
 ## Basic Usage
 
-To get started, simply pass your Apollo Cache and an [underlying storage provider](#storage) to `persistCache`.
+To get started, simply pass your Apollo Cache and an [underlying storage provider](#storage-providers) to `persistCache`.
 
 By default, the contents of your Apollo Cache will be immediately restored (asynchronously), and will be persisted upon every write to the cache (with a short debounce interval).
 
