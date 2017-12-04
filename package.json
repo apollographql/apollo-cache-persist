@@ -10,5 +10,46 @@
   },
   "homepage": "https://github.com/jamesreggio/apollo-cache-persist",
   "bugs": "https://github.com/jamesreggio/apollo-cache-persist/issues",
-  "main": "src/index.js"
+  "main": "src/index.js",
+  "scripts": {
+    "build":
+      "yarn clean && babel src --ignore __tests__ --out-dir dist --extensions '.js,.ts'",
+    "clean": "rm -rf dist",
+    "precommit": "lint-staged",
+    "test": "jest",
+    "test:watch": "jest -o --watch",
+    "typecheck": "tsc"
+  },
+  "lint-staged": {
+    "*.{md,ts,js,json}": [
+      "prettier --write --single-quote --trailing-comma es5",
+      "git add"
+    ]
+  },
+  "jest": {
+    "setupFiles": ["./jest.setup.js"],
+    "moduleDirectories": ["./node_modules", "./src"],
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "^.+\\.(js|ts)$": "typescript-babel-jest"
+    }
+  },
+  "resolutions": {
+    "babel-core": "^7.0.0-bridge.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.32",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
+    "@babel/preset-stage-2": "^7.0.0-beta.32",
+    "@babel/preset-typescript": "^7.0.0-beta.32",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "husky": "^0.14.3",
+    "jest": "^21.3.0-beta.11",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.8.2",
+    "typescript": "^2.6.2",
+    "typescript-babel-jest": "^1.0.5"
+  }
 }
