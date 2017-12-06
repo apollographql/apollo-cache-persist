@@ -4,13 +4,21 @@ import Storage from './Storage';
 import Persistor from './Persistor';
 import Trigger from './Trigger';
 
-export default class CachePersistor {
-  constructor(options) {
+import { ApolloPersistOptions } from './types';
+
+export default class CachePersistor<T> {
+  cache: Cache<T>;
+  log: Log<T>;
+  storage: Storage<T>;
+  persistor: Persistor<T>;
+  trigger: Trigger<T>;
+
+  constructor(options: ApolloPersistOptions<T>) {
     const log = new Log(options);
     const cache = new Cache(options);
     const storage = new Storage(options);
-    const persistor = new Persistor({log, cache, storage}, options);
-    const trigger = new Trigger({log, persistor}, options);
+    const persistor = new Persistor({ log, cache, storage });
+    const trigger = new Trigger({ log, persistor }, options);
 
     this.log = log;
     this.cache = cache;
@@ -39,15 +47,15 @@ export default class CachePersistor {
    * Trigger controls.
    */
 
-  pause() {
+  pause(): void {
     return this.trigger.pause();
   }
 
-  resume() {
+  resume(): void {
     return this.trigger.resume();
   }
 
-  remove() {
+  remove(): void {
     return this.trigger.remove();
   }
 
@@ -63,7 +71,7 @@ export default class CachePersistor {
     }
   }
 
-  getSize() {
+  getSize(): Promise<number | null> {
     return this.storage.getSize();
   }
 }

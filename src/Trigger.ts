@@ -1,17 +1,28 @@
 import onCacheWrite from './onCacheWrite';
 import onAppBackground from './onAppBackground';
 
-export default class Trigger {
+import Log from './Log';
+import Persistor from './Persistor';
+import { ApolloPersistOptions } from './types';
+
+interface Config<T> {
+  log: Log<T>;
+  persistor: Persistor<T>;
+}
+
+export default class Trigger<T> {
+  debounce: number;
+  persistor: Persistor<T>;
+  paused: boolean;
+  timeout: NodeJS.Timer;
+  uninstall: () => void;
+
   static defaultDebounce = 1000;
 
-  constructor({log, persistor}, options) {
-    const {defaultDebounce} = this.constructor;
+  constructor({ log, persistor }: Config<T>, options: ApolloPersistOptions<T>) {
+    const { defaultDebounce } = this.constructor as typeof Trigger;
 
-    const {
-      cache,
-      debounce,
-      trigger = 'write',
-    } = options;
+    const { cache, debounce, trigger = 'write' } = options;
 
     if (!trigger) {
       return;
@@ -23,7 +34,7 @@ export default class Trigger {
     switch (trigger) {
       case 'write':
         this.debounce = debounce === undefined ? defaultDebounce : 0;
-        this.uninstall = onCacheWrite({cache, log})(this.fire);
+        this.uninstall = onCacheWrite({ cache, log })(this.fire);
         break;
 
       case 'background':
@@ -31,7 +42,7 @@ export default class Trigger {
           log.warn('Debounce is not recommended with `background` trigger');
         }
         this.debounce = debounce;
-        this.uninstall = onAppBackground({cache, log})(this.fire);
+        this.uninstall = onAppBackground({ cache, log })(this.fire);
         break;
 
       default:
@@ -43,15 +54,15 @@ export default class Trigger {
     }
   }
 
-  pause() {
+  pause(): void {
     this.paused = true;
   }
 
-  resume() {
+  resume(): void {
     this.paused = false;
   }
 
-  remove() {
+  remove(): void {
     if (this.uninstall) {
       this.uninstall();
       this.uninstall = null;
