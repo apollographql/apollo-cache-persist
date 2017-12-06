@@ -1,37 +1,39 @@
-export default class Log {
+import { ApolloPersistOptions } from './types';
+
+type Level = 'log' | 'warn' | 'error';
+
+export default class Log<T> {
+  debug: boolean;
+  messages: string[];
+
   static buffer = 30;
   static prefix = '[apollo-cache-persist]';
 
-  constructor(options) {
-    const {
-      debug = false,
-    } = options;
+  constructor(options: ApolloPersistOptions<T>) {
+    const { debug = false } = options;
 
     this.debug = debug;
     this.messages = [];
   }
 
-  emit(level, ...message) {
+  emit(level: Level, ...message): void {
     if (level in console) {
-      console[level](this.constructor.prefix, ...message);
+      console[level]((this.constructor as typeof Log).prefix, ...message);
     }
   }
 
-  tailLogs() {
+  tailLogs(): void {
     this.messages.forEach(args => this.emit(...args));
   }
 
-  getLogs() {
+  getLogs(): Array<string[]> {
     return this.messages;
   }
 
   write(...args) {
-    const {buffer} = this.constructor;
+    const { buffer } = this.constructor as typeof Log;
 
-    this.messages = [
-      ...this.messages.slice(1 - this.constructor.buffer),
-      args,
-    ];
+    this.messages = [...this.messages.slice(1 - buffer), args];
 
     const [level] = args;
 

@@ -1,11 +1,25 @@
-export default class Persistor {
-  constructor({log, cache, storage}) {
+import Log from './Log';
+import Storage from './Storage';
+import Cache from './Cache';
+
+interface PersistorConfig<T> {
+  log: Log<T>;
+  storage: Storage<T>;
+  cache: Cache<T>;
+}
+
+export default class Persistor<T> {
+  log: Log<T>;
+  storage: Storage<T>;
+  cache: Cache<T>;
+
+  constructor({ log, cache, storage }: PersistorConfig<T>) {
     this.log = log;
     this.cache = cache;
     this.storage = storage;
   }
 
-  async persist() {
+  async persist(): Promise<void> {
     try {
       const data = this.cache.extract();
       await this.storage.write(data);
@@ -16,12 +30,12 @@ export default class Persistor {
           : `Persisted cache`
       );
     } catch (error) {
-      this.logger.error('Error persisting cache', error);
+      this.log.error('Error persisting cache', error);
       throw error;
     }
   }
 
-  async restore() {
+  async restore(): Promise<void> {
     try {
       const data = await this.storage.read();
 
@@ -42,7 +56,7 @@ export default class Persistor {
     }
   }
 
-  async purge() {
+  async purge(): Promise<void> {
     try {
       await this.storage.purge();
       this.log.info('Purged cache');

@@ -1,9 +1,9 @@
-import {AppState} from 'react-native';
+import { AppState } from 'react-native';
 
-export default () => (callback) => {
+export default () => callback => {
   let wasActive = true;
 
-  const listener = (state) => {
+  const listener = state => {
     console.log(state);
     if (state === 'active') {
       wasActive = true;

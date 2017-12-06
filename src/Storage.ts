@@ -1,9 +1,11 @@
-export default class Storage {
-  constructor(options) {
-    const {
-      storage,
-      key = 'apollo-cache-persist',
-    } = options;
+import { ApolloPersistOptions, PersistentStorage } from './types';
+
+export default class Storage<T> {
+  storage: PersistentStorage<T>;
+  key: string;
+
+  constructor(options: ApolloPersistOptions<T>) {
+    const { storage, key = 'apollo-cache-persist' } = options;
 
     this.storage = storage;
     this.key = key;
@@ -21,7 +23,7 @@ export default class Storage {
     return this.storage.removeItem(this.key);
   }
 
-  async getSize() {
+  async getSize(): Promise<number | null> {
     const data = await this.storage.getItem(this.key);
 
     if (data == null) {
