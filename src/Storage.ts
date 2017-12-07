@@ -1,7 +1,12 @@
-import { ApolloPersistOptions, PersistentStorage } from './types';
+import {
+  ApolloPersistOptions,
+  PersistentStorage,
+  PersistedData,
+  SerializedData,
+} from './types';
 
-export default class Storage<T> {
-  storage: PersistentStorage<T>;
+export default class Storage<T extends SerializedData> {
+  storage: PersistentStorage<PersistedData<T>>;
   key: string;
 
   constructor(options: ApolloPersistOptions<T>) {
@@ -24,7 +29,7 @@ export default class Storage<T> {
   }
 
   async getSize(): Promise<number | null> {
-    const data = await this.storage.getItem(this.key);
+    const data: PersistedData<T> = await this.storage.getItem(this.key);
 
     if (data == null) {
       return 0;

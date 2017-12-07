@@ -1,14 +1,20 @@
 import { ApolloCache } from 'apollo-cache';
 
-export interface PersistentStorage<T> {
-  getItem: (key: string) => Promise<T>;
-  setItem: (key: string, data: T) => Promise<void>;
+export interface SerializedData {
+  length: number;
+}
+
+export type PersistedData<T extends SerializedData> = T | string;
+
+export interface PersistentStorage<X> {
+  getItem: (key: string) => Promise<X>;
+  setItem: (key: string, data: X) => Promise<void>;
   removeItem: (key: string) => Promise<void>;
 }
 
-export interface ApolloPersistOptions<T> {
-  cache: ApolloCache<T>;
-  storage: PersistentStorage<T>;
+export interface ApolloPersistOptions<CacheShape> {
+  cache: ApolloCache<CacheShape>;
+  storage: PersistentStorage<PersistedData<CacheShape>>;
   trigger?: 'write' | 'background';
   debounce?: number;
   key?: string;

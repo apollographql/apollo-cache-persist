@@ -12,12 +12,10 @@
   "bugs": "https://github.com/jamesreggio/apollo-cache-persist/issues",
   "main": "src/index.js",
   "scripts": {
-    "build":
-      "yarn clean && babel src --ignore __tests__ --out-dir dist --extensions '.js,.ts'",
     "clean": "rm -rf dist",
     "precommit": "lint-staged",
     "test": "jest",
-    "test:watch": "jest -o --watch",
+    "test:watch": "jest -o --watchAll",
     "typecheck": "tsc"
   },
   "lint-staged": {
@@ -27,31 +25,34 @@
     ]
   },
   "jest": {
-    "setupFiles": ["./jest.setup.js"],
-    "moduleDirectories": ["./node_modules", "./src"],
-    "moduleFileExtensions": ["ts", "js"],
+    "moduleFileExtensions": ["ts", "js", "jsx", "tsx", "json"],
     "transform": {
-      "^.+\\.(js|ts)$": "typescript-babel-jest"
-    }
-  },
-  "resolutions": {
-    "babel-core": "^7.0.0-bridge.0"
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "globals": {
+      "ts-jest": {
+        "useBabelrc": true
+      }
+    },
+    "transformIgnorePatterns": ["node_modules/(?!apollo-cache-hermes)"]
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.32",
-    "@babel/core": "^7.0.0-beta.32",
-    "@babel/preset-env": "^7.0.0-beta.32",
-    "@babel/preset-stage-2": "^7.0.0-beta.32",
-    "@babel/preset-typescript": "^7.0.0-beta.32",
+    "@types/node": "^8.0.55",
     "@types/react-native": "^0.50.8",
     "apollo-cache": "^1.0.2",
-    "babel-plugin-module-resolver": "^3.0.0",
+    "apollo-cache-hermes": "^0.4.55-alpha",
+    "apollo-cache-inmemory": "^1.1.3",
+    "apollo-client": "^2.1.0",
+    "apollo-link": "^1.0.5",
+    "graphql": "^0.11.7",
+    "graphql-tag": "^2.5.0",
     "husky": "^0.14.3",
-    "jest": "^21.3.0-beta.11",
+    "jest": "^21.2.1",
     "lint-staged": "^6.0.0",
     "prettier": "^1.8.2",
-    "typescript": "^2.6.2",
-    "typescript-babel-jest": "^1.0.5"
+    "ts-jest": "^21.2.4",
+    "typescript": "^2.6.2"
   }
 }
