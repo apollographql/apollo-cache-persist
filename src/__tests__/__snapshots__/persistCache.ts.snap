@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`persistCache advanced usage passing in debounce configures the debounce interval 1`] = `"{\\"ROOT_QUERY\\":{\\"hello\\":\\"world\\"}}"`;
+
+exports[`persistCache advanced usage passing in key customizes the storage key 1`] = `"{\\"ROOT_QUERY\\":{\\"hello\\":\\"world\\"}}"`;
+
 exports[`persistCache setup requires a cache 1`] = `
 "
       In order to persist your Apollo Cache, you need to pass in a cache.
