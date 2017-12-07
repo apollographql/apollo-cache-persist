@@ -1,9 +1,7 @@
 import { ApolloCache } from 'apollo-cache';
-import { ApolloPersistOptions } from './types';
+import { ApolloPersistOptions, PersistedData, SerializedData } from './types';
 
-type PersistedData<T> = T | string;
-
-export default class Cache<T> {
+export default class Cache<T extends SerializedData> {
   cache: ApolloCache<T>;
   serialize: boolean;
 
@@ -15,7 +13,7 @@ export default class Cache<T> {
   }
 
   extract(): PersistedData<T> {
-    let data = this.cache.extract() as T;
+    let data: PersistedData<T> = this.cache.extract() as T;
 
     if (this.serialize) {
       data = JSON.stringify(data) as string;
@@ -25,12 +23,12 @@ export default class Cache<T> {
   }
 
   restore(data: PersistedData<T>): void {
-    if (this.serialize) {
+    if (this.serialize && typeof data === 'string') {
       data = JSON.parse(data);
     }
 
     if (data != null) {
-      this.cache.restore(data);
+      this.cache.restore(data as T);
     }
   }
 }

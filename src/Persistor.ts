@@ -2,13 +2,15 @@ import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
 
+import { SerializedData } from './types';
+
 interface PersistorConfig<T> {
   log: Log<T>;
   storage: Storage<T>;
   cache: Cache<T>;
 }
 
-export default class Persistor<T> {
+export default class Persistor<T extends SerializedData> {
   log: Log<T>;
   storage: Storage<T>;
   cache: Cache<T>;

@@ -3,7 +3,6 @@
   "command": "tsc",
   "isShellCommand": true,
   "args": ["-w", "-p", ".", "--noEmit"],
-  "showOutput": "silent",
   "isBackground": true,
   "problemMatcher": "$tsc-watch"
 }

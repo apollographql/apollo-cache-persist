@@ -4,11 +4,11 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "rootDir": "src",
+    "outDir": "dist",
     "jsx": "react",
     "lib": ["es2015"],
     "module": "es2015",
     "moduleResolution": "node",
-    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
@@ -18,5 +18,11 @@
     "skipLibCheck": true,
     "sourceMap": true
   },
-  "exclude": ["node_modules", "**/node_modules/*"]
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "**/__tests__/*",
+    "**/__mocks__/*"
+  ]
 }
