@@ -4,7 +4,7 @@ import { Hermes } from 'apollo-cache-hermes';
 
 import { persistCache } from '../';
 import MockStorage from '../__mocks__/MockStorage';
-import simulateApp from '../__mocks__/simulateApp';
+import { simulateApp, simulateWrite } from '../__mocks__/simulate';
 
 jest.useFakeTimers();
 describe('persistCache', () => {
@@ -30,6 +30,7 @@ describe('persistCache', () => {
       }
     });
   });
+
   describe('basic usage', () => {
     const operation = gql`
       {
@@ -56,9 +57,99 @@ describe('persistCache', () => {
       expect(client.extract()).toEqual(client2.extract());
     });
   });
+
+  describe('nested queries', () => {
+    const operation = gql`
+      {
+        user(id: 1) {
+          name {
+            last
+            first
+          }
+          posts {
+            title
+            comments {
+              name
+            }
+          }
+        }
+      }
+    `;
+    const result = {
+      data: {
+        user: {
+          name: { last: 'Doe', first: 'Jane', __typename: 'Name' },
+          posts: [
+            {
+              title: 'Apollo is awesome',
+              comments: [{ name: 'foo', __typename: 'Comment' }],
+              __typename: 'Post',
+            },
+          ],
+          __typename: 'User',
+        },
+      },
+    };
+
+    it('extracts a previously filled InMemoryCache from storage', async () => {
+      const [client, client2] = await simulateApp({
+        operation,
+        result,
+      });
+      expect(client.extract()).toEqual(client2.extract());
+    });
+    it('extracts a previously filled HermesCache from storage', async () => {
+      const [client, client2] = await simulateApp({
+        operation,
+        result,
+        persistOptions: {
+          cache: new Hermes(),
+        },
+      });
+      expect(client.extract()).toEqual(client2.extract());
+    });
+  });
+
   describe('advanced usage', () => {
-    it('passing in debounce configures the debounce interval');
-    it('passing in key customizes the storage key');
-    it('setting the trigger to background sets your debounce interval to 0');
+    const operation = gql`
+      {
+        hello
+      }
+    `;
+    const result = { data: { hello: 'world' } };
+
+    it('passing in debounce configures the debounce interval', async () => {
+      const debounce = 600;
+      const storage = new MockStorage();
+
+      await simulateWrite({ debounce, storage, result, operation });
+
+      expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
+      jest.runTimersToTime(debounce + 1);
+      expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
+    });
+    it('passing in key customizes the storage key', async () => {
+      const storage = new MockStorage();
+      const key = 'testing-1-2-3';
+
+      await simulateWrite({ key, storage, result, operation });
+
+      jest.runTimersToTime(1000);
+      expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
+      expect(await storage.getItem(key)).toMatchSnapshot();
+    });
+    xit('setting the trigger to background does not persist on a write', async () => {
+      const storage = new MockStorage();
+      await simulateWrite({
+        trigger: 'background',
+        storage,
+        result,
+        operation,
+      });
+
+      jest.runTimersToTime(1000);
+      expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
+    });
+    xit('setting the trigger to background persists in the background');
   });
 });

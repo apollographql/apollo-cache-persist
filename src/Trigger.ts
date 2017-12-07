@@ -33,7 +33,7 @@ export default class Trigger<T> {
 
     switch (trigger) {
       case 'write':
-        this.debounce = debounce === undefined ? defaultDebounce : 0;
+        this.debounce = debounce || defaultDebounce;
         this.uninstall = onCacheWrite({ cache, log })(this.fire);
         break;
 
