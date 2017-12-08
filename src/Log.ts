@@ -1,10 +1,8 @@
-import { ApolloPersistOptions } from './types';
-
-type Level = 'log' | 'warn' | 'error';
+import { ApolloPersistOptions, LogLevel, LogLine } from './types';
 
 export default class Log<T> {
   debug: boolean;
-  messages: Array<[Level, any]>;
+  lines: Array<LogLine>;
 
   static buffer = 30;
   static prefix = '[apollo-cache-persist]';
@@ -13,44 +11,43 @@ export default class Log<T> {
     const { debug = false } = options;
 
     this.debug = debug;
-    this.messages = [];
+    this.lines = [];
   }
 
-  emit(level?: Level, ...message): void {
+  emit(level: LogLevel, message: any[]): void {
     if (level in console) {
-      console[level]((this.constructor as typeof Log).prefix, ...message);
+      const { prefix } = Log;
+      console[level](prefix, ...message);
     }
   }
 
   tailLogs(): void {
-    this.messages.forEach(args => this.emit(...args));
+    this.lines.forEach(([level, message]) => this.emit(level, message));
   }
 
-  getLogs(): Array<[Level, any]> {
-    return this.messages;
+  getLogs(): Array<LogLine> {
+    return this.lines;
   }
 
-  write(...args) {
-    const { buffer } = this.constructor as typeof Log;
+  write(level: LogLevel, message: any[]): void {
+    const { buffer } = Log;
 
-    this.messages = [...this.messages.slice(1 - buffer), args as [Level, any]];
-
-    const [level] = args;
+    this.lines = [...this.lines.slice(1 - buffer), [level, message]];
 
     if (this.debug || level !== 'log') {
-      this.emit(...args);
+      this.emit(level, message);
     }
   }
 
-  info(...message) {
-    this.write('log', ...message);
+  info(...message: any[]): void {
+    this.write('log', message);
   }
 
-  warn(...message) {
-    this.write('warn', ...message);
+  warn(...message: any[]): void {
+    this.write('warn', message);
   }
 
-  error(...message) {
-    this.write('error', ...message);
+  error(...message: any[]): void {
+    this.write('error', message);
   }
 }

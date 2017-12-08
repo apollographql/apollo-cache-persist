@@ -1,16 +1,16 @@
 import { ApolloCache } from 'apollo-cache';
-import Log from './Log';
 
-export default <T extends {}>({
-  cache,
-}: {
+export interface TriggerFunctionConfig<T> {
   cache: ApolloCache<T>;
-  log: Log<T>;
-}) => callback => {
+}
+
+export default <T>({ cache }: TriggerFunctionConfig<T>) => (
+  persist: () => void
+) => {
   const write = cache.write;
-  cache.write = (...args) => {
+  cache.write = (...args: any[]) => {
     write.apply(cache, args);
-    callback();
+    persist();
   };
 
   return () => {

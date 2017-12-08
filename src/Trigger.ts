@@ -3,9 +3,9 @@ import onAppBackground from './onAppBackground';
 
 import Log from './Log';
 import Persistor from './Persistor';
-import { ApolloPersistOptions } from './types';
+import { ApolloPersistOptions, TriggerUninstallFunction } from './types';
 
-interface Config<T> {
+export interface TriggerConfig<T> {
   log: Log<T>;
   persistor: Persistor<T>;
 }
@@ -15,13 +15,15 @@ export default class Trigger<T> {
   persistor: Persistor<T>;
   paused: boolean;
   timeout: NodeJS.Timer;
-  uninstall: () => void;
+  uninstall: TriggerUninstallFunction;
 
   static defaultDebounce = 1000;
 
-  constructor({ log, persistor }: Config<T>, options: ApolloPersistOptions<T>) {
-    const { defaultDebounce } = this.constructor as typeof Trigger;
-
+  constructor(
+    { log, persistor }: TriggerConfig<T>,
+    options: ApolloPersistOptions<T>
+  ) {
+    const { defaultDebounce } = Trigger;
     const { cache, debounce, trigger = 'write' } = options;
 
     if (!trigger) {
@@ -34,7 +36,7 @@ export default class Trigger<T> {
     switch (trigger) {
       case 'write':
         this.debounce = debounce || defaultDebounce;
-        this.uninstall = onCacheWrite({ cache, log })(this.fire);
+        this.uninstall = onCacheWrite({ cache })(this.fire);
         break;
 
       case 'background':

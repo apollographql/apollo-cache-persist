@@ -1,15 +1,14 @@
 import { AppState } from 'react-native';
 
-export default () => callback => {
+export default () => (persist: () => void) => {
   let wasActive = true;
 
-  const listener = state => {
-    console.log(state);
+  const listener = (state: string) => {
     if (state === 'active') {
       wasActive = true;
     } else if (wasActive) {
       wasActive = false;
-      callback();
+      persist();
     }
   };
 
