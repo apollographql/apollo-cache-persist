@@ -4,11 +4,11 @@ import Storage from './Storage';
 import Persistor from './Persistor';
 import Trigger from './Trigger';
 
-import { ApolloPersistOptions } from './types';
+import { ApolloPersistOptions, LogLine } from './types';
 
 export default class CachePersistor<T> {
-  cache: Cache<T>;
   log: Log<T>;
+  cache: Cache<T>;
   storage: Storage<T>;
   persistor: Persistor<T>;
   trigger: Trigger<T>;
@@ -31,15 +31,15 @@ export default class CachePersistor<T> {
    * Manual persistence controls.
    */
 
-  persist() {
+  persist(): Promise<void> {
     return this.persistor.persist();
   }
 
-  restore() {
+  restore(): Promise<void> {
     return this.persistor.restore();
   }
 
-  purge() {
+  purge(): Promise<void> {
     return this.persistor.purge();
   }
 
@@ -48,22 +48,22 @@ export default class CachePersistor<T> {
    */
 
   pause(): void {
-    return this.trigger.pause();
+    this.trigger.pause();
   }
 
   resume(): void {
-    return this.trigger.resume();
+    this.trigger.resume();
   }
 
   remove(): void {
-    return this.trigger.remove();
+    this.trigger.remove();
   }
 
   /**
    * Info accessor.
    */
 
-  getLogs(print = false) {
+  getLogs(print = false): Array<LogLine> | void {
     if (print) {
       this.log.tailLogs();
     } else {

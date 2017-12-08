@@ -15,25 +15,25 @@ export default class Storage<T> {
     this.key = key;
   }
 
-  read() {
+  read(): Promise<PersistedData<T>> {
     return this.storage.getItem(this.key);
   }
 
-  write(data) {
+  write(data: PersistedData<T>): Promise<void> {
     return this.storage.setItem(this.key, data);
   }
 
-  purge() {
+  purge(): Promise<void> {
     return this.storage.removeItem(this.key);
   }
 
   async getSize(): Promise<number | null> {
-    const data: any = await this.storage.getItem(this.key);
+    const data = await this.storage.getItem(this.key);
 
     if (data == null) {
       return 0;
     } else {
-      return data.length != null ? data.length : null;
+      return typeof data === 'string' ? data.length : null;
     }
   }
 }

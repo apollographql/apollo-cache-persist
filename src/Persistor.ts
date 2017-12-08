@@ -2,16 +2,16 @@ import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
 
-interface PersistorConfig<T> {
+export interface PersistorConfig<T> {
   log: Log<T>;
-  storage: Storage<T>;
   cache: Cache<T>;
+  storage: Storage<T>;
 }
 
 export default class Persistor<T> {
   log: Log<T>;
-  storage: Storage<T>;
   cache: Cache<T>;
+  storage: Storage<T>;
 
   constructor({ log, cache, storage }: PersistorConfig<T>) {
     this.log = log;
@@ -21,13 +21,13 @@ export default class Persistor<T> {
 
   async persist(): Promise<void> {
     try {
-      const data: any = this.cache.extract();
+      const data = this.cache.extract();
       await this.storage.write(data);
 
       this.log.info(
-        data.length
+        typeof data === 'string'
           ? `Persisted cache of size ${data.length}`
-          : `Persisted cache`
+          : 'Persisted cache'
       );
     } catch (error) {
       this.log.error('Error persisting cache', error);
@@ -37,15 +37,15 @@ export default class Persistor<T> {
 
   async restore(): Promise<void> {
     try {
-      const data: any = await this.storage.read();
+      const data = await this.storage.read();
 
       if (data != null) {
         await this.cache.restore(data);
 
         this.log.info(
-          data.length
+          typeof data === 'string'
             ? `Restored cache of size ${data.length}`
-            : `Restored cache`
+            : 'Restored cache'
         );
       } else {
         this.log.info('No stored cache to restore');
