@@ -4,7 +4,7 @@ export interface SerializedData {
   length: number;
 }
 
-export type PersistedData<T extends SerializedData> = T | string;
+export type PersistedData<T> = T | string;
 
 export interface PersistentStorage<X> {
   getItem: (key: string) => Promise<X>;

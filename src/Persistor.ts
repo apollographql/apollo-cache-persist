@@ -2,15 +2,13 @@ import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
 
-import { SerializedData } from './types';
-
 interface PersistorConfig<T> {
   log: Log<T>;
   storage: Storage<T>;
   cache: Cache<T>;
 }
 
-export default class Persistor<T extends SerializedData> {
+export default class Persistor<T> {
   log: Log<T>;
   storage: Storage<T>;
   cache: Cache<T>;
@@ -23,7 +21,7 @@ export default class Persistor<T extends SerializedData> {
 
   async persist(): Promise<void> {
     try {
-      const data = this.cache.extract();
+      const data: any = this.cache.extract();
       await this.storage.write(data);
 
       this.log.info(
@@ -39,7 +37,7 @@ export default class Persistor<T extends SerializedData> {
 
   async restore(): Promise<void> {
     try {
-      const data = await this.storage.read();
+      const data: any = await this.storage.read();
 
       if (data != null) {
         await this.cache.restore(data);
