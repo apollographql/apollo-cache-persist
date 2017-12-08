@@ -3,20 +3,26 @@
   "version": "0.0.1",
   "description": "Simple persistence for all Apollo cache implementations",
   "author": "James Reggio <james.reggio@gmail.com>",
+  "contributors": [
+    "James Reggio <james.reggio@gmail.com>",
+    "Peggy Rayzis <peggy@meteor.com>"
+  ],
   "license": "MIT",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jamesreggio/apollo-cache-persist.git"
   },
-  "homepage": "https://github.com/jamesreggio/apollo-cache-persist",
+  "homepage": "https://github.com/jamesreggio/apollo-cache-persist#readme",
   "bugs": "https://github.com/jamesreggio/apollo-cache-persist/issues",
-  "main": "src/index.js",
   "scripts": {
-    "clean": "rm -rf dist",
+    "build": "tsc",
+    "clean": "rm -rf lib",
     "precommit": "lint-staged",
     "test": "jest",
-    "test:watch": "jest -o --watchAll",
-    "typecheck": "tsc"
+    "test:watch": "jest --watchAll --onlyChanged",
+    "coverage": "jest --coverage"
   },
   "lint-staged": {
     "*.{md,ts,js,json}": [
@@ -25,11 +31,11 @@
     ]
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "js", "jsx", "tsx", "json"],
+    "moduleFileExtensions": ["ts", "js", "json"],
     "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
+      "\\.ts$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
     "globals": {
       "ts-jest": {
         "useBabelrc": true
