@@ -1,28 +1,20 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
     "rootDir": "src",
-    "outDir": "dist",
-    "jsx": "react",
-    "lib": ["es2015"],
-    "module": "es2015",
-    "moduleResolution": "node",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "paths": {
-      "*": ["*", "*.native"]
-    },
+    "outDir": "lib",
     "pretty": true,
+    "noImplicitAny": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": true,
     "skipLibCheck": true,
-    "sourceMap": true
+    "moduleResolution": "node",
+    "removeComments": true,
+    "sourceMap": true,
+    "declaration": true,
+    "target": "es5",
+    "module": "es2015",
+    "lib": ["es2015"]
   },
-  "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*",
-    "**/__tests__/*",
-    "**/__mocks__/*"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/__tests__/*.ts", "src/**/__mocks__/*.ts"]
 }
