@@ -4,7 +4,7 @@ type Level = 'log' | 'warn' | 'error';
 
 export default class Log<T> {
   debug: boolean;
-  messages: Array<string | any[]>;
+  messages: Array<[Level, any]>;
 
   static buffer = 30;
   static prefix = '[apollo-cache-persist]';
@@ -16,24 +16,24 @@ export default class Log<T> {
     this.messages = [];
   }
 
-  emit(level: Level, ...message): void {
+  emit(level?: Level, ...message): void {
     if (level in console) {
       console[level]((this.constructor as typeof Log).prefix, ...message);
     }
   }
 
   tailLogs(): void {
-    this.messages.forEach((...args) => this.emit(...args));
+    this.messages.forEach(args => this.emit(...args));
   }
 
-  getLogs(): Array<string | any[]> {
+  getLogs(): Array<[Level, any]> {
     return this.messages;
   }
 
   write(...args) {
     const { buffer } = this.constructor as typeof Log;
 
-    this.messages = [...this.messages.slice(1 - buffer), args];
+    this.messages = [...this.messages.slice(1 - buffer), args as [Level, any]];
 
     const [level] = args;
 

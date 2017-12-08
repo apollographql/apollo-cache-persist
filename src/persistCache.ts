@@ -1,7 +1,7 @@
 import CachePersistor from './CachePersistor';
 import { ApolloPersistOptions } from './types';
 
-export default <T extends {}>(options: ApolloPersistOptions<T>) => {
+export default <T>(options: ApolloPersistOptions<T>) => {
   if (!options.cache) {
     throw new Error(`
       In order to persist your Apollo Cache, you need to pass in a cache.

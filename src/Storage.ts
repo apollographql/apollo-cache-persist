@@ -2,10 +2,9 @@ import {
   ApolloPersistOptions,
   PersistentStorage,
   PersistedData,
-  SerializedData,
 } from './types';
 
-export default class Storage<T extends SerializedData> {
+export default class Storage<T> {
   storage: PersistentStorage<PersistedData<T>>;
   key: string;
 
@@ -29,7 +28,7 @@ export default class Storage<T extends SerializedData> {
   }
 
   async getSize(): Promise<number | null> {
-    const data: PersistedData<T> = await this.storage.getItem(this.key);
+    const data: any = await this.storage.getItem(this.key);
 
     if (data == null) {
       return 0;
