@@ -2,3 +2,5 @@
 yarn-error.log
 npm-debug.log
 dist/
+
+package-lock.json

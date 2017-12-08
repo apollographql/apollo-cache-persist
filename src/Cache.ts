@@ -1,7 +1,7 @@
 import { ApolloCache } from 'apollo-cache';
-import { ApolloPersistOptions, PersistedData, SerializedData } from './types';
+import { ApolloPersistOptions, PersistedData } from './types';
 
-export default class Cache<T extends SerializedData> {
+export default class Cache<T> {
   cache: ApolloCache<T>;
   serialize: boolean;
 
