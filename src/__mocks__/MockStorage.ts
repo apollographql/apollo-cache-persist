@@ -16,12 +16,8 @@ export default class MockStorage<T> implements PersistentStorage<T> {
 
   removeItem(key: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const deleted = this.storage.delete(key);
-      if (deleted) {
-        resolve();
-      } else {
-        reject(new Error('Key not found, item was not deleted'));
-      }
+      this.storage.delete(key);
+      resolve();
     });
   }
 

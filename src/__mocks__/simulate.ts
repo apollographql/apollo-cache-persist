@@ -11,42 +11,38 @@ export const simulateApp = async ({
   operation,
   persistOptions = {},
 }) => {
+  const storage = persistOptions.storage || new MockStorage();
   const cache = persistOptions.cache || new InMemoryCache();
-  const storage = new MockStorage();
 
-  await persistCache({ storage, ...persistOptions, cache });
+  await persistCache({ ...persistOptions, cache, storage });
 
-  const link = new ApolloLink(() => {
-    return Observable.of(result);
-  });
-  const client = client || new ApolloClient({ cache, link });
+  const link = new ApolloLink(() => Observable.of(result));
+  const client = new ApolloClient({ cache, link });
 
   await client.query({ query: operation });
   jest.runTimersToTime(
     persistOptions.debounce ? persistOptions.debounce + 1 : 1001
   );
-  const extracted = client.extract();
 
   // cache is now persisted
   const cache2 = new cache.constructor();
-  await persistCache({ cache: cache2, storage });
+  await persistCache({ ...persistOptions, cache: cache2, storage });
   const client2 = new ApolloClient({ cache: cache2, link });
 
   return [client, client2];
 };
 
 export const simulateWrite = async ({
-  cache = new InMemoryCache(),
-  storage = new MockStorage(),
   result,
   operation,
-  ...rest,
+  persistOptions = {},
 }) => {
-  await persistCache({ storage, cache, ...rest });
+  const storage = persistOptions.storage || new MockStorage();
+  const cache = persistOptions.cache || new InMemoryCache();
 
-  const link = new ApolloLink(() => {
-    return Observable.of(result);
-  });
+  await persistCache({ ...persistOptions, cache, storage });
+
+  const link = new ApolloLink(() => Observable.of(result));
   const client = new ApolloClient({ cache, link });
   await client.query({ query: operation });
 };

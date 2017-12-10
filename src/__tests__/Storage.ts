@@ -6,11 +6,10 @@ describe('Storage', () => {
     storage: new MockStorage(),
   });
 
-  it('writes data to persistent storage', async () => {
+  it('writes, reads, & deletes data from persistent storage', async () => {
     await expect(storage.write('yo yo yo')).resolves.toBe(undefined);
-  });
-
-  it('reads data from persistent storage', async () => {
     await expect(storage.read()).resolves.toBe('yo yo yo');
+    await storage.purge();
+    await expect(storage.read()).resolves.toBe(undefined);
   });
 });
