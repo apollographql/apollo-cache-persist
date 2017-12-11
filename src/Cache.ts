@@ -31,4 +31,8 @@ export default class Cache<T> {
       this.cache.restore(data as T);
     }
   }
+
+  purge(): void {
+    this.cache.restore({} as T);
+  }
 }

@@ -2,6 +2,8 @@ import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
 
+import { ApolloPersistOptions } from './types';
+
 export interface PersistorConfig<T> {
   log: Log<T>;
   cache: Cache<T>;
@@ -12,21 +14,38 @@ export default class Persistor<T> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
+  maxSize?: number;
 
-  constructor({ log, cache, storage }: PersistorConfig<T>) {
+  constructor(
+    { log, cache, storage }: PersistorConfig<T>,
+    { maxSize }: ApolloPersistOptions<T>
+  ) {
     this.log = log;
     this.cache = cache;
     this.storage = storage;
+
+    if (maxSize) {
+      this.maxSize = maxSize;
+    }
   }
 
   async persist(): Promise<void> {
     try {
       const data = this.cache.extract();
+      if (typeof data === 'string') {
+        if (data.length * 2 > this.maxSize) {
+          this.cache.purge();
+          this.log.info('Purged Apollo cache');
+          await this.purge();
+          return;
+        }
+      }
+
       await this.storage.write(data);
 
       this.log.info(
         typeof data === 'string'
-          ? `Persisted cache of size ${data.length}`
+          ? `Persisted cache of size ${data.length * 2}`
           : 'Persisted cache'
       );
     } catch (error) {
@@ -44,7 +63,7 @@ export default class Persistor<T> {
 
         this.log.info(
           typeof data === 'string'
-            ? `Restored cache of size ${data.length}`
+            ? `Restored cache of size ${data.length * 2}`
             : 'Restored cache'
         );
       } else {
@@ -59,7 +78,7 @@ export default class Persistor<T> {
   async purge(): Promise<void> {
     try {
       await this.storage.purge();
-      this.log.info('Purged cache');
+      this.log.info('Purged cache storage');
     } catch (error) {
       this.log.error('Error purging cache storage', error);
       throw error;

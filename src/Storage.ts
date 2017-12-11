@@ -33,7 +33,7 @@ export default class Storage<T> {
     if (data == null) {
       return 0;
     } else {
-      return typeof data === 'string' ? data.length : null;
+      return typeof data === 'string' ? data.length * 2 : null;
     }
   }
 }
