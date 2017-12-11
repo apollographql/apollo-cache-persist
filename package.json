@@ -14,10 +14,10 @@
   "typings": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamesreggio/apollo-cache-persist.git"
+    "url": "git+https://github.com/apollographql/apollo-cache-persist.git"
   },
-  "homepage": "https://github.com/jamesreggio/apollo-cache-persist#readme",
-  "bugs": "https://github.com/jamesreggio/apollo-cache-persist/issues",
+  "homepage": "https://github.com/apollographql/apollo-cache-persist#readme",
+  "bugs": "https://github.com/apollographql/apollo-cache-persist/issues",
   "scripts": {
     "build:browser":
       "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
