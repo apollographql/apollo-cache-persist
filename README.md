@@ -94,7 +94,7 @@ persistCache({
    * Miscellaneous
    */
 
-  // Purges both the Apollo Cache & storage if trigger causes cache size to pass a threshold (in bytes)
+  // Purges storage & pauses persistence if trigger causes cache size to pass a threshold (in bytes). App will start up cold.
   maxSize?: number,
 
   // Enable console logging.
