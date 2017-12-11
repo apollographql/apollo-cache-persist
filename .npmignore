@@ -7,3 +7,6 @@ appveyor.yml
 codecov.yml
 renovate.json
 rollup.config.js
+coverage
+.vscode
+.scripts

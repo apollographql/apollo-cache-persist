@@ -26,6 +26,7 @@
     "clean": "rimraf lib/* && rimraf coverage/*",
     "coverage:upload": "codecov",
     "danger": "danger run --verbose",
+    "deploy": "./scripts/deploy.sh",
     "filesize": "npm run build && npm run build:browser && bundlesize",
     "minify:browser":
       "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
