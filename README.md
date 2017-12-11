@@ -94,6 +94,9 @@ persistCache({
    * Miscellaneous
    */
 
+  // Purges both the Apollo Cache & storage if trigger causes cache size to pass a threshold (in bytes)
+  maxSize?: number,
+
   // Enable console logging.
   debug: false,
 });
@@ -140,8 +143,8 @@ dependencies:
 * [`localForage`](https://github.com/localForage/localForage) on web
 
 `apollo-cache-persist` uses the same storage provider API as
-[`redux-persist`][2], so you can also make use of the providers [listed
-here][3], including:
+[`redux-persist`](https://github.com/rt2zz/redux-persist), so you can also make
+use of the providers [listed here](#storage-providers), including:
 
 * [`redux-persist-node-storage`](https://github.com/pellejacobs/redux-persist-node-storage)
 * [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
