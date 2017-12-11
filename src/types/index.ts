@@ -24,4 +24,5 @@ export interface ApolloPersistOptions<TSerialized> {
   key?: string;
   serialize?: boolean;
   debug?: boolean;
+  maxSize?: number;
 }

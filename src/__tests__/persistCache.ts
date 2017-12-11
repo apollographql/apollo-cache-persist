@@ -142,9 +142,22 @@ describe('persistCache', () => {
         persistOptions: { key, storage },
       });
 
-      jest.runTimersToTime(1000);
+      jest.runTimersToTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
       expect(await storage.getItem(key)).toMatchSnapshot();
+    });
+    it('setting maxSize purges the Apollo cache & storage if it crosses a threshold', async () => {
+      const storage = new MockStorage();
+      const cache = new InMemoryCache();
+
+      await simulateWrite({
+        result,
+        operation,
+        persistOptions: { storage, maxSize: 20 },
+      });
+
+      jest.runTimersToTime(1001);
+      expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
     });
     xit('setting the trigger to background does not persist on a write', async () => {
       const storage = new MockStorage();
@@ -154,7 +167,7 @@ describe('persistCache', () => {
         persistOptions: { trigger: 'background', storage },
       });
 
-      jest.runTimersToTime(1000);
+      jest.runTimersToTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
     });
     xit('setting the trigger to background persists in the background');

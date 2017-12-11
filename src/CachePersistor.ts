@@ -31,7 +31,7 @@ export default class CachePersistor<T> {
     const log = new Log(options);
     const cache = new Cache(options);
     const storage = new Storage(options);
-    const persistor = new Persistor({ log, cache, storage });
+    const persistor = new Persistor({ log, cache, storage }, options);
     const trigger = new Trigger({ log, persistor }, options);
 
     this.log = log;
