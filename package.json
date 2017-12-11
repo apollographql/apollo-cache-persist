@@ -38,6 +38,12 @@
     "coverage": "jest --coverage",
     "watch": "tsc -w -p ."
   },
+  "bundlesize": [
+    {
+      "path": "./lib/bundle.min.js",
+      "threshold": "3 Kb"
+    }
+  ],
   "lint-staged": {
     "*.{md,ts,js,json}": [
       "prettier --write --single-quote --trailing-comma es5",
