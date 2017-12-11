@@ -33,7 +33,7 @@ export default class Persistor<T> {
     try {
       const data = this.cache.extract();
       if (typeof data === 'string') {
-        if (data.length * 2 > this.maxSize) {
+        if (data.length > this.maxSize) {
           this.cache.purge();
           this.log.info('Purged Apollo cache');
           await this.purge();
@@ -45,7 +45,7 @@ export default class Persistor<T> {
 
       this.log.info(
         typeof data === 'string'
-          ? `Persisted cache of size ${data.length * 2}`
+          ? `Persisted cache of size ${data.length}`
           : 'Persisted cache'
       );
     } catch (error) {
@@ -63,7 +63,7 @@ export default class Persistor<T> {
 
         this.log.info(
           typeof data === 'string'
-            ? `Restored cache of size ${data.length * 2}`
+            ? `Restored cache of size ${data.length}`
             : 'Restored cache'
         );
       } else {

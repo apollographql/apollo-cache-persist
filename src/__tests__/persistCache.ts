@@ -153,7 +153,7 @@ describe('persistCache', () => {
       await simulateWrite({
         result,
         operation,
-        persistOptions: { storage, maxSize: 60 },
+        persistOptions: { storage, maxSize: 20 },
       });
 
       jest.runTimersToTime(1001);
