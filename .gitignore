@@ -1,5 +1,8 @@
-/lib
-/node_modules
+lib
+npm
+dist
+coverage
+node_modules
 package-lock.json
 yarn-error.log
 npm-debug.log
