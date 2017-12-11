@@ -15,6 +15,7 @@ export default class Persistor<T> {
   cache: Cache<T>;
   storage: Storage<T>;
   maxSize?: number;
+  paused: boolean;
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
@@ -33,12 +34,15 @@ export default class Persistor<T> {
     try {
       const data = this.cache.extract();
       if (typeof data === 'string') {
-        if (data.length > this.maxSize) {
-          this.cache.purge();
-          this.log.info('Purged Apollo cache');
+        if (data.length > this.maxSize && !this.paused) {
           await this.purge();
+          this.paused = true;
           return;
         }
+      }
+
+      if (this.paused) {
+        this.paused = false;
       }
 
       await this.storage.write(data);

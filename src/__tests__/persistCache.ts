@@ -158,7 +158,6 @@ describe('persistCache', () => {
 
       jest.runTimersToTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
-      expect(cache.extract()).toMatchSnapshot();
     });
     xit('setting the trigger to background does not persist on a write', async () => {
       const storage = new MockStorage();
