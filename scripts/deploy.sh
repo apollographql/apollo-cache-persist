@@ -33,8 +33,7 @@ node -e "var package = require('./package.json'); \
   delete package.bundlesize; \
   delete package.scripts; \
   delete package.options; \
-  package.main = 'apollo-cache-persist.umd.js'; \
-  package.browser = 'apollo-cache-persist.browser.umd.js'; \
+  package.main = 'bundle.umd.js'; \
   package.module = 'index.js'; \
   package['jsnext:main'] = 'index.js'; \
   package.typings = 'index.d.ts'; \
