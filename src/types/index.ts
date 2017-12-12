@@ -19,10 +19,10 @@ export interface PersistentStorage<T> {
 export interface ApolloPersistOptions<TSerialized> {
   cache: ApolloCache<TSerialized>;
   storage: PersistentStorage<PersistedData<TSerialized>>;
-  trigger?: 'write' | 'background' | TriggerFunction;
+  trigger?: 'write' | 'background' | TriggerFunction | false;
   debounce?: number;
   key?: string;
   serialize?: boolean;
+  maxSize?: number | false;
   debug?: boolean;
-  maxSize?: number;
 }

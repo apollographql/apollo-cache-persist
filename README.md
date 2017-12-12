@@ -82,7 +82,8 @@ persistCache({
   // 'background': Persist when your app moves to the background. React Native only.
   //
   // For a custom trigger, provide a function. See below for more information.
-  trigger?: 'write' | 'background' | function,
+  // To disable automatic persistence and manage persistence manually, provide false.
+  trigger?: 'write' | 'background' | function | false,
 
   // Debounce interval between persists (in ms).
   // Defaults to 0 for 'background' and 1000 for 'write' and custom triggers.
@@ -98,9 +99,10 @@ persistCache({
   // Whether to serialize to JSON before/after persisting. Defaults to true.
   serialize?: boolean,
 
-  // Maximum size of cache to persist (in bytes). Defaults to undefined.
+  // Maximum size of cache to persist (in bytes).
+  // Defaults to 1048576 (1 MB). For unlimited cache size, provide false.
   // If exceeded, persistence will pause and app will start up cold on next launch.
-  maxSize?: number,
+  maxSize?: number | false,
 
   /**
    * Debugging options.
@@ -188,6 +190,13 @@ including:
 * [`redux-persist-node-storage`](https://github.com/pellejacobs/redux-persist-node-storage)
 * [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
 * [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage)
+
+If you're using React Native and set a `maxSize` in excess of 2 MB, you must use
+a filesystem-based storage provider, such as
+[`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
+`AsyncStorage`
+[does not support](https://github.com/facebook/react-native/issues/12529#issuecomment-345326643)
+individual values in exceed of 2 MB on Android.
 
 ## Common Questions
 
@@ -281,3 +290,15 @@ async function setupApollo() {
   // Continue setting up Apollo as usual.
 }
 ```
+
+#### I'm seeing errors on Android.
+
+Specifically, this error:
+
+```
+BaseError: Couldn't read row 0, col 0 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.
+```
+
+This is the result of a 2 MB limitation of `AsyncStorage` on Android. Set a
+smaller `maxSize` or switch to a filesystem-based storage provider, such as
+[`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
