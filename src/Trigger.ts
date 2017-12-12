@@ -30,12 +30,12 @@ export default class Trigger<T> {
       return;
     }
 
+    this.debounce = debounce != null ? debounce : defaultDebounce;
     this.persistor = persistor;
     this.paused = false;
 
     switch (trigger) {
       case 'write':
-        this.debounce = debounce || defaultDebounce;
         this.uninstall = onCacheWrite({ cache })(this.fire);
         break;
 

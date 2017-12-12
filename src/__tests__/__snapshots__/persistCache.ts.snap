@@ -6,8 +6,6 @@ exports[`persistCache advanced usage passing in key customizes the storage key 1
 
 exports[`persistCache advanced usage setting maxSize purges the Apollo cache & storage if it crosses a threshold 1`] = `undefined`;
 
-exports[`persistCache advanced usage setting maxSize purges the Apollo cache & storage if it crosses a threshold 2`] = `Object {}`;
-
 exports[`persistCache setup requires a cache 1`] = `"In order to persist your Apollo Cache, you need to pass in a cache. Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache."`;
 
 exports[`persistCache setup requires storage 1`] = `"In order to persist your Apollo Cache, you need to pass in an underlying storage provider. Please see https://github.com/apollographql/apollo-cache-persist#storage-providers"`;

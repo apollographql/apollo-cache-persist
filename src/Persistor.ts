@@ -19,11 +19,14 @@ export default class Persistor<T> {
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
-    { maxSize }: ApolloPersistOptions<T>
+    options: ApolloPersistOptions<T>
   ) {
+    const { maxSize = 1024 * 1024 } = options;
+
     this.log = log;
     this.cache = cache;
     this.storage = storage;
+    this.paused = false;
 
     if (maxSize) {
       this.maxSize = maxSize;
@@ -33,12 +36,16 @@ export default class Persistor<T> {
   async persist(): Promise<void> {
     try {
       const data = this.cache.extract();
-      if (typeof data === 'string') {
-        if (data.length > this.maxSize && !this.paused) {
-          await this.purge();
-          this.paused = true;
-          return;
-        }
+
+      if (
+        this.maxSize != null &&
+        typeof data === 'string' &&
+        data.length > this.maxSize &&
+        !this.paused
+      ) {
+        await this.purge();
+        this.paused = true;
+        return;
       }
 
       if (this.paused) {
