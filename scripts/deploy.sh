@@ -19,7 +19,7 @@ mkdir ./npm
 # Copy all files from ./lib to /npm
 cd ./lib && cp -r ./ ../npm/
 # Copy also the umd bundle with the source map file
-cp apollo-cache-persist.umd.js ../npm/ && cp apollo-cache-persist.umd.js.map ../npm/
+cp bundle.umd.js ../npm/ && cp bundle.umd.js.map ../npm/
 
 # Back to the root directory
 cd ../
