@@ -1,4 +1,4 @@
-# apollo-cache-persist
+# apollo-cache-persist [![npm version](https://badge.fury.io/js/apollo-cache-persist.svg)](https://badge.fury.io/js/apollo-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist)
 
 **NOTE: This repo is in 'pre-release' and not quite ready to production use
 yet.**
