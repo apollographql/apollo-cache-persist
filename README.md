@@ -1,8 +1,5 @@
 # apollo-cache-persist
 
-**NOTE: This repo is in 'pre-release' and not quite ready to production use
-yet.**
-
 Simple persistence for all Apollo Client 2.0 cache implementations, including
 [`InMemoryCache`][0] and [`Hermes`][1].
 
