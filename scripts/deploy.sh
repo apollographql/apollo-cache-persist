@@ -33,10 +33,11 @@ node -e "var package = require('./package.json'); \
   delete package.bundlesize; \
   delete package.scripts; \
   delete package.options; \
-  package.main = 'index.js'; \
+  package.main = 'bundle.umd.js'; \
   package.browser = 'bundle.umd.js'; \
   package.module = 'index.js'; \
   package['jsnext:main'] = 'index.js'; \
+  package['react-native'] = 'index.js'; \
   package.typings = 'index.d.ts'; \
   var origVersion = 'local';
   var fs = require('fs'); \
