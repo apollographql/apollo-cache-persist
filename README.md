@@ -49,7 +49,7 @@ const cache = new InMemoryCache({...});
 
 persistCache({
   cache,
-  storage: document.localStorage,
+  storage: window.localStorage,
 });
 
 // Continue setting up Apollo as usual.
@@ -177,8 +177,8 @@ The following storage providers work 'out of the box', with no additional
 dependencies:
 
 * `AsyncStorage` on React Native
-* `document.localStorage` on web
-* `document.sessionStorage` on web
+* `window.localStorage` on web
+* `window.sessionStorage` on web
 * [`localForage`](https://github.com/localForage/localForage) on web
 
 `apollo-cache-persist` uses the same storage provider API as
