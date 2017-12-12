@@ -196,7 +196,7 @@ a filesystem-based storage provider, such as
 [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
 `AsyncStorage`
 [does not support](https://github.com/facebook/react-native/issues/12529#issuecomment-345326643)
-individual values in exceed of 2 MB on Android.
+individual values in excess of 2 MB on Android.
 
 ## Common Questions
 
@@ -299,6 +299,6 @@ Specifically, this error:
 BaseError: Couldn't read row 0, col 0 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.
 ```
 
-This is the result of a 2 MB limitation of `AsyncStorage` on Android. Set a
-smaller `maxSize` or switch to a filesystem-based storage provider, such as
+This is the result of a 2 MB per key limitation of `AsyncStorage` on Android. Set
+a smaller `maxSize` or switch to a filesystem-based storage provider, such as
 [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
