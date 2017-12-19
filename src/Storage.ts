@@ -15,16 +15,16 @@ export default class Storage<T> {
     this.key = key;
   }
 
-  read(): Promise<PersistedData<T>> {
+  async read(): Promise<PersistedData<T>> {
     return this.storage.getItem(this.key);
   }
 
-  write(data: PersistedData<T>): Promise<void> {
-    return this.storage.setItem(this.key, data);
+  async write(data: PersistedData<T>): Promise<void> {
+    await this.storage.setItem(this.key, data);
   }
 
-  purge(): Promise<void> {
-    return this.storage.removeItem(this.key);
+  async purge(): Promise<void> {
+    await this.storage.removeItem(this.key);
   }
 
   async getSize(): Promise<number | null> {
