@@ -33,6 +33,11 @@ persistCache({
   storage: AsyncStorage,
 });
 
+const client = new ApolloClient({
+  ...
+  cache: cache,
+  ...
+});
 // Continue setting up Apollo as usual.
 ```
 
@@ -49,6 +54,11 @@ persistCache({
   storage: window.localStorage,
 });
 
+const client = new ApolloClient({
+  ...
+  cache: cache,
+  ...
+});
 // Continue setting up Apollo as usual.
 ```
 
