@@ -34,6 +34,11 @@ persistCache({
 });
 
 // Continue setting up Apollo as usual.
+
+const client = new ApolloClient({
+  cache,
+  ...
+});
 ```
 
 #### Web
@@ -50,6 +55,11 @@ persistCache({
 });
 
 // Continue setting up Apollo as usual.
+
+const client = new ApolloClient({
+  cache,
+  ...
+});
 ```
 
 ### Additional Options
