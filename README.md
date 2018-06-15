@@ -222,6 +222,72 @@ however, data would be lost if the user closed the tab/window directly. Given
 this prevalence of this user behavior and the substantially better performance
 of the 'write' trigger on web, we've omitted a 'background' trigger on web.
 
+#### How do I wait for the cache to be restored before rendering my app?
+
+`persistCache` (as well as `persistor.restore()`) returns a promise that will
+resolve once the cache has been restored, which you can await before rendering
+your app.
+
+This library, like Apollo Client, is framework agnostic; however, since many
+people have asked, here's an example of how to handle this in React. PRs with
+examples from other frameworks are welcome.
+
+##### React
+
+```js
+import React, { Component } from 'react';
+import { ApolloProvider } from 'react-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { persistCache } from 'apollo-cache-persist';
+
+class App extends Component {
+  state = {
+    client: null,
+    loaded: false,
+  };
+
+  async componentDidMount() {
+    const cache = new InMemoryCache({...});
+
+    // Setup your Apollo Link, and any other Apollo packages here.
+
+    const client = new ApolloClient({
+      cache,
+      ...
+    });
+
+    try {
+      // See above for additional options, including other storage providers.
+      await persistCache({
+        cache,
+        storage: window.localStorage,
+      });
+    } catch (error) {
+      console.error('Error restoring Apollo cache', error);
+    }
+
+    this.setState({
+      client,
+      loaded: true,
+    });
+  }
+
+  render() {
+    const { client, loaded } = this.state;
+
+    if (!loaded) {
+      return <div>Loading...</div>;
+    }
+
+    return (
+      <ApolloProvider client={client}>
+        {/* the rest of your app goes here */}
+      </ApolloProvider>
+    );
+  }
+}
+```
+
 #### I need to ensure certain data is not persisted. How do I filter my cache?
 
 Unfortunately, this is not yet possible. You can only persist and restore the
@@ -306,6 +372,7 @@ Specifically, this error:
 BaseError: Couldn't read row 0, col 0 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.
 ```
 
-This is the result of a 2 MB per key limitation of `AsyncStorage` on Android. Set
-a smaller `maxSize` or switch to a filesystem-based storage provider, such as
+This is the result of a 2 MB per key limitation of `AsyncStorage` on Android.
+Set a smaller `maxSize` or switch to a filesystem-based storage provider, such
+as
 [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
