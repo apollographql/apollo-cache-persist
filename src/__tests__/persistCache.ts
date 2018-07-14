@@ -170,6 +170,6 @@ describe('persistCache', () => {
       jest.runTimersToTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
     });
-    xit('setting the trigger to background persists in the background');
+    xit('setting the trigger to background persists in the background', () => {});
   });
 });

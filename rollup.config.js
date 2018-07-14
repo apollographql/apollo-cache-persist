@@ -1,12 +1,12 @@
 export default {
   input: 'lib/index.js',
   output: {
+    name: 'apollo-cache-persist',
     file: 'lib/bundle.umd.js',
     format: 'umd',
+    sourcemap: true,
+    exports: 'named',
   },
-  name: 'apollo-cache-persist',
-  exports: 'named',
-  sourceMap: true,
   onwarn,
 };
 
