@@ -12,8 +12,8 @@ export type PersistedData<T> = T | string | null;
 
 export interface PersistentStorage<T> {
   getItem: (key: string) => Promise<T> | T;
-  setItem: (key: string, data: T) => Promise<void> | void;
-  removeItem: (key: string) => Promise<void> | void;
+  setItem: (key: string, data: T) => Promise<T> | Promise<void> | void;
+  removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
 
 export interface ApolloPersistOptions<TSerialized> {
