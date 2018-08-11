@@ -6,7 +6,10 @@ export type LogLine = [LogLevel, any[]];
 
 export type TriggerUninstallFunction = () => void;
 
-export type TriggerFunction = (persist: () => void) => TriggerUninstallFunction;
+export type TriggerFunction = (
+  persist: () => void,
+  getDefaultWrite: () => void
+) => TriggerUninstallFunction;
 
 export type PersistedData<T> = T | string | null;
 

@@ -1,3 +1,5 @@
+import { ApolloCache } from 'apollo-cache';
+
 import onCacheWrite from './onCacheWrite';
 import onAppBackground from './onAppBackground';
 
@@ -16,6 +18,7 @@ export default class Trigger<T> {
   paused: boolean;
   timeout: NodeJS.Timer;
   uninstall: TriggerUninstallFunction;
+  cache: ApolloCache<T>;
 
   static defaultDebounce = 1000;
 
@@ -33,10 +36,11 @@ export default class Trigger<T> {
     this.debounce = debounce != null ? debounce : defaultDebounce;
     this.persistor = persistor;
     this.paused = false;
+    this.cache = cache;
 
     switch (trigger) {
       case 'write':
-        this.uninstall = onCacheWrite({ cache })(this.fire);
+        this.uninstall = this.getDefaultWrite();
         break;
 
       case 'background':
@@ -49,12 +53,16 @@ export default class Trigger<T> {
 
       default:
         if (typeof trigger === 'function') {
-          this.uninstall = trigger(this.fire);
+          this.uninstall = trigger(this.fire, this.getDefaultWrite);
         } else {
           throw Error(`Unrecognized trigger option: ${trigger}`);
         }
     }
   }
+
+  getDefaultWrite = (): (() => void) => {
+    return onCacheWrite({ cache: this.cache })(this.fire);
+  };
 
   pause(): void {
     this.paused = true;
