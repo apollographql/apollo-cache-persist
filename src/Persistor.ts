@@ -35,7 +35,17 @@ export default class Persistor<T> {
 
   async persist(): Promise<void> {
     try {
-      const data = this.cache.extract();
+      const cacheData = this.cache.cache.extract() as { [key: string]: any };
+      const filteredData = Object.keys(cacheData)
+        .filter((key: string) => {
+          return !key.includes('ROOT_QUERY.tickers');
+        })
+        .reduce((obj: { [key: string]: any }, key: string) => {
+          obj[key] = cacheData[key];
+          return obj;
+        }, {});
+      const data = JSON.stringify(filteredData);
+      this.log.info(filteredData);
 
       if (
         this.maxSize != null &&
