@@ -16,21 +16,35 @@ export default class Persistor<T> {
   storage: Storage<T>;
   maxSize?: number;
   paused: boolean;
+  whitelist?: Array<string>;
+  blacklist?: Array<string>;
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
     options: ApolloPersistOptions<T>
   ) {
-    const { maxSize = 1024 * 1024 } = options;
+    const { maxSize = 1024 * 1024, whitelist, blacklist } = options;
 
     this.log = log;
     this.cache = cache;
     this.storage = storage;
     this.paused = false;
+    this.whitelist = whitelist;
+    this.blacklist = blacklist;
+
+    if (whitelist && blacklist)
+      this.log.error('Not necessary to set both whitelist and blacklist.');
 
     if (maxSize) {
       this.maxSize = maxSize;
     }
+  }
+
+  searchList(list: Array<string>, key: string): boolean {
+    for (let item of list) {
+      if (key.includes(`ROOT_QUERY.${item}`)) return true;
+    }
+    return false;
   }
 
   async persist(): Promise<void> {
@@ -38,14 +52,16 @@ export default class Persistor<T> {
       const cacheData = this.cache.cache.extract() as { [key: string]: any };
       const filteredData = Object.keys(cacheData)
         .filter((key: string) => {
-          return !key.includes('ROOT_QUERY.tickers');
+          if (key === 'ROOT_QUERY') return true;
+          if (this.whitelist) return this.searchList(this.whitelist, key);
+          if (this.blacklist) return !this.searchList(this.blacklist, key);
+          return true;
         })
         .reduce((obj: { [key: string]: any }, key: string) => {
           obj[key] = cacheData[key];
           return obj;
         }, {});
       const data = JSON.stringify(filteredData);
-      this.log.info(filteredData);
 
       if (
         this.maxSize != null &&
