@@ -40,6 +40,18 @@ export default class Persistor<T> {
     }
   }
 
+  filterMap(
+    map: { [key: string]: any },
+    filterFn: (key: string) => boolean
+  ): { [key: string]: any } {
+    return Object.keys(map)
+      .filter(filterFn)
+      .reduce((obj: { [key: string]: any }, key: string) => {
+        obj[key] = map[key];
+        return obj;
+      }, {});
+  }
+
   searchList(list: Array<string>, key: string): boolean {
     for (let item of list) {
       if (key.includes(`ROOT_QUERY.${item}`)) return true;
@@ -50,17 +62,13 @@ export default class Persistor<T> {
   async persist(): Promise<void> {
     try {
       const cacheData = this.cache.cache.extract() as { [key: string]: any };
-      const filteredData = Object.keys(cacheData)
-        .filter((key: string) => {
-          if (key === 'ROOT_QUERY') return true;
-          if (this.whitelist) return this.searchList(this.whitelist, key);
-          if (this.blacklist) return !this.searchList(this.blacklist, key);
-          return true;
-        })
-        .reduce((obj: { [key: string]: any }, key: string) => {
-          obj[key] = cacheData[key];
-          return obj;
-        }, {});
+      const filteredData = this.filterMap(cacheData, (key: string) => {
+        if (key === 'ROOT_QUERY') return true;
+        if (this.whitelist) return this.searchList(this.whitelist, key);
+        if (this.blacklist) return !this.searchList(this.blacklist, key);
+        return true;
+      });
+
       const data = JSON.stringify(filteredData);
 
       if (
