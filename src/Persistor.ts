@@ -32,8 +32,9 @@ export default class Persistor<T> {
     this.whitelist = whitelist;
     this.blacklist = blacklist;
 
-    if (whitelist && blacklist)
+    if (whitelist && blacklist) {
       this.log.error('Not necessary to set both whitelist and blacklist.');
+    }
 
     if (maxSize) {
       this.maxSize = maxSize;
@@ -52,9 +53,10 @@ export default class Persistor<T> {
       }, {});
   }
 
-  searchList(list: Array<string>, key: string): boolean {
+  searchList(list: Array<string>, key: string, prefix: string = ''): boolean {
     for (let item of list) {
-      if (key.includes(`ROOT_QUERY.${item}`)) return true;
+      // TODO: use RegEx will be better
+      if (key.includes(`${prefix}${item}`)) return true;
     }
     return false;
   }
@@ -62,12 +64,24 @@ export default class Persistor<T> {
   async persist(): Promise<void> {
     try {
       const cacheData = this.cache.cache.extract() as { [key: string]: any };
+      // first layer cache
       const filteredData = this.filterMap(cacheData, (key: string) => {
         if (key === 'ROOT_QUERY') return true;
-        if (this.whitelist) return this.searchList(this.whitelist, key);
-        if (this.blacklist) return !this.searchList(this.blacklist, key);
+        if (this.whitelist)
+          return this.searchList(this.whitelist, key, 'ROOT_QUERY.');
+        if (this.blacklist)
+          return !this.searchList(this.blacklist, key, 'ROOT_QUERY.');
         return true;
       });
+      // second layer cache under ROOT_QUERY
+      filteredData['ROOT_QUERY'] = this.filterMap(
+        filteredData['ROOT_QUERY'],
+        (key: string) => {
+          if (this.whitelist) return this.searchList(this.whitelist, key);
+          if (this.blacklist) return !this.searchList(this.blacklist, key);
+          return true;
+        }
+      );
 
       const data = JSON.stringify(filteredData);
 
@@ -88,6 +102,7 @@ export default class Persistor<T> {
 
       await this.storage.write(data);
 
+      this.log.info('Persisted cache', filteredData);
       this.log.info(
         typeof data === 'string'
           ? `Persisted cache of size ${data.length}`
