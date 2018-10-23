@@ -53,10 +53,15 @@ export default class Persistor<T> {
       }, {});
   }
 
-  searchList(list: Array<string>, key: string, prefix: string = ''): boolean {
+  searchList(list: Array<string>, key: string, prefix: string = null): boolean {
+    const keyArr = key.split(/[\.\(]/);
     for (let item of list) {
-      // TODO: use RegEx will be better
-      if (key.includes(`${prefix}${item}`)) return true;
+      if (
+        (!prefix && keyArr[0] === item) ||
+        (prefix && keyArr[0].includes(prefix) && keyArr[1] === item)
+      ) {
+        return true;
+      }
     }
     return false;
   }
@@ -68,9 +73,9 @@ export default class Persistor<T> {
       const filteredData = this.filterMap(cacheData, (key: string) => {
         if (key === 'ROOT_QUERY') return true;
         if (this.whitelist)
-          return this.searchList(this.whitelist, key, 'ROOT_QUERY.');
+          return this.searchList(this.whitelist, key, 'ROOT_QUERY');
         if (this.blacklist)
-          return !this.searchList(this.blacklist, key, 'ROOT_QUERY.');
+          return !this.searchList(this.blacklist, key, 'ROOT_QUERY');
         return true;
       });
       // second layer cache under ROOT_QUERY
