@@ -19,6 +19,7 @@
   "homepage": "https://github.com/apollographql/apollo-cache-persist#readme",
   "bugs": "https://github.com/apollographql/apollo-cache-persist/issues",
   "scripts": {
+    "prepare": "npm run build",
     "build:browser":
       "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
     "build": "tsc -p .",
