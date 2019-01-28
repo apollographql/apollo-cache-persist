@@ -4,7 +4,7 @@ export default {
     file: 'lib/bundle.umd.js',
     format: 'umd',
   },
-  name: 'apollo-cache-persist',
+  name: 'apollo-cache-persist-encrypt',
   exports: 'named',
   sourceMap: true,
   onwarn,
