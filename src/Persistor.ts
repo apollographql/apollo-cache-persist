@@ -1,7 +1,7 @@
 import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
-import * as CryptoJS from 'crypto-js';
+import Encryptor from './Encryptor';
 
 import { ApolloPersistOptions } from './types';
 
@@ -9,21 +9,22 @@ export interface PersistorConfig<T> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
+  encryptor?: Encryptor<T>;
 }
 
 export default class Persistor<T> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
+  encryptor?: Encryptor<T>;
   maxSize?: number;
   paused: boolean;
-  encryptionKey?: string;
 
   constructor(
-    { log, cache, storage }: PersistorConfig<T>,
+    { log, cache, storage, encryptor }: PersistorConfig<T>,
     options: ApolloPersistOptions<T>
   ) {
-    const { maxSize = 1024 * 1024, encryptionKey } = options;
+    const { maxSize = 1024 * 1024 } = options;
 
     this.log = log;
     this.cache = cache;
@@ -34,8 +35,8 @@ export default class Persistor<T> {
       this.maxSize = maxSize;
     }
 
-    if (encryptionKey) {
-      this.encryptionKey = encryptionKey;
+    if (encryptor) {
+      this.encryptor = encryptor;
     }
   }
 
@@ -58,15 +59,11 @@ export default class Persistor<T> {
         this.paused = false;
       }
 
-      if (this.encryptionKey && typeof data === 'string') {
-        const encryptedData = CryptoJS.AES.encrypt(
-          data,
-          this.encryptionKey
-        ).toString();
-        await this.storage.write(encryptedData);
-      } else {
-        await this.storage.write(data);
-      }
+      const encryptedData = this.encryptor
+        ? this.encryptor.encrypt(data)
+        : data;
+
+      await this.storage.write(encryptedData);
 
       this.log.info(
         typeof data === 'string'
@@ -84,12 +81,19 @@ export default class Persistor<T> {
       const data = await this.storage.read();
 
       if (data != null) {
-        if (this.encryptionKey && typeof data === 'string') {
-          const bytes = CryptoJS.AES.decrypt(data, this.encryptionKey);
-          const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
-          await this.cache.restore(decryptedString);
-        } else {
-          await this.cache.restore(data);
+        try {
+          const decryptedData = this.encryptor
+            ? this.encryptor.decrypt(data)
+            : data;
+
+          await this.cache.restore(decryptedData);
+        } catch (error) {
+          if (this.encryptor.onError) {
+            this.encryptor.onError(error);
+            return;
+          }
+
+          throw error;
         }
 
         this.log.info(

@@ -16,6 +16,13 @@ export interface PersistentStorage<T> {
   removeItem: (key: string) => Promise<void> | void;
 }
 
+export type OnEncryptionError = (error: Error) => void;
+
+export interface EncryptOptions {
+  onError?: OnEncryptionError;
+  secretKey: string;
+}
+
 export interface ApolloPersistOptions<TSerialized> {
   cache: ApolloCache<TSerialized>;
   storage: PersistentStorage<PersistedData<TSerialized>>;
@@ -25,5 +32,5 @@ export interface ApolloPersistOptions<TSerialized> {
   serialize?: boolean;
   maxSize?: number | false;
   debug?: boolean;
-  encryptionKey?: string;
+  encrypt?: EncryptOptions;
 }

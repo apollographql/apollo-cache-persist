@@ -3,6 +3,7 @@ import Cache from './Cache';
 import Storage from './Storage';
 import Persistor from './Persistor';
 import Trigger from './Trigger';
+import Encryptor from './Encryptor';
 
 import { ApolloPersistOptions, LogLine } from './types';
 
@@ -28,10 +29,17 @@ export default class CachePersistor<T> {
       );
     }
 
+    const encryptor = options.encrypt
+      ? new Encryptor<T>(options.encrypt)
+      : undefined;
+
     const log = new Log(options);
     const cache = new Cache(options);
     const storage = new Storage(options);
-    const persistor = new Persistor({ log, cache, storage }, options);
+    const persistor = new Persistor(
+      { log, cache, storage, encryptor },
+      options
+    );
     const trigger = new Trigger({ log, persistor }, options);
 
     this.log = log;
