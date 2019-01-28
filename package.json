@@ -19,8 +19,7 @@
   "homepage": "https://github.com/apollographql/apollo-cache-persist#readme",
   "bugs": "https://github.com/apollographql/apollo-cache-persist/issues",
   "scripts": {
-    "build:browser":
-      "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
+    "build:browser": "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
     "build": "tsc -p .",
     "bundle": "rollup -c",
     "clean": "rimraf lib/* && rimraf coverage/*",
@@ -28,8 +27,7 @@
     "danger": "danger run --verbose",
     "deploy": "./scripts/deploy.sh",
     "filesize": "npm run build && npm run build:browser && bundlesize",
-    "minify:browser":
-      "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
+    "minify:browser": "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
     "postbuild": "npm run bundle",
     "prebuild": "npm run clean",
     "precommit": "lint-staged",
@@ -51,7 +49,11 @@
     ]
   },
   "jest": {
-    "moduleFileExtensions": ["ts", "js", "json"],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
     "transform": {
       "\\.ts$": "ts-jest"
     },
@@ -61,7 +63,9 @@
         "useBabelrc": true
       }
     },
-    "transformIgnorePatterns": ["node_modules/(?!apollo-cache-hermes)"]
+    "transformIgnorePatterns": [
+      "node_modules/(?!apollo-cache-hermes)"
+    ]
   },
   "dependencies": {},
   "devDependencies": {
