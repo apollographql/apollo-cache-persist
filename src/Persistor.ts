@@ -16,12 +16,13 @@ export default class Persistor<T> {
   storage: Storage<T>;
   maxSize?: number;
   paused: boolean;
+  encryptionKey?: string;
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
     options: ApolloPersistOptions<T>
   ) {
-    const { maxSize = 1024 * 1024 } = options;
+    const { maxSize = 1024 * 1024, encryptionKey } = options;
 
     this.log = log;
     this.cache = cache;
@@ -30,6 +31,10 @@ export default class Persistor<T> {
 
     if (maxSize) {
       this.maxSize = maxSize;
+    }
+
+    if (encryptionKey) {
+      this.encryptionKey = encryptionKey;
     }
   }
 
