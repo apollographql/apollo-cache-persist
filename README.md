@@ -18,7 +18,15 @@ const cache = new InMemoryCache({...});
 persistCache({
   cache,
   storage: AsyncStorage,
-  encryptionKey: 'my-super-secret-key' // here
+  // Here
+  encrypt: {
+    secretKey: 'my-super-secret-key',
+    // You may provide an optional error handler for decryption
+    onError: async (error: Error, persistor) => {
+      console.warn(error.message)
+      await persistor.purge()
+    },
+  }
 });
 
 // Continue setting up Apollo as usual.
