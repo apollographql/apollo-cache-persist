@@ -30,7 +30,7 @@ export default class CachePersistor<T> {
     }
 
     const encryptor = options.encrypt
-      ? new Encryptor<T>(options.encrypt)
+      ? new Encryptor<T>(this, options.encrypt)
       : undefined;
 
     const log = new Log(options);
