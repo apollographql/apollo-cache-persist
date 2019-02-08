@@ -14,7 +14,7 @@ To get started, simply pass your Apollo cache and an
 [underlying storage provider](#storage-providers) to `persistCache`.
 
 By default, the contents of your Apollo cache will be immediately restored
-(asynchronously), and will be persisted upon every write to the cache (with a
+(asynchronously; please refer to the [2nd question](#how-do-i-wait-for-the-cache-to-be-restored-before-rendering-my-app) in the Common Questions section for an additional example), and will be persisted upon every write to the cache (with a
 short debounce interval).
 
 ### Examples
@@ -61,6 +61,7 @@ const client = new ApolloClient({
   ...
 });
 ```
+
 
 ### Additional Options
 
