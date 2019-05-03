@@ -33,7 +33,7 @@
     "prebuild": "npm run clean",
     "precommit": "lint-staged",
     "test": "jest",
-    "test:watch": "jest --watchAll --onlyChanged",
+    "test:watch": "jest --watch --onlyChanged",
     "coverage": "jest --coverage",
     "watch": "tsc -w -p ."
   },
