@@ -2,6 +2,7 @@ import MockStorage from '../__mocks__/MockStorage';
 import Storage from '../Storage';
 
 describe('Storage', () => {
+  // @ts-ignore
   const storage = new Storage({
     storage: new MockStorage(),
   });

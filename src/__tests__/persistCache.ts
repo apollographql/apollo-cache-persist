@@ -11,6 +11,7 @@ describe('persistCache', () => {
   describe('setup', () => {
     it('requires a cache', async () => {
       try {
+        // @ts-ignore
         await persistCache({ storage: new MockStorage() });
         fail('invoking persistCache without a cache should throw an error');
       } catch (e) {
@@ -21,6 +22,7 @@ describe('persistCache', () => {
     });
     it('requires storage', async () => {
       try {
+        // @ts-ignore
         await persistCache({ cache: new InMemoryCache() });
         fail('invoking persistCache without storage should throw an error');
       } catch (e) {
@@ -55,6 +57,15 @@ describe('persistCache', () => {
         },
       });
       expect(client.extract()).toEqual(client2.extract());
+    });
+    it('injects blacklist items', async () => {
+      const blacklist = ['https://test.com'];
+
+      await persistCache({
+        cache: new InMemoryCache(),
+        storage: new MockStorage(),
+        blacklist,
+      });
     });
   });
 
@@ -148,7 +159,7 @@ describe('persistCache', () => {
     });
     it('setting maxSize purges the Apollo cache & storage if it crosses a threshold', async () => {
       const storage = new MockStorage();
-      const cache = new InMemoryCache();
+      // const cache = new InMemoryCache();
 
       await simulateWrite({
         result,

@@ -70,6 +70,8 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^8.0.55",
     "@types/react-native": "^0.50.8",
     "apollo-cache": "^1.0.2",
