@@ -11,9 +11,9 @@ export type TriggerFunction = (persist: () => void) => TriggerUninstallFunction;
 export type PersistedData<T> = T | string | null;
 
 export interface PersistentStorage<T> {
-  getItem: (key: string) => Promise<T> | T;
-  setItem: (key: string, data: T) => Promise<void | T> | void | T;
-  removeItem: (key: string) => Promise<void> | void;
+  getItem: (key: string) => Promise<T> | T | null;
+  setItem: (key: string, data: T) => Promise<T> | Promise<void> | void | T;
+  removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
 
 export interface ApolloPersistOptions<TSerialized> {
