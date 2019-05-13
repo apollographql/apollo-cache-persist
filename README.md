@@ -14,7 +14,7 @@ To get started, simply pass your Apollo cache and an
 [underlying storage provider](#storage-providers) to `persistCache`.
 
 By default, the contents of your Apollo cache will be immediately restored
-(asynchronously), and will be persisted upon every write to the cache (with a
+(asynchronously, see [how to persist data before rendering](#how-do-i-wait-for-the-cache-to-be-restored-before-rendering-my-app)), and will be persisted upon every write to the cache (with a
 short debounce interval).
 
 ### Examples
@@ -28,6 +28,7 @@ import { persistCache } from 'apollo-cache-persist';
 
 const cache = new InMemoryCache({...});
 
+// await before instantiating ApolloClient, else queries might run before the cache is persisted
 persistCache({
   cache,
   storage: AsyncStorage,
@@ -49,6 +50,7 @@ import { persistCache } from 'apollo-cache-persist';
 
 const cache = new InMemoryCache({...});
 
+// await before instantiating ApolloClient, else queries might run before the cache is persisted
 persistCache({
   cache,
   storage: window.localStorage,
