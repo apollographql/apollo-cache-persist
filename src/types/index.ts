@@ -12,7 +12,7 @@ export type PersistedData<T> = T | string | null;
 
 export interface PersistentStorage<T> {
   getItem: (key: string) => Promise<T> | T | null;
-  setItem: (key: string, data: T) => Promise<T> | Promise<void> | void;
+  setItem: (key: string, data: T) => Promise<T> | Promise<void> | void | T;
   removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
 
