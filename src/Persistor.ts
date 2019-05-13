@@ -56,7 +56,7 @@ export default class Persistor<T> {
 
       this.log.info(
         typeof data === 'string'
-          ? `Persisted cache of size ${data.length}`
+          ? `Persisted cache of size ${data.length} characters`
           : 'Persisted cache'
       );
     } catch (error) {
@@ -74,7 +74,7 @@ export default class Persistor<T> {
 
         this.log.info(
           typeof data === 'string'
-            ? `Restored cache of size ${data.length}`
+            ? `Restored cache of size ${data.length} characters`
             : 'Restored cache'
         );
       } else {
