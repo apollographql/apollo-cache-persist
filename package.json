@@ -19,7 +19,6 @@
   "homepage": "https://github.com/apollographql/apollo-cache-persist#readme",
   "bugs": "https://github.com/apollographql/apollo-cache-persist/issues",
   "scripts": {
-    "prepare": "npm run build",
     "build:browser": "browserify ./lib/bundle.umd.js -o=./lib/bundle.js && npm run minify:browser",
     "build": "tsc -p .",
     "bundle": "rollup -c",
@@ -35,7 +34,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll --onlyChanged",
     "coverage": "jest --coverage",
-    "watch": "tsc -w -p ."
+    "watch": "tsc -w -p .",
+    "prepack": "npm run build"
   },
   "bundlesize": [
     {
