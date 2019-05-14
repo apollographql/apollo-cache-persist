@@ -79,7 +79,7 @@
     "browserify": "16.2.3",
     "bundlesize": "0.17.1",
     "codecov": "3.4.0",
-    "danger": "3.7.20",
+    "danger": "3.9.0",
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
     "husky": "0.14.3",
