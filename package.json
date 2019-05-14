@@ -68,7 +68,7 @@
     ],
     "preset": "ts-jest",
     "testMatch": null
-  }
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/node": "10.14.6",
