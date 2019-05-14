@@ -73,7 +73,7 @@
     "@types/react-native": "0.57.55",
     "apollo-cache": "1.2.1",
     "apollo-cache-hermes": "0.8.9",
-    "apollo-cache-inmemory": "1.2.5",
+    "apollo-cache-inmemory": "1.5.1",
     "apollo-client": "2.3.5",
     "apollo-link": "1.2.2",
     "browserify": "16.2.2",
