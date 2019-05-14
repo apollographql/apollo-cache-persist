@@ -29,7 +29,7 @@ import { persistCache } from 'apollo-cache-persist';
 const cache = new InMemoryCache({...});
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
-persistCache({
+await persistCache({
   cache,
   storage: AsyncStorage,
 });
@@ -51,7 +51,7 @@ import { persistCache } from 'apollo-cache-persist';
 const cache = new InMemoryCache({...});
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
-persistCache({
+await persistCache({
   cache,
   storage: window.localStorage,
 });
@@ -119,7 +119,8 @@ persistCache({
 
   // Enable console logging.
   debug?: boolean,
-});
+  
+}): Promise<void>;
 ```
 
 ## Advanced Usage
