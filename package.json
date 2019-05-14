@@ -71,7 +71,7 @@
   "devDependencies": {
     "@types/node": "10.14.6",
     "@types/react-native": "0.57.55",
-    "apollo-cache": "1.1.12",
+    "apollo-cache": "1.2.1",
     "apollo-cache-hermes": "0.6.0",
     "apollo-cache-inmemory": "1.2.5",
     "apollo-client": "2.3.5",
