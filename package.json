@@ -69,7 +69,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "10.5.2",
+    "@types/node": "10.14.6",
     "@types/react-native": "0.56.1",
     "apollo-cache": "1.1.12",
     "apollo-cache-hermes": "0.6.0",
