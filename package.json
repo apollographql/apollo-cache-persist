@@ -80,7 +80,7 @@
     "bundlesize": "0.17.1",
     "codecov": "3.5.0",
     "danger": "7.1.4",
-    "graphql": "0.13.2",
+    "graphql": "14.3.0",
     "graphql-tag": "2.10.1",
     "husky": "2.3.0",
     "jest": "23.6.0",
