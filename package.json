@@ -70,7 +70,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/node": "12.0.2",
-    "@types/react-native": "0.57.55",
+    "@types/react-native": "0.57.56",
     "apollo-cache": "1.2.1",
     "apollo-cache-hermes": "0.8.9",
     "apollo-cache-inmemory": "1.5.1",
