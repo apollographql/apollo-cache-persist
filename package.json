@@ -35,7 +35,7 @@
     "test:watch": "jest --watchAll --onlyChanged",
     "coverage": "jest --coverage",
     "watch": "tsc -w -p .",
-    "prepack": "npm run build"
+    "prepack": "npm install && npm run build"
   },
   "bundlesize": [
     {
