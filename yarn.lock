@@ -4888,9 +4888,9 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-rollup@1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.13.0.tgz#8313fc6d9762e28301b4b89cc0a56233659a67b6"
+rollup@1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.14.0.tgz#46855014c107e99a568baf245a12a57e53022faa"
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "^12.0.3"
