@@ -84,7 +84,7 @@
     "graphql-tag": "2.10.1",
     "husky": "2.4.1",
     "jest": "23.6.0",
-    "lint-staged": "8.2.0",
+    "lint-staged": "8.2.1",
     "prettier": "1.18.2",
     "rimraf": "2.6.3",
     "rollup": "1.15.2",
