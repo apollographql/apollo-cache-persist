@@ -82,7 +82,7 @@
     "danger": "7.1.4",
     "graphql": "14.4.0",
     "graphql-tag": "2.10.1",
-    "husky": "2.6.0",
+    "husky": "2.7.0",
     "jest": "23.6.0",
     "lint-staged": "8.2.1",
     "prettier": "1.18.2",
