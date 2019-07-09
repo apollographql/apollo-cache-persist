@@ -89,7 +89,7 @@
     "rimraf": "2.6.3",
     "rollup": "1.16.7",
     "ts-jest": "23.0.0",
-    "typescript": "3.5.2",
+    "typescript": "3.5.3",
     "uglify-js": "3.6.0"
   }
 }
