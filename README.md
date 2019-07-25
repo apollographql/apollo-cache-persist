@@ -22,7 +22,7 @@ short debounce interval).
 #### React Native
 
 ```js
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 
@@ -119,7 +119,7 @@ persistCache({
 
   // Enable console logging.
   debug?: boolean,
-  
+
 }): Promise<void>;
 ```
 
@@ -186,10 +186,10 @@ const trigger = persist => {
 The following storage providers work 'out of the box', with no additional
 dependencies:
 
-* `AsyncStorage` on React Native
-* `window.localStorage` on web
-* `window.sessionStorage` on web
-* [`localForage`](https://github.com/localForage/localForage) on web
+- `AsyncStorage` on React Native
+- `window.localStorage` on web
+- `window.sessionStorage` on web
+- [`localForage`](https://github.com/localForage/localForage) on web
 
 `apollo-cache-persist` uses the same storage provider API as
 [`redux-persist`](https://github.com/rt2zz/redux-persist), so you can also make
@@ -197,9 +197,9 @@ use of the providers
 [listed here](https://github.com/rt2zz/redux-persist#storage-engines),
 including:
 
-* [`redux-persist-node-storage`](https://github.com/pellejacobs/redux-persist-node-storage)
-* [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
-* [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage)
+- [`redux-persist-node-storage`](https://github.com/pellejacobs/redux-persist-node-storage)
+- [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
+- [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage)
 
 If you're using React Native and set a `maxSize` in excess of 2 MB, you must use
 a filesystem-based storage provider, such as
@@ -334,7 +334,7 @@ schema hasn't change. (You'll need to track your schema version yourself.)
 Here's an example of how this could look:
 
 ```js
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { CachePersistor } from 'apollo-cache-persist';
 
