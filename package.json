@@ -76,7 +76,7 @@
     "apollo-cache-inmemory": "1.6.2",
     "apollo-client": "2.6.3",
     "apollo-link": "1.2.12",
-    "browserify": "16.3.0",
+    "browserify": "16.5.0",
     "bundlesize": "0.18.0",
     "codecov": "3.5.0",
     "danger": "7.1.4",
