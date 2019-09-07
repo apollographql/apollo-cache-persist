@@ -75,7 +75,7 @@
     "apollo-cache-hermes": "0.8.9",
     "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.6.4",
-    "apollo-link": "1.2.12",
+    "apollo-link": "1.2.13",
     "browserify": "16.5.0",
     "bundlesize": "0.18.0",
     "codecov": "3.5.0",
