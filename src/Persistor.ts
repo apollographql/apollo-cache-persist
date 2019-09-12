@@ -19,7 +19,7 @@ export default class Persistor<T> {
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
-    options: ApolloPersistOptions<T>
+    options: ApolloPersistOptions<T>,
   ) {
     const { maxSize = 1024 * 1024 } = options;
 
@@ -49,7 +49,7 @@ export default class Persistor<T> {
       }
 
       if (this.paused) {
-        this.paused = false;
+        return;
       }
 
       await this.storage.write(data);
@@ -57,7 +57,7 @@ export default class Persistor<T> {
       this.log.info(
         typeof data === 'string'
           ? `Persisted cache of size ${data.length} characters`
-          : 'Persisted cache'
+          : 'Persisted cache',
       );
     } catch (error) {
       this.log.error('Error persisting cache', error);
@@ -75,7 +75,7 @@ export default class Persistor<T> {
         this.log.info(
           typeof data === 'string'
             ? `Restored cache of size ${data.length} characters`
-            : 'Restored cache'
+            : 'Restored cache',
         );
       } else {
         this.log.info('No stored cache to restore');
