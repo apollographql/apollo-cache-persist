@@ -36,7 +36,7 @@ export default class Persistor<T> {
   async persist(): Promise<void> {
     try {
       const data = this.cache.extract();
-
+      data.optimisticData = this.cache.optimisticData;
       if (
         this.maxSize != null &&
         typeof data === 'string' &&
@@ -71,7 +71,7 @@ export default class Persistor<T> {
 
       if (data != null) {
         await this.cache.restore(data);
-
+        this.cache.optimisticResponse = data.optimisticData;
         this.log.info(
           typeof data === 'string'
             ? `Restored cache of size ${data.length} characters`
