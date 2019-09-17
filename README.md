@@ -379,3 +379,9 @@ This is the result of a 2 MB per key limitation of `AsyncStorage` on Android.
 Set a smaller `maxSize` or switch to a filesystem-based storage provider, such
 as
 [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
+
+#### Cache persist and changing user context
+
+In some cases like user logout we want to wipe out application cache. 
+To do it effectively with Apollo Cache Persist please use `client.clearStore()` method that will 
+eventually reset persistence layer.
