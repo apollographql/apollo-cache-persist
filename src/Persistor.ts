@@ -71,7 +71,7 @@ export default class Persistor<T> {
 
       if (data != null) {
         await this.cache.restore(data);
-        this.cache.optimisticResponse = data.optimisticData;
+        this.cache.optimisticData = data.optimisticData;
         this.log.info(
           typeof data === 'string'
             ? `Restored cache of size ${data.length} characters`
