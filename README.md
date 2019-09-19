@@ -125,12 +125,12 @@ persistCache({
 
 ## Development package
 
-`apollo-cache-perist` represents stable release that is being used by wider apollo community.
+`apollo-cache-persist` represents stable release that is being used by wider apollo community.
 To minimize impact and bring new changes to apollo-cache-persist we have created separate package
 that is being updated everytime we merge community PR.
 
-`apollo-cache-perist-dev` will contain latest changes, package updates and features driven by community,
-but it might contain breaking changes or experiments that will not be included in `apollo-cache-perist` 
+`apollo-cache-persist-dev` will contain latest changes, package updates and features driven by community,
+but it might contain breaking changes or experiments that will not be included in `apollo-cache-persist` in the future.
 
 ### Using development version
 
