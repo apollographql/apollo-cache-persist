@@ -1188,9 +1188,9 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codecov@3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.6.0.tgz#6915561b7064c064e30a588ea23c1384b14d744b"
+codecov@3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.6.1.tgz#f39fc49413445555f81f8e3ca5730992843b4517"
   dependencies:
     argv "^0.0.2"
     ignore-walk "^3.0.1"
