@@ -123,6 +123,22 @@ persistCache({
 }): Promise<void>;
 ```
 
+## Development package
+
+`apollo-cache-persist` represents stable release that is being used by wider apollo community.
+To minimize impact and bring new changes to apollo-cache-persist we have created separate package
+that is being updated everytime we merge community PR.
+
+`apollo-cache-persist-dev` will contain latest changes, package updates and features driven by community,
+but it might contain breaking changes or experiments that will not be included in `apollo-cache-persist` in the future.
+
+### Using development version
+
+```bash
+npm uninstall apollo-cache-perist
+npm install apollo-cache-perist-dev
+```
+
 ## Advanced Usage
 
 ### Using `CachePersistor`
