@@ -91,6 +91,6 @@
     "rollup": "1.24.0",
     "ts-jest": "23.0.0",
     "typescript": "3.6.4",
-    "uglify-js": "3.6.1"
+    "uglify-js": "3.6.2"
   }
 }
