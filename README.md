@@ -307,6 +307,22 @@ class App extends Component {
 }
 ```
 
+A synchronous alternative to `persistCache` is provided, in the form of `persistCacheSync`, but it should be used only if the cache you need to restore is small and unlikely to grow beyond roughly 20kb or smaller, and if your storage provider is synchronous (e.g. window.localStorage). Generally speaking, `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored. An example using `persistCacheSync` is provided below:
+
+```js
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { persistCacheSync } from 'apollo-cache-persist';
+
+const cache = new InMemoryCache({...});
+
+persistCacheSync({
+    cache,
+    storage: window.localStorage,
+});
+```
+
+`persistCacheSync` works by instantiating subclasses of `CachePeristor`, `Persistor`, and `Storage` that implement a method for restoring the cache synchronously. No synchronous methods for writing to the cache are implemented. After `persitCacheSync` has been called and the cache has been restored, any further operations will be carried out asynchronously, both reads and writes.
+
 #### I need to ensure certain data is not persisted. How do I filter my cache?
 
 Unfortunately, this is not yet possible. You can only persist and restore the
@@ -398,6 +414,6 @@ as
 
 #### Cache persist and changing user context
 
-In some cases like user logout we want to wipe out application cache. 
-To do it effectively with Apollo Cache Persist please use `client.clearStore()` method that will 
+In some cases like user logout we want to wipe out application cache.
+To do it effectively with Apollo Cache Persist please use `client.clearStore()` method that will
 eventually reset persistence layer.
