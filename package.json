@@ -88,7 +88,7 @@
     "lint-staged": "9.4.2",
     "prettier": "1.18.2",
     "rimraf": "3.0.0",
-    "rollup": "1.24.0",
+    "rollup": "1.25.0",
     "ts-jest": "23.0.0",
     "typescript": "3.6.4",
     "uglify-js": "3.6.2"
