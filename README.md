@@ -307,7 +307,12 @@ class App extends Component {
 }
 ```
 
-A synchronous alternative to `persistCache` is provided, in the form of `persistCacheSync`, but it should be used only if the cache you need to restore is small and unlikely to grow beyond roughly 20kb or smaller, and if your storage provider is synchronous (e.g. window.localStorage). Generally speaking, `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored. An example using `persistCacheSync` is provided below:
+## Using Synchronous Storage API
+
+`persistCache` interface is asynchronous to conform many production ready storage interfaces 
+which offer only asynchronous API.
+
+Library offers alternative `persistCacheSync` api that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
 
 ```js
 import { InMemoryCache } from 'apollo-cache-inmemory';
