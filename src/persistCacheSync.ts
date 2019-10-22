@@ -8,7 +8,7 @@ export default <T>(options: ApolloPersistOptions<T>) => {
   cachePersistor.restoreSync();
 };
 
-class SynchronousCachePersistor<T> extends CachePersistor<T> {
+export class SynchronousCachePersistor<T> extends CachePersistor<T> {
   persistor: SynchronousPersistor<T>;
 
   constructor(options: ApolloPersistOptions<T>) {
@@ -26,7 +26,7 @@ class SynchronousCachePersistor<T> extends CachePersistor<T> {
   }
 }
 
-class SynchronousPersistor<T> extends Persistor<T> {
+export class SynchronousPersistor<T> extends Persistor<T> {
   storage: SynchronousStorage<T>;
 
   constructor(
@@ -41,7 +41,7 @@ class SynchronousPersistor<T> extends Persistor<T> {
   }
 }
 
-class SynchronousStorage<T> extends Storage<T> {
+export class SynchronousStorage<T> extends Storage<T> {
   constructor(options: ApolloPersistOptions<T>) {
     super(options);
   }

@@ -1,175 +1,44 @@
-import gql from 'graphql-tag';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { Hermes } from 'apollo-cache-hermes';
-
-import { persistCacheSync } from '../';
+import { SynchronousCachePersistor } from '../';
 import MockStorage from '../__mocks__/MockStorage';
-import { simulateApp, simulateWrite } from '../__mocks__/simulate';
+import { ApolloLink } from 'apollo-link';
+import Observable = require('zen-observable');
+import ApolloClient from 'apollo-client';
+import gql from 'graphql-tag';
 
 jest.useFakeTimers();
 describe('persistCacheSync', () => {
   describe('setup', () => {
-    it('requires a cache', async () => {
-      try {
-        persistCacheSync({ storage: new MockStorage() });
-        fail('invoking persistCacheSync without a cache should throw an error');
-      } catch (e) {
-        expect(() => {
-          throw e;
-        }).toThrowErrorMatchingSnapshot();
-      }
-    });
-    it('requires storage', async () => {
-      try {
-        persistCacheSync({ cache: new InMemoryCache() });
-        fail('invoking persistCacheSync without storage should throw an error');
-      } catch (e) {
-        expect(() => {
-          throw e;
-        }).toThrowErrorMatchingSnapshot();
-      }
-    });
-  });
-
-  describe('basic usage', () => {
-    const operation = gql`
-      {
-        hello
-      }
-    `;
-    const result = { data: { hello: 'world' } };
-
-    it('extracts a previously filled InMemoryCache from storage', async () => {
-      const [client, client2] = await simulateApp({
-        operation,
-        result,
-      });
-      expect(client.extract()).toEqual(client2.extract());
-    });
-    xit('extracts a previously filled HermesCache from storage', async () => {
-      const [client, client2] = await simulateApp({
-        operation,
-        result,
-        persistOptions: {
-          cache: new Hermes(),
-        },
-      });
-      expect(client.extract()).toEqual(client2.extract());
-    });
-  });
-
-  describe('nested queries', () => {
-    const operation = gql`
-      {
-        user(id: 1) {
-          name {
-            last
-            first
-          }
-          posts {
-            title
-            comments {
-              name
-            }
-          }
+    it('persists cache', async () => {
+      const operation = gql`
+        {
+          hello
         }
-      }
-    `;
-    const result = {
-      data: {
-        user: {
-          name: { last: 'Doe', first: 'Jane', __typename: 'Name' },
-          posts: [
-            {
-              title: 'Apollo is awesome',
-              comments: [{ name: 'foo', __typename: 'Comment' }],
-              __typename: 'Post',
-            },
-          ],
-          __typename: 'User',
-        },
-      },
-    };
-
-    it('extracts a previously filled InMemoryCache from storage', async () => {
-      const [client, client2] = await simulateApp({
-        operation,
-        result,
-      });
-      expect(client.extract()).toEqual(client2.extract());
-    });
-    xit('extracts a previously filled HermesCache from storage', async () => {
-      const [client, client2] = await simulateApp({
-        operation,
-        result,
-        persistOptions: {
-          cache: new Hermes(),
-        },
-      });
-      expect(client.extract()).toEqual(client2.extract());
-    });
-  });
-
-  describe('advanced usage', () => {
-    const operation = gql`
-      {
-        hello
-      }
-    `;
-    const result = { data: { hello: 'world' } };
-
-    it('passing in debounce configures the debounce interval', async () => {
-      const debounce = 600;
-      const storage = new MockStorage();
-
-      await simulateWrite({
-        result,
-        operation,
-        persistOptions: { debounce, storage },
-      });
-
-      expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
-      jest.runTimersToTime(debounce + 1);
-      expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
-    });
-    it('passing in key customizes the storage key', async () => {
-      const storage = new MockStorage();
-      const key = 'testing-1-2-3';
-
-      await simulateWrite({
-        result,
-        operation,
-        persistOptions: { key, storage },
-      });
-
-      jest.runTimersToTime(1001);
-      expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
-      expect(await storage.getItem(key)).toMatchSnapshot();
-    });
-    it('setting maxSize purges the Apollo cache & storage if it crosses a threshold', async () => {
+      `;
+      const result = { data: { hello: 'world' } };
       const storage = new MockStorage();
       const cache = new InMemoryCache();
 
-      await simulateWrite({
-        result,
-        operation,
-        persistOptions: { storage, maxSize: 20 },
-      });
+      const persistOptions = { cache, storage };
+      const cachePersistor = new SynchronousCachePersistor(persistOptions);
 
-      jest.runTimersToTime(1001);
-      expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
-    });
-    xit('setting the trigger to background does not persist on a write', async () => {
-      const storage = new MockStorage();
-      await simulateWrite({
-        result,
-        operation,
-        persistOptions: { trigger: 'background', storage },
-      });
+      const link = new ApolloLink(() => Observable.of(result));
+      const client = new ApolloClient({ cache, link });
+      expect(cache.extract()).toEqual({});
 
-      jest.runTimersToTime(1001);
-      expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
+      await client.query({ query: operation });
+      jest.runTimersToTime(
+        persistOptions.debounce ? persistOptions.debounce + 1 : 1001,
+      );
+
+      const cache2 = new InMemoryCache();
+      const cachePersistor2 = new SynchronousCachePersistor({
+        cache: cache2,
+        storage,
+      });
+      cachePersistor2.restoreSync();
+      const keys = Object.keys(cache2.extract());
+      expect(keys.length).toEqual(2);
     });
-    xit('setting the trigger to background persists in the background', () => {});
   });
 });
