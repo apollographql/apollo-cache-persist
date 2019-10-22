@@ -326,7 +326,7 @@ persistCacheSync({
 });
 ```
 
-`persistCacheSync` works by instantiating subclasses of `CachePeristor`, `Persistor`, and `Storage` that implement a method for restoring the cache synchronously. No synchronous methods for writing to the cache are implemented. After `persitCacheSync` has been called and the cache has been restored, any further operations will be carried out asynchronously, both reads and writes.
+`persistCacheSync` works by instantiating subclasses of `CachePeristor`, `Persistor`, and `Storage` that implement a method for restoring the cache synchronously. 
 
 #### I need to ensure certain data is not persisted. How do I filter my cache?
 
