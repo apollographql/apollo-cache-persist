@@ -36,7 +36,6 @@ describe('persistCacheSync', () => {
         cache: cache2,
         storage,
       });
-      debugger;
       cachePersistor2.restoreSync();
       const keys = Object.keys(cache2.extract());
       expect(keys.length).toEqual(1);
