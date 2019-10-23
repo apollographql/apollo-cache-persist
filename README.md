@@ -307,7 +307,7 @@ class App extends Component {
 }
 ```
 
-## Using Synchronous Storage API
+#### Using Synchronous Storage API
 
 `persistCache` method is asynchronous to conform to production ready storage interfaces 
 which offer only asynchronous API.
