@@ -307,6 +307,27 @@ class App extends Component {
 }
 ```
 
+#### Using Synchronous Storage API
+
+`persistCache` method is asynchronous to conform to production ready storage interfaces 
+which offer only asynchronous API.
+
+Apollo-cache-persist offers alternative `persistCacheSync` method that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
+
+```js
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { persistCacheSync } from 'apollo-cache-persist';
+
+const cache = new InMemoryCache({...});
+
+persistCacheSync({
+    cache,
+    storage: window.localStorage,
+});
+```
+
+`persistCacheSync` works by instantiating subclasses of `CachePeristor`, `Persistor`, and `Storage` that implement a method for restoring the cache synchronously. 
+
 #### I need to ensure certain data is not persisted. How do I filter my cache?
 
 Unfortunately, this is not yet possible. You can only persist and restore the
@@ -398,6 +419,6 @@ as
 
 #### Cache persist and changing user context
 
-In some cases like user logout we want to wipe out application cache. 
-To do it effectively with Apollo Cache Persist please use `client.clearStore()` method that will 
+In some cases like user logout we want to wipe out application cache.
+To do it effectively with Apollo Cache Persist please use `client.clearStore()` method that will
 eventually reset persistence layer.
