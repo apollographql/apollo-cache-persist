@@ -1,6 +1,6 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { SynchronousCachePersistor } from '../';
-import MockStorage from '../__mocks__/MockStorage';
+import MockStorageSync from '../__mocks__/MockStorageSync';
 import { ApolloLink } from 'apollo-link';
 import Observable = require('zen-observable');
 import ApolloClient from 'apollo-client';
@@ -16,7 +16,7 @@ describe('persistCacheSync', () => {
         }
       `;
       const result = { data: { hello: 'world' } };
-      const storage = new MockStorage();
+      const storage = new MockStorageSync();
       const cache = new InMemoryCache();
 
       const persistOptions = { cache, storage };
@@ -36,9 +36,10 @@ describe('persistCacheSync', () => {
         cache: cache2,
         storage,
       });
+      debugger;
       cachePersistor2.restoreSync();
       const keys = Object.keys(cache2.extract());
-      expect(keys.length).toEqual(2);
+      expect(keys.length).toEqual(1);
     });
   });
 });
