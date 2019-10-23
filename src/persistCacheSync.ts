@@ -3,11 +3,20 @@ import CachePersistor from './CachePersistor';
 import Persistor, { PersistorConfig } from './Persistor';
 import Storage from './Storage';
 
-export default <T>(options: ApolloPersistOptions<T>) => {
+/**
+ * Add cache to persist engine using synchronous API
+ * 
+ * @see SynchronousCachePersistor for advanced use cases
+ * @param options options for persist engine
+ */
+export const persistCacheSync = <T>(options: ApolloPersistOptions<T>) => {
   const cachePersistor = new SynchronousCachePersistor(options);
   cachePersistor.restoreSync();
 };
 
+/**
+ * Persistor engine that is going to use synchronous api
+ */
 export class SynchronousCachePersistor<T> extends CachePersistor<T> {
   persistor: SynchronousPersistor<T>;
 
