@@ -135,8 +135,8 @@ but it might contain breaking changes or experiments that will not be included i
 ### Using development version
 
 ```bash
-npm uninstall apollo-cache-perist
-npm install apollo-cache-perist-dev
+npm uninstall apollo-cache-persist
+npm install apollo-cache-persist-dev
 ```
 
 ## Advanced Usage
