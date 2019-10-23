@@ -309,10 +309,10 @@ class App extends Component {
 
 ## Using Synchronous Storage API
 
-`persistCache` interface is asynchronous to conform many production ready storage interfaces 
+`persistCache` method is asynchronous to conform to production ready storage interfaces 
 which offer only asynchronous API.
 
-Library offers alternative `persistCacheSync` api that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
+Apollo-cache-persist offers alternative `persistCacheSync` method that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
 
 ```js
 import { InMemoryCache } from 'apollo-cache-inmemory';
