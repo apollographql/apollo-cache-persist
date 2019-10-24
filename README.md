@@ -206,6 +206,7 @@ dependencies:
 - `window.localStorage` on web
 - `window.sessionStorage` on web
 - [`localForage`](https://github.com/localForage/localForage) on web
+- [`Ionic storage`](https://ionicframework.com/docs/building/storage) on web and mobile
 
 `apollo-cache-persist` uses the same storage provider API as
 [`redux-persist`](https://github.com/rt2zz/redux-persist), so you can also make
