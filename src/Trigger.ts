@@ -14,7 +14,7 @@ export default class Trigger<T> {
   debounce: number;
   persistor: Persistor<T>;
   paused: boolean;
-  timeout: NodeJS.Timer;
+  timeout: any;
   uninstall: TriggerUninstallFunction;
 
   static defaultDebounce = 1000;
