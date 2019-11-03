@@ -307,6 +307,49 @@ class App extends Component {
   }
 }
 ```
+##### React Using Hooks
+
+```js
+import React,{ useState, useEffect } from 'react';
+import ApolloClient, { InMemoryCache } from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks"
+import { persistCache } from 'apollo-cache-persist';
+
+const App: React.FC = () => {
+  const [client, setClient] = useState(undefined);
+  useEffect(() => {
+    const cache = new InMemoryCache({...});
+
+    const client = new ApolloClient({
+      cache,
+      ...
+    });
+    
+    // See above for additional options, including other storage providers.
+    persistCache({
+      cache,
+      storage: window.localStorage
+    }).then(() => {
+      const initData = {
+        {/* your initial data */}
+      };
+      client.writeData({
+        data: initData
+      });
+      client.onResetStore(async () => cache.writeData({ data: initData }));
+      setClient(client);
+    });
+    return () => {};
+  }, []);
+  if (client === undefined) return <div>Loading...</div>;
+  return (
+    <ApolloProvider client={client}>
+      {/* the rest of your app goes here */}
+    </ApolloProvider>
+  );
+};
+export default App;
+```
 
 #### Using Synchronous Storage API
 
