@@ -311,7 +311,8 @@ class App extends Component {
 
 ```js
 import React,{ useState, useEffect } from 'react';
-import ApolloClient, { InMemoryCache } from "apollo-boost";
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from "@apollo/react-hooks"
 import { persistCache } from 'apollo-cache-persist';
 
