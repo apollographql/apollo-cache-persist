@@ -334,9 +334,7 @@ const App: React.FC = () => {
       const initData = {
         {/* your initial data */}
       };
-      client.writeData({
-        data: initData
-      });
+     
       client.onResetStore(async () => cache.writeData({ data: initData }));
       setClient(client);
     });
