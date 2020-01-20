@@ -325,16 +325,16 @@ const App: React.FC = () => {
       cache,
       ...
     });
+    const initData = {
+      {/* your initial data */}
+    };
+    cache.writeData({ data: initData })
     
     // See above for additional options, including other storage providers.
     persistCache({
       cache,
       storage: window.localStorage
-    }).then(() => {
-      const initData = {
-        {/* your initial data */}
-      };
-     
+    }).then(() => {     
       client.onResetStore(async () => cache.writeData({ data: initData }));
       setClient(client);
     });
