@@ -72,7 +72,7 @@
     "apollo-link": "1.2.13",
     "browserify": "16.5.0",
     "bundlesize": "0.18.0",
-    "codecov": "3.6.1",
+    "codecov": "3.7.1",
     "danger": "7.1.4",
     "graphql": "14.5.8",
     "graphql-tag": "2.10.1",
