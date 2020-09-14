@@ -1,4 +1,4 @@
-import { ApolloCache } from 'apollo-cache';
+import { ApolloCache } from '@apollo/client/core';
 
 export type LogLevel = 'log' | 'warn' | 'error';
 

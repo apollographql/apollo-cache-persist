@@ -1,4 +1,4 @@
-import { ApolloCache } from 'apollo-cache';
+import { ApolloCache } from '@apollo/client/core';
 
 import Log from './Log';
 import onCacheWrite from './onCacheWrite';
@@ -9,10 +9,10 @@ export interface TriggerFunctionConfig<T> {
 }
 
 export default <T>({ log, cache }: TriggerFunctionConfig<T>) => (
-  persist: () => void
+  persist: () => void,
 ) => {
   log.warn(
-    'Trigger option `background` not available on web; using `write` trigger'
+    'Trigger option `background` not available on web; using `write` trigger',
   );
   return onCacheWrite({ cache })(persist);
 };

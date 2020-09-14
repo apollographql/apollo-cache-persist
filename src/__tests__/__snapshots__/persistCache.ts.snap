@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`persistCache advanced usage passing in debounce configures the debounce interval 1`] = `"{\\"ROOT_QUERY\\":{\\"hello\\":\\"world\\"}}"`;
+exports[`persistCache advanced usage passing in debounce configures the debounce interval 1`] = `"{\\"ROOT_QUERY\\":{\\"__typename\\":\\"Query\\",\\"hello\\":\\"world\\"}}"`;
 
-exports[`persistCache advanced usage passing in key customizes the storage key 1`] = `"{\\"ROOT_QUERY\\":{\\"hello\\":\\"world\\"}}"`;
+exports[`persistCache advanced usage passing in key customizes the storage key 1`] = `"{\\"ROOT_QUERY\\":{\\"__typename\\":\\"Query\\",\\"hello\\":\\"world\\"}}"`;
 
 exports[`persistCache advanced usage setting maxSize purges the Apollo cache & storage if it crosses a threshold 1`] = `undefined`;
 
