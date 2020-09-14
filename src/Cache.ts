@@ -1,4 +1,4 @@
-import { ApolloCache } from 'apollo-cache';
+import { ApolloCache } from '@apollo/client/core';
 import { ApolloPersistOptions, PersistedData } from './types';
 
 export default class Cache<T> {

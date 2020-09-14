@@ -1,9 +1,11 @@
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import { SynchronousCachePersistor } from '../';
 import MockStorageSync from '../__mocks__/MockStorageSync';
-import { ApolloLink } from 'apollo-link';
-import Observable = require('zen-observable');
-import ApolloClient from 'apollo-client';
+import {
+  ApolloClient,
+  Observable,
+  ApolloLink,
+  InMemoryCache,
+} from '@apollo/client/core';
 import gql from 'graphql-tag';
 
 jest.useFakeTimers();

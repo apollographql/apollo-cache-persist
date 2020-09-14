@@ -1,11 +1,11 @@
 # apollo-cache-persist [![npm version](https://badge.fury.io/js/apollo-cache-persist.svg)](https://badge.fury.io/js/apollo-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist)
 
-Simple persistence for all Apollo Client 2.0 cache implementations, including
+Simple persistence for all Apollo Client 3.0 cache implementations, including
 [`InMemoryCache`][0] and [`Hermes`][1].
 
 Supports web and React Native. [See all storage providers.](#storage-providers)
 
-[0]: https://github.com/apollographql/apollo-client/tree/master/packages/apollo-cache-inmemory
+[0]: https://github.com/apollographql/apollo-client/tree/master/src/cache/inmemory
 [1]: https://github.com/convoyinc/apollo-cache-hermes
 
 ## Basic Usage
@@ -23,7 +23,7 @@ short debounce interval).
 
 ```js
 import AsyncStorage from '@react-native-community/async-storage';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { persistCache } from 'apollo-cache-persist';
 
 const cache = new InMemoryCache({...});
@@ -45,7 +45,7 @@ const client = new ApolloClient({
 #### Web
 
 ```js
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { persistCache } from 'apollo-cache-persist';
 
 const cache = new InMemoryCache({...});
@@ -256,8 +256,8 @@ examples from other frameworks are welcome.
 
 ```js
 import React, { Component } from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from '@apollo/client/react';
+import { InMemoryCache } from '@apollo/client/core';
 import { persistCache } from 'apollo-cache-persist';
 
 class App extends Component {
@@ -307,12 +307,13 @@ class App extends Component {
   }
 }
 ```
+
 ##### React Using Hooks
 
 ```js
 import React,{ useState, useEffect } from 'react';
 import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { ApolloProvider } from "@apollo/react-hooks"
 import { persistCache } from 'apollo-cache-persist';
 
@@ -329,12 +330,12 @@ const App: React.FC = () => {
       {/* your initial data */}
     };
     cache.writeData({ data: initData })
-    
+
     // See above for additional options, including other storage providers.
     persistCache({
       cache,
       storage: window.localStorage
-    }).then(() => {     
+    }).then(() => {
       client.onResetStore(async () => cache.writeData({ data: initData }));
       setClient(client);
     });
@@ -352,13 +353,13 @@ export default App;
 
 #### Using Synchronous Storage API
 
-`persistCache` method is asynchronous to conform to production ready storage interfaces 
+`persistCache` method is asynchronous to conform to production ready storage interfaces
 which offer only asynchronous API.
 
 Apollo-cache-persist offers alternative `persistCacheSync` method that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
 
 ```js
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { persistCacheSync } from 'apollo-cache-persist';
 
 const cache = new InMemoryCache({...});
@@ -369,7 +370,7 @@ persistCacheSync({
 });
 ```
 
-`persistCacheSync` works by instantiating subclasses of `CachePeristor`, `Persistor`, and `Storage` that implement a method for restoring the cache synchronously. 
+`persistCacheSync` works by instantiating subclasses of `CachePeristor`, `Persistor`, and `Storage` that implement a method for restoring the cache synchronously.
 
 #### I need to ensure certain data is not persisted. How do I filter my cache?
 
@@ -415,7 +416,7 @@ Here's an example of how this could look:
 
 ```js
 import AsyncStorage from '@react-native-community/async-storage';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache } from '@apollo/client/core';
 import { CachePersistor } from 'apollo-cache-persist';
 
 const SCHEMA_VERSION = '3'; // Must be a string.
