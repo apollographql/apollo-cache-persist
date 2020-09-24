@@ -456,9 +456,9 @@ BaseError: Couldn't read row 0, col 0 from CursorWindow.  Make sure the Cursor i
 ```
 
 This is the result of a 2 MB per key limitation of `AsyncStorage` on Android.
-Set a smaller `maxSize` or switch to a filesystem-based storage provider, such
+Set a smaller `maxSize` or switch to a different storage provider, such
 as
-[`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
+[`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage) or [`react-native-mmkv-storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage).
 
 #### Cache persist and changing user context
 
