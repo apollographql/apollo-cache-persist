@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.1.2", "@apollo/client@^3.1.5":
+"@apollo/client@3.1.5", "@apollo/client@^3.1.2":
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.1.5.tgz#5865f5c32f061cd520459c5809e8debea6f4886c"
   integrity sha512-nU/KpqzKN27iwVQwGvPaCkTH/+rNGPoXKr60ki02I8jPBIKXyePPov85Ro9phGxuBhLNqGYeP0uAUN0S+HlF1Q==
@@ -641,7 +641,7 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apollo-cache-hermes@^0.8.14:
+apollo-cache-hermes@0.8.14:
   version "0.8.14"
   resolved "https://registry.yarnpkg.com/apollo-cache-hermes/-/apollo-cache-hermes-0.8.14.tgz#2ee8cb7402576a73f961226ef24bc2c4ce70fcc6"
   integrity sha512-dd5IGmL/Tzl/GYh9JjD3BxCv/bIt7iCf5dDGCYG1lQw/O53JhjqmP24qtIDey2pCkOZm7LhcQdr5uu2DmwuEGA==
@@ -5303,7 +5303,7 @@ react-is@^16.8.4:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
 
-react@^16.13.1:
+react@16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
