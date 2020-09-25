@@ -1,4 +1,4 @@
-# apollo-cache-persist [![npm version](https://badge.fury.io/js/apollo-cache-persist.svg)](https://badge.fury.io/js/apollo-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist)
+# apollo3-cache-persist [![npm version](https://badge.fury.io/js/apollo-cache-persist.svg)](https://badge.fury.io/js/apollo3-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo3-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist)
 
 Simple persistence for all Apollo Client 3.0 cache implementations, including
 [`InMemoryCache`][0] and [`Hermes`][1].
@@ -24,7 +24,7 @@ short debounce interval).
 ```js
 import AsyncStorage from '@react-native-community/async-storage';
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCache } from 'apollo-cache-persist';
+import { persistCache } from 'apollo3-cache-persist';
 
 const cache = new InMemoryCache({...});
 
@@ -46,7 +46,7 @@ const client = new ApolloClient({
 
 ```js
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCache } from 'apollo-cache-persist';
+import { persistCache } from 'apollo3-cache-persist';
 
 const cache = new InMemoryCache({...});
 
@@ -123,22 +123,6 @@ persistCache({
 }): Promise<void>;
 ```
 
-## Development package
-
-`apollo-cache-persist` represents stable release that is being used by wider apollo community.
-To minimize impact and bring new changes to apollo-cache-persist we have created separate package
-that is being updated everytime we merge community PR.
-
-`apollo-cache-persist-dev` will contain latest changes, package updates and features driven by community,
-but it might contain breaking changes or experiments that will not be included in `apollo-cache-persist` in the future.
-
-### Using development version
-
-```bash
-npm uninstall apollo-cache-persist
-npm install apollo-cache-persist-dev
-```
-
 ## Advanced Usage
 
 ### Using `CachePersistor`
@@ -208,7 +192,7 @@ dependencies:
 - [`localForage`](https://github.com/localForage/localForage) on web
 - [`Ionic storage`](https://ionicframework.com/docs/building/storage) on web and mobile
 
-`apollo-cache-persist` uses the same storage provider API as
+`apollo3-cache-persist` uses the same storage provider API as
 [`redux-persist`](https://github.com/rt2zz/redux-persist), so you can also make
 use of the providers
 [listed here](https://github.com/rt2zz/redux-persist#storage-engines),
@@ -258,7 +242,7 @@ examples from other frameworks are welcome.
 import React, { Component } from 'react';
 import { ApolloProvider } from '@apollo/client/react';
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCache } from 'apollo-cache-persist';
+import { persistCache } from 'apollo3-cache-persist';
 
 class App extends Component {
   state = {
@@ -315,7 +299,7 @@ import React,{ useState, useEffect } from 'react';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from '@apollo/client/core';
 import { ApolloProvider } from "@apollo/react-hooks"
-import { persistCache } from 'apollo-cache-persist';
+import { persistCache } from 'apollo3-cache-persist';
 
 const App: React.FC = () => {
   const [client, setClient] = useState(undefined);
@@ -356,11 +340,11 @@ export default App;
 `persistCache` method is asynchronous to conform to production ready storage interfaces
 which offer only asynchronous API.
 
-Apollo-cache-persist offers alternative `persistCacheSync` method that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
+apollo-cache-persist offers alternative `persistCacheSync` method that should be used only with small cache sizes and synchronous storage provider (e.g. window.localStorage). `persistCacheSync` is best suited for demo applications because it blocks UI rendering until the cache is restored.
 
 ```js
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCacheSync } from 'apollo-cache-persist';
+import { persistCacheSync } from 'apollo3-cache-persist';
 
 const cache = new InMemoryCache({...});
 
@@ -383,7 +367,7 @@ methods is opaque and differs from cache to cache. As such, we cannot reliably
 transform the output.
 
 Alternatives have been recommended in
-[#2](https://github.com/apollographql/apollo-cache-persist/issues/2#issuecomment-350823835),
+[#2](https://github.com/apollographql/apollo3-cache-persist/issues/2#issuecomment-350823835),
 including using logic in your UI to filter potentially-outdated information.
 Furthermore, the [`maxSize` option](#additional-options) and
 [methods on `CachePersistor`](#using-cachepersistor) provide facilities to
@@ -417,7 +401,7 @@ Here's an example of how this could look:
 ```js
 import AsyncStorage from '@react-native-community/async-storage';
 import { InMemoryCache } from '@apollo/client/core';
-import { CachePersistor } from 'apollo-cache-persist';
+import { CachePersistor } from 'apollo3-cache-persist';
 
 const SCHEMA_VERSION = '3'; // Must be a string.
 const SCHEMA_VERSION_KEY = 'apollo-schema-version';
