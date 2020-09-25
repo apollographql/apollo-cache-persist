@@ -69,14 +69,14 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@apollo/client": "^3.0.0"
+    "@apollo/client": "3.2.1"
   },
   "devDependencies": {
-    "@apollo/client": "^3.1.5",
+    "@apollo/client": "3.1.5",
     "@types/jest": "24.0.18",
     "@types/node": "12.11.5",
     "@types/react-native": "0.60.21",
-    "apollo-cache-hermes": "^0.8.14",
+    "apollo-cache-hermes": "0.8.14",
     "browserify": "16.5.0",
     "bundlesize": "0.18.0",
     "codecov": "3.7.1",
@@ -86,7 +86,7 @@
     "jest": "24.9.0",
     "lint-staged": "9.4.2",
     "prettier": "1.18.2",
-    "react": "^16.13.1",
+    "react": "16.13.1",
     "rimraf": "3.0.0",
     "rollup": "1.25.2",
     "ts-jest": "23.0.0",
