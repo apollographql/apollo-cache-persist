@@ -1,0 +1,41 @@
+{
+  "name": "basic-apollo-app",
+  "version": "1.0.0",
+  "description": "sample",
+  "keywords": [
+    "react-apollo",
+    "auth",
+    "apollo",
+    "apollo-client"
+  ],
+  "homepage": "https://codesandbox.io/s/new",
+  "main": "src/index.js",
+  "dependencies": {
+    "apollo3-cache-persist": "../lib",
+    "@apollo/client": "3.2.1",
+    "graphql": "latest",
+    "graphql-tag": "latest",
+    "react": "16.13.0",
+    "react-dom": "16.13.1",
+    "react-scripts": "3.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
