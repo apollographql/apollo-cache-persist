@@ -7,7 +7,6 @@
   "pinVersions": true,
   "semanticCommits": true,
   "labels": ["tooling", "dependencies"],
-  "groupName":"all",
   "packageRules": [
     {
       "packageNames": ["graphql"],
