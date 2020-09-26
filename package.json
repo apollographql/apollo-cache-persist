@@ -69,7 +69,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@apollo/client": "3.2.1"
+    "@apollo/client": "^3.2.1"
   },
   "devDependencies": {
     "@apollo/client": "3.2.1",
