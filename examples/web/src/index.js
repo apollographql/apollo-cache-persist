@@ -60,7 +60,7 @@ createClient().then(client => {
 
   render(<App />, document.getElementById('root'));
   setTimeout(() => {
-    client.resetStore();
-    persistor.purge();
+    // client.resetStore();
+    // persistor.purge();
   }, 3000);
 });
