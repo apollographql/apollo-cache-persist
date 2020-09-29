@@ -8,14 +8,14 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, Text} from 'react-native';
-import {ApolloClient, InMemoryCache} from '@apollo/client';
-import {persistCache} from 'apollo3-cache-persist';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, ScrollView, Text } from 'react-native';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { persistCache } from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-community/async-storage';
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
   const [currencies, setCurrencies] = useState([]);
@@ -33,7 +33,7 @@ const App = () => {
         cache: new InMemoryCache(),
       });
       try {
-        const {data} = await client.query({
+        const { data } = await client.query({
           query: gql`
             query GetRates {
               rates(currency: "USD") {
@@ -56,24 +56,24 @@ const App = () => {
     <>
       <SafeAreaView>
         {error ? (
-          <Text style={{padding: 16, fontWeight: 'bold'}}>{error}</Text>
+          <Text style={{ padding: 16, fontWeight: 'bold' }}>{error}</Text>
         ) : (
-          <>
-            <Text style={{padding: 16, fontWeight: 'bold'}}>
-              List of currencies
+            <>
+              <Text style={{ padding: 16, fontWeight: 'bold' }}>
+                List of currencies
             </Text>
-            <ScrollView
-              contentInsetAdjustmentBehavior="automatic"
-              style={styles.scrollView}>
-              {currencies.map((item, index) => (
-                //@ts-ignore type it
-                <Text key={item.currency + String(index)} style={{padding: 16}}>
-                  {item.currency}
-                </Text>
-              ))}
-            </ScrollView>
-          </>
-        )}
+              <ScrollView
+                contentInsetAdjustmentBehavior="automatic"
+                style={styles.scrollView}>
+                {currencies.map((item: any, index: any) => (
+                  //@ts-ignore type it
+                  <Text key={item.currency + String(index)} style={{ padding: 16 }}>
+                    {item.currency}
+                  </Text>
+                ))}
+              </ScrollView>
+            </>
+          )}
       </SafeAreaView>
     </>
   );
