@@ -9,5 +9,4 @@ rollup.config.js
 coverage
 .vscode
 .scripts
-example
-RNExample
+examples/
