@@ -2,17 +2,32 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import { ApolloProvider, ApolloClient } from '@apollo/client';
-import { Query, Mutation, Subscription } from '@apollo/client/react/components';
+import { Query } from '@apollo/client/react/components';
 import gql from 'graphql-tag';
 import { InMemoryCache } from '@apollo/client/core';
 import { CachePersistor } from 'apollo3-cache-persist';
+import { PersistentStorage } from "apollo3-cache-persist/types";
 
 let persistor;
+
+class LocalStoragePersistedStorage implements PersistentStorage<string> {
+  getItem(key: string): string | null {
+    return localStorage.getItem(key);
+  }
+
+  removeItem(key: string) {
+    localStorage.removeItem(key);
+  }
+
+  setItem(key: string, data: any) {
+    localStorage.setItem(key, data);
+  }
+}
 
 async function createClient() {
   const cache = new InMemoryCache({});
   persistor = new CachePersistor({
-    storage: window.localStorage,
+    storage: new LocalStoragePersistedStorage(),
     cache,
   });
   await persistor.restore();
@@ -33,7 +48,8 @@ const ratesGQL = gql`
 
 const ExchangeRates = () => (
   <Query query={ratesGQL} fetchPolicy="network-only">
-    {({ loading, error, data }) => {
+    {(result) => {
+      const { error, data, loading } = result;
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
 
@@ -52,7 +68,7 @@ createClient().then(client => {
   const App = () => (
     <ApolloProvider client={client}>
       <div>
-        <h2>Cache Persist testing🚀</h2>
+        <h2>Cache Persist testing <span role="img" aria-label="rocket">🚀</span></h2>
         <ExchangeRates />
       </div>
     </ApolloProvider>

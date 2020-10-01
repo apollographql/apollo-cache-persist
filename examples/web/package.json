@@ -9,9 +9,9 @@
     "apollo-client"
   ],
   "homepage": "https://codesandbox.io/s/new",
-  "main": "src/index.js",
+  "main": "src/index.tsx",
   "dependencies": {
-    "apollo3-cache-persist": "../lib",
+    "apollo3-cache-persist": "../../lib",
     "@apollo/client": "3.2.1",
     "graphql": "latest",
     "graphql-tag": "latest",
