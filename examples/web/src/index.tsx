@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { ApolloProvider, ApolloClient } from '@apollo/client';
-import { Query } from '@apollo/client/react/components';
+import { ApolloProvider, ApolloClient, useQuery, makeVar, useReactiveVar } from '@apollo/client';
 import gql from 'graphql-tag';
 import { InMemoryCache } from '@apollo/client/core';
 import { CachePersistor } from 'apollo3-cache-persist';
@@ -46,23 +45,30 @@ const ratesGQL = gql`
   }
 `;
 
-const ExchangeRates = () => (
-  <Query query={ratesGQL} fetchPolicy="network-only">
-    {(result) => {
-      const { error, data, loading } = result;
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
+const selectedCurrenciesVar = makeVar<String[]>([]);
 
-      return data.rates.map(({ currency, rate }) => (
-        <div key={currency}>
-          <p>
-            {currency}: {rate}
-          </p>
-        </div>
-      ));
-    }}
-  </Query>
-);
+const ExchangeRates = () => {
+  const selectedItems: String[] = useReactiveVar(selectedCurrenciesVar);
+  const { error, data, loading } = useQuery(ratesGQL, { fetchPolicy: "network-only" });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  const toggleSelectedCurrency = (currency) => {
+    let newSelectedItems: String[] = [...selectedItems, currency];
+    if (selectedItems.find(i => i === currency))
+      newSelectedItems = newSelectedItems.filter(i => i !== currency);
+
+    selectedCurrenciesVar(newSelectedItems);
+  }
+
+  return data.rates.map(({ currency, rate }) => (
+    <div key={currency}>
+      <input type="checkbox" id="currency" name="currency" onChange={() => toggleSelectedCurrency(currency)} />
+      <label htmlFor="currency">{`${currency}: ${rate}`}</label>
+    </div>
+  ));
+};
 
 createClient().then(client => {
   const App = () => (
