@@ -55,19 +55,32 @@ const ExchangeRates = () => {
   if (error) return <p>Error :(</p>;
 
   const toggleSelectedCurrency = (currency) => {
-    let newSelectedItems: String[] = [...selectedItems, currency];
-    if (selectedItems.find(i => i === currency))
-      newSelectedItems = newSelectedItems.filter(i => i !== currency);
+    let newSelectedItems: String[] = [];
+
+    if (selectedItems.some(i => i === currency))
+      newSelectedItems = selectedItems.filter(i => i !== currency);
+    else
+      newSelectedItems = [...selectedItems, currency]
 
     selectedCurrenciesVar(newSelectedItems);
   }
 
-  return data.rates.map(({ currency, rate }) => (
-    <div key={currency}>
-      <input type="checkbox" id="currency" name="currency" onChange={() => toggleSelectedCurrency(currency)} />
-      <label htmlFor="currency">{`${currency}: ${rate}`}</label>
-    </div>
-  ));
+  return data.rates.map(({ currency, rate }) => {
+    const isCurrencySelected = selectedItems.some(i => i === currency);
+
+    return (
+      <div key={currency}>
+        <label>
+          <input
+            checked={isCurrencySelected}
+            type="checkbox" id="currency" name="currency"
+            onChange={() => toggleSelectedCurrency(currency)}
+          />
+          {`${currency}: ${rate}`}
+        </label>
+      </div>
+    )
+  });
 };
 
 createClient().then(client => {
