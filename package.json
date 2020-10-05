@@ -79,7 +79,7 @@
     "apollo-cache-hermes": "0.8.14",
     "browserify": "16.5.0",
     "bundlesize": "0.18.0",
-    "codecov": "3.7.1",
+    "codecov": "3.8.0",
     "danger": "7.1.4",
     "graphql": "15.3.0",
     "husky": "3.0.9",
