@@ -9,7 +9,7 @@ import { PersistentStorage } from "apollo3-cache-persist/types";
 
 let persistor;
 
-class LocalStoragePersistedStorage implements PersistentStorage<string> {
+class LocalStoragePersistedStorage implements PersistentStorage {
   getItem(key: string): string | null {
     return localStorage.getItem(key);
   }

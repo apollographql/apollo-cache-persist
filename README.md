@@ -79,7 +79,7 @@ persistCache({
   cache: ApolloCache<TSerialized>,
 
   // Reference to your storage provider.
-  storage: PersistentStorage<TPersisted>,
+  storage: PersistentStorage,
 
   /**
    * Trigger options.

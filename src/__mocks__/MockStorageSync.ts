@@ -1,13 +1,13 @@
 import { PersistentStorage } from '../types';
 
-export default class MockStorageSync<T> implements PersistentStorage<T> {
+export default class MockStorageSync implements PersistentStorage {
   storage: Map<string, string>;
 
   constructor() {
     this.storage = new Map();
   }
 
-  setItem(key: string, data): void {
+  setItem(key: string, data: string): void {
     this.storage.set(key, data);
   }
 
