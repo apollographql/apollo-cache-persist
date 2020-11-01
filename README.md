@@ -1,4 +1,4 @@
-# apollo3-cache-persist [![npm version](https://badge.fury.io/js/apollo-cache-persist3.svg)](https://badge.fury.io/js/apollo3-cache-persist3) [![build status](https://travis-ci.org/apollographql/apollo3-cache-persist.svg3?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist3)
+# apollo3-cache-persist [![npm version](https://badge.fury.io/js/apollo-cache-persist3.svg)](https://badge.fury.io/js/apollo3-cache-persist3) [![build status](https://travis-ci.org/apollographql/apollo3-cache-persist3.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist3)
 
 Simple persistence for all Apollo Client 3.0 cache implementations, including
 [`InMemoryCache`][0] and [`Hermes`][1].
