@@ -11,7 +11,7 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, Text } from 'react-native';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { persistCache } from 'apollo3-cache-persist';
+import { persistCache, AsyncStorageWrapper } from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import { gql } from '@apollo/client';
 
@@ -26,7 +26,7 @@ const App = () => {
       const cache = new InMemoryCache();
       await persistCache({
         cache,
-        storage: AsyncStorage,
+        storage: new AsyncStorageWrapper(AsyncStorage),
       });
       const client = new ApolloClient({
         uri: 'https://48p1r2roz4.sse.codesandbox.io',

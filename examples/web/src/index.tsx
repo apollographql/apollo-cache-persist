@@ -4,29 +4,14 @@ import { render } from 'react-dom';
 import { ApolloProvider, ApolloClient, useQuery, makeVar, useReactiveVar } from '@apollo/client';
 import gql from 'graphql-tag';
 import { InMemoryCache } from '@apollo/client/core';
-import { CachePersistor } from 'apollo3-cache-persist';
-import { PersistentStorage } from "apollo3-cache-persist/types";
+import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 let persistor;
-
-class LocalStoragePersistedStorage implements PersistentStorage {
-  getItem(key: string): string | null {
-    return localStorage.getItem(key);
-  }
-
-  removeItem(key: string) {
-    localStorage.removeItem(key);
-  }
-
-  setItem(key: string, data: any) {
-    localStorage.setItem(key, data);
-  }
-}
 
 async function createClient() {
   const cache = new InMemoryCache({});
   persistor = new CachePersistor({
-    storage: new LocalStoragePersistedStorage(),
+    storage: new LocalStorageWrapper(window.localStorage),
     cache,
   });
   await persistor.restore();
