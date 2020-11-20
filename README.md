@@ -24,14 +24,14 @@ short debounce interval).
 ```js
 import AsyncStorage from '@react-native-community/async-storage';
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCache } from 'apollo3-cache-persist';
+import { persistCache, AsyncStorageWrapper } from 'apollo3-cache-persist';
 
 const cache = new InMemoryCache({...});
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
 await persistCache({
   cache,
-  storage: AsyncStorage,
+  storage: new AsyncStorageWrapper(AsyncStorage),
 });
 
 // Continue setting up Apollo as usual.
@@ -46,14 +46,14 @@ const client = new ApolloClient({
 
 ```js
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCache } from 'apollo3-cache-persist';
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 const cache = new InMemoryCache({...});
 
 // await before instantiating ApolloClient, else queries might run before the cache is persisted
 await persistCache({
   cache,
-  storage: window.localStorage,
+  storage: new LocalStorageWrapper(window.localStorage),
 });
 
 // Continue setting up Apollo as usual.
@@ -78,7 +78,7 @@ persistCache({
   // Reference to your Apollo cache.
   cache: ApolloCache<TSerialized>,
 
-  // Reference to your storage provider.
+  // Reference to your storage provider wrapped in a storage wrapper implementing PersistentStorage interface.
   storage: PersistentStorage,
 
   /**
@@ -183,14 +183,16 @@ const trigger = persist => {
 
 ## Storage Providers
 
-The following storage providers work 'out of the box', with no additional
-dependencies:
+`apollo3-cache-persist` provides wrappers for the following storage providers, with no additional dependencies:
 
-- `AsyncStorage` on React Native
-- `window.localStorage` on web
-- `window.sessionStorage` on web
-- [`localForage`](https://github.com/localForage/localForage) on web
-- [`Ionic storage`](https://ionicframework.com/docs/building/storage) on web and mobile
+| Storage provider | Platform	| Wrapper class	|
+|---	|---	|---	|
+| [`AsyncStorage`](https://github.com/react-native-async-storage/async-storage)*	| React Native	| `AsyncStorageWrapper`	|
+| `window.localStorage`	| web	| `LocalStorageWrapper`	|
+| `window.sessionStorage`	| web	| `SessionStorageWrapper`	|
+| [`localForage`](https://github.com/localForage/localForage)	| web	| `LocalForageWrapper`	|
+| [`Ionic storage`](https://ionicframework.com/docs/building/storage)	| web and mobile	| `IonicStorageWrapper`	|
+| [`MMKV Storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage)	| React Native	| `MMKVStorageWrapper`	|
 
 `apollo3-cache-persist` uses the same storage provider API as
 [`redux-persist`](https://github.com/rt2zz/redux-persist), so you can also make
@@ -202,12 +204,20 @@ including:
 - [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
 - [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage)
 
-If you're using React Native and set a `maxSize` in excess of 2 MB, you must use
-a filesystem-based storage provider, such as
-[`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
-`AsyncStorage`
+*`AsyncStorage`
 [does not support](https://github.com/facebook/react-native/issues/12529#issuecomment-345326643)
-individual values in excess of 2 MB on Android.
+individual values in excess of 2 MB on Android. If you set `maxSize` to more than 2 MB or to `false`, 
+use a different storage provider, such as
+[`react-native-mmkv-storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage) or 
+[`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
+
+### Using other storage providers
+
+`apollo3-cache-persist` supports stable versions of storage providers mentioned above. 
+If you want to use other storage provider, or there's a breaking change in `next` version of supported provider,
+you can create your own wrapper. For an example of a simple wrapper have a look at [`AsyncStorageWrapper`](./src/storageWrappers/AsyncStorageWrapper.ts). 
+
+If you found that stable version of supported provider is no-longer compatible, please [submit an issue or a Pull Request](https://github.com/apollographql/apollo-cache-persist/blob/master/CONTRIBUTING.md#issues).
 
 ## Common Questions
 
@@ -242,7 +252,7 @@ examples from other frameworks are welcome.
 import React, { Component } from 'react';
 import { ApolloProvider } from '@apollo/client/react';
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCache } from 'apollo3-cache-persist';
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 class App extends Component {
   state = {
@@ -264,7 +274,7 @@ class App extends Component {
       // See above for additional options, including other storage providers.
       await persistCache({
         cache,
-        storage: window.localStorage,
+        storage: new LocalStorageWrapper(window.localStorage),
       });
     } catch (error) {
       console.error('Error restoring Apollo cache', error);
@@ -299,7 +309,7 @@ import React,{ useState, useEffect } from 'react';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from '@apollo/client/core';
 import { ApolloProvider } from "@apollo/react-hooks"
-import { persistCache } from 'apollo3-cache-persist';
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 const App: React.FC = () => {
   const [client, setClient] = useState(undefined);
@@ -318,7 +328,7 @@ const App: React.FC = () => {
     // See above for additional options, including other storage providers.
     persistCache({
       cache,
-      storage: window.localStorage
+      storage: new LocalStorageWrapper(window.localStorage)
     }).then(() => {
       client.onResetStore(async () => cache.writeData({ data: initData }));
       setClient(client);
@@ -344,13 +354,13 @@ apollo-cache-persist offers alternative `persistCacheSync` method that should be
 
 ```js
 import { InMemoryCache } from '@apollo/client/core';
-import { persistCacheSync } from 'apollo3-cache-persist';
+import { persistCacheSync, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 const cache = new InMemoryCache({...});
 
 persistCacheSync({
     cache,
-    storage: window.localStorage,
+    storage: new LocalStorageWrapper(window.localStorage),
 });
 ```
 
@@ -401,7 +411,7 @@ Here's an example of how this could look:
 ```js
 import AsyncStorage from '@react-native-community/async-storage';
 import { InMemoryCache } from '@apollo/client/core';
-import { CachePersistor } from 'apollo3-cache-persist';
+import { CachePersistor, AsyncStorageWrapper } from 'apollo3-cache-persist';
 
 const SCHEMA_VERSION = '3'; // Must be a string.
 const SCHEMA_VERSION_KEY = 'apollo-schema-version';
@@ -411,7 +421,7 @@ async function setupApollo() {
 
   const persistor = new CachePersistor({
     cache,
-    storage: AsyncStorage,
+    storage: new AsyncStorageWrapper(AsyncStorage),
   });
 
   // Read the current schema version from AsyncStorage.
