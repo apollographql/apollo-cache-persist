@@ -1,6 +1,6 @@
 import { PersistentStorage } from '../types';
 
-export default class LocalStorageWrapper implements PersistentStorage {
+export class LocalStorageWrapper implements PersistentStorage {
   // Actual type definition: https://github.com/microsoft/TypeScript/blob/master/lib/lib.dom.d.ts#L15286
   private storage;
 
