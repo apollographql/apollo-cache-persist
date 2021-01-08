@@ -22,7 +22,7 @@ short debounce interval).
 #### React Native
 
 ```js
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { InMemoryCache } from '@apollo/client/core';
 import { persistCache, AsyncStorageWrapper } from 'apollo3-cache-persist';
 
@@ -41,6 +41,8 @@ const client = new ApolloClient({
   ...
 });
 ```
+
+See a complete example in the [React Native example](./examples/react-native/App.tsx).
 
 #### Web
 
@@ -63,6 +65,8 @@ const client = new ApolloClient({
   ...
 });
 ```
+
+See a complete example in the [web example](./examples/web/src/index.tsx).
 
 ### Additional Options
 
@@ -223,7 +227,7 @@ If you found that stable version of supported provider is no-longer compatible, 
 
 #### Why is the 'background' trigger only available for React Native?
 
-Quite simply, because mobile apps are different than web apps.
+Quite simply, because mobile apps are different from web apps.
 
 Mobile apps are rarely terminated before transitioning to the background. This
 is helped by the fact that an app is moved to the background whenever the user
@@ -246,102 +250,44 @@ This library, like Apollo Client, is framework agnostic; however, since many
 people have asked, here's an example of how to handle this in React. PRs with
 examples from other frameworks are welcome.
 
-##### React
-
-```js
-import React, { Component } from 'react';
-import { ApolloProvider } from '@apollo/client/react';
-import { InMemoryCache } from '@apollo/client/core';
-import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
-
-class App extends Component {
-  state = {
-    client: null,
-    loaded: false,
-  };
-
-  async componentDidMount() {
-    const cache = new InMemoryCache({...});
-
-    // Setup your Apollo Link, and any other Apollo packages here.
-
-    const client = new ApolloClient({
-      cache,
-      ...
-    });
-
-    try {
-      // See above for additional options, including other storage providers.
-      await persistCache({
-        cache,
-        storage: new LocalStorageWrapper(window.localStorage),
-      });
-    } catch (error) {
-      console.error('Error restoring Apollo cache', error);
-    }
-
-    this.setState({
-      client,
-      loaded: true,
-    });
-  }
-
-  render() {
-    const { client, loaded } = this.state;
-
-    if (!loaded) {
-      return <div>Loading...</div>;
-    }
-
-    return (
-      <ApolloProvider client={client}>
-        {/* the rest of your app goes here */}
-      </ApolloProvider>
-    );
-  }
-}
-```
+You can find all examples in the [examples](./examples/) directory.
 
 ##### React Using Hooks
 
 ```js
-import React,{ useState, useEffect } from 'react';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from '@apollo/client/core';
-import { ApolloProvider } from "@apollo/react-hooks"
-import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
+import React, {useEffect, useState} from 'react';
 
-const App: React.FC = () => {
-  const [client, setClient] = useState(undefined);
-  useEffect(() => {
-    const cache = new InMemoryCache({...});
+import {ApolloClient, ApolloProvider,} from '@apollo/client';
+import {InMemoryCache} from '@apollo/client/core';
+import {LocalStorageWrapper, persistCache} from 'apollo3-cache-persist';
 
-    const client = new ApolloClient({
-      cache,
-      ...
-    });
-    const initData = {
-      {/* your initial data */}
-    };
-    cache.writeData({ data: initData })
+const App = () => {
+    const [client, setClient] = useState();
 
-    // See above for additional options, including other storage providers.
-    persistCache({
-      cache,
-      storage: new LocalStorageWrapper(window.localStorage)
-    }).then(() => {
-      client.onResetStore(async () => cache.writeData({ data: initData }));
-      setClient(client);
-    });
-    return () => {};
-  }, []);
-  if (client === undefined) return <div>Loading...</div>;
-  return (
-    <ApolloProvider client={client}>
-      {/* the rest of your app goes here */}
-    </ApolloProvider>
-  );
+    useEffect(() => {
+        async function init() {
+            const cache = new InMemoryCache();
+            await persistCache({
+                cache,
+                storage: new LocalStorageWrapper(window.localStorage),
+            })
+            setClient(
+                new ApolloClient({
+                    cache,
+                }),
+            );
+        }
+
+        init().catch(console.error);
+    }, []);
+
+    return (
+        <ApolloProvider client={client}>
+            {/* the rest of your app goes here */}
+        </ApolloProvider>
+    );
 };
+
 export default App;
 ```
 
