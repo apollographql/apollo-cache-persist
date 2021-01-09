@@ -8,15 +8,15 @@
     "apollo",
     "apollo-client"
   ],
-  "homepage": "https://codesandbox.io/s/new",
   "main": "src/index.tsx",
   "dependencies": {
+    "@apollo/client": "3.3.6",
+    "@types/react": "^17.0.0",
     "apollo3-cache-persist": "../../lib",
-    "@apollo/client": "3.2.1",
     "graphql": "latest",
     "graphql-tag": "latest",
-    "react": "16.13.0",
-    "react-dom": "16.13.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-scripts": "3.4.3"
   },
   "devDependencies": {},

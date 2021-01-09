@@ -10,19 +10,19 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.1",
-    "@react-native-community/async-storage": "^1.12.0",
-    "apollo3-cache-persist": "^0.5.0",
-    "graphql": "^15.3.0",
+    "@apollo/client": "^3.3.6",
+    "@react-native-async-storage/async-storage": "^1.13.2",
+    "apollo3-cache-persist": "^0.9.1",
+    "graphql": "^15.4.0",
     "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react-native": "0.63.4"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^25.2.3",
-    "@types/react-native": "^0.63.2",
+    "@types/react-native": "^0.63.43",
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",

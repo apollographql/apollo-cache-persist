@@ -8,81 +8,155 @@
  * @format
  */
 
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, Text } from 'react-native';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { persistCache, AsyncStorageWrapper } from 'apollo3-cache-persist';
-import AsyncStorage from '@react-native-community/async-storage';
-import { gql } from '@apollo/client';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  Button,
+  DevSettings,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {
+  ApolloClient,
+  ApolloProvider,
+  gql,
+  InMemoryCache,
+  NormalizedCacheObject,
+  useQuery,
+} from '@apollo/client';
+import {AsyncStorageWrapper, CachePersistor} from 'apollo3-cache-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+const launchesGQL = gql`
+  query LaunchesQuery {
+    launches(limit: 10) {
+      id
+      mission_name
+      details
+      launch_date_utc
+    }
+  }
+`;
+
+type LaunchesQuery = {
+  launches: {
+    id: string;
+    mission_name: string;
+    details: string;
+    launch_date_utc: string;
+  }[];
+};
+
+const Launches = () => {
+  const {error, data, loading} = useQuery<LaunchesQuery>(launchesGQL, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  if (!data) {
+    // we don't have data yet
+
+    if (loading) {
+      // but we're loading some
+      return <Text style={styles.heading}>Loading initial data...</Text>;
+    }
+    if (error) {
+      // and we have an error
+      return <Text style={styles.heading}>Error loading data :(</Text>;
+    }
+    return <Text style={styles.heading}>Unknown error :(</Text>;
+  }
+
+  return (
+    <ScrollView>
+      {loading ? (
+        <Text style={styles.heading}>Loading fresh data...</Text>
+      ) : null}
+      {data.launches.map(launch => (
+        <View key={launch.id} style={styles.item}>
+          <Text style={styles.mission}>{launch.mission_name}</Text>
+          <Text style={styles.launchDate}>
+            {new Date(launch.launch_date_utc).toLocaleString()}
+          </Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
 
 const App = () => {
-  const [currencies, setCurrencies] = useState([]);
-  const [error, setError] = useState('');
+  const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>();
+  const [persistor, setPersistor] = useState<
+    CachePersistor<NormalizedCacheObject>
+  >();
 
   useEffect(() => {
     async function init() {
       const cache = new InMemoryCache();
-      await persistCache({
+      let newPersistor = new CachePersistor({
         cache,
         storage: new AsyncStorageWrapper(AsyncStorage),
+        debug: __DEV__,
+        trigger: 'write',
       });
-      const client = new ApolloClient({
-        uri: 'https://48p1r2roz4.sse.codesandbox.io',
-        cache: new InMemoryCache(),
-      });
-      try {
-        const { data } = await client.query({
-          query: gql`
-            query GetRates {
-              rates(currency: "USD") {
-                currency
-              }
-            }
-          `,
-        });
-
-        //@ts-ignore type this
-        setCurrencies(data.rates);
-      } catch (e) {
-        setError(e.message);
-      }
+      await newPersistor.restore();
+      setPersistor(newPersistor);
+      setClient(
+        new ApolloClient({
+          uri: 'https://api.spacex.land/graphql',
+          cache,
+        }),
+      );
     }
+
     init();
   }, []);
 
+  const clearCache = useCallback(() => {
+    if (!persistor) {
+      return;
+    }
+    persistor.purge();
+  }, [persistor]);
+
+  const reload = useCallback(() => {
+    DevSettings.reload();
+  }, []);
+
+  if (!client) {
+    return <Text style={styles.heading}>Initializing app...</Text>;
+  }
+
   return (
-    <>
-      <SafeAreaView>
-        {error ? (
-          <Text style={{ padding: 16, fontWeight: 'bold' }}>{error}</Text>
-        ) : (
-            <>
-              <Text style={{ padding: 16, fontWeight: 'bold' }}>
-                List of currencies
-            </Text>
-              <ScrollView
-                contentInsetAdjustmentBehavior="automatic"
-                style={styles.scrollView}>
-                {currencies.map((item: any, index: any) => (
-                  //@ts-ignore type it
-                  <Text key={item.currency + String(index)} style={{ padding: 16 }}>
-                    {item.currency}
-                  </Text>
-                ))}
-              </ScrollView>
-            </>
-          )}
+    <ApolloProvider client={client}>
+      <SafeAreaView style={{...StyleSheet.absoluteFillObject}}>
+        <View style={styles.content}>
+          <Launches />
+        </View>
+        <View style={styles.controls}>
+          <Button title={'Clear cache'} onPress={clearCache} />
+          <Button title={'Reload app (requires dev mode)'} onPress={reload} />
+        </View>
       </SafeAreaView>
-    </>
+    </ApolloProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  heading: {
+    padding: 16,
+    fontWeight: 'bold',
   },
+  item: {
+    padding: 16,
+  },
+  mission: {},
+  launchDate: {
+    fontSize: 12,
+  },
+  content: {flex: 1},
+  controls: {flex: 0},
 });
 
 export default App;

@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}
+.controls {
+    flex: 1;
+    padding: 20px;
+}
+.item {
+    padding: 16px;
+}
