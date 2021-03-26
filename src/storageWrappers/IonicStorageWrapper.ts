@@ -1,6 +1,6 @@
 import { PersistentStorage } from '../types';
 
-export class IonicStorageWrapper implements PersistentStorage {
+export class IonicStorageWrapper implements PersistentStorage<string> {
   // Actual type definition: https://github.com/ionic-team/ionic-storage/blob/main/src/storage.ts#L102
   private storage;
 

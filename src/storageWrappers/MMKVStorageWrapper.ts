@@ -11,7 +11,7 @@ import { PersistentStorage } from '../types';
  * });
  *
  */
-export class MMKVStorageWrapper implements PersistentStorage {
+export class MMKVStorageWrapper implements PersistentStorage<string> {
   // Actual type definition: https://github.com/ammarahm-ed/react-native-mmkv-storage/blob/master/index.d.ts#L27
   private storage;
 

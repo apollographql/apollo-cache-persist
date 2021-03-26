@@ -1,6 +1,6 @@
 import { PersistentStorage } from '../types';
 
-export class LocalForageWrapper implements PersistentStorage {
+export class LocalForageWrapper implements PersistentStorage<string | object> {
   // Actual type definition: https://github.com/localForage/localForage/blob/master/typings/localforage.d.ts#L17
   private storage;
 
