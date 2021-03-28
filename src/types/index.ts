@@ -10,15 +10,15 @@ export type TriggerFunction = (persist: () => void) => TriggerUninstallFunction;
 
 export type PersistedData<T> = T | string | null;
 
-export interface PersistentStorage {
-  getItem: (key: string) => string | null | Promise<string | null>;
-  setItem: (key: string, value: string) => void | Promise<void>;
-  removeItem: (key: string) => void | Promise<void>;
+export interface PersistentStorage<T> {
+  getItem: (key: string) => Promise<T | null> | T | null;
+  setItem: (key: string, value: T) => Promise<T> | Promise<void> | void | T;
+  removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
 
 export interface ApolloPersistOptions<TSerialized> {
   cache: ApolloCache<TSerialized>;
-  storage: PersistentStorage;
+  storage: PersistentStorage<PersistedData<TSerialized>>;
   trigger?: 'write' | 'background' | TriggerFunction | false;
   debounce?: number;
   key?: string;

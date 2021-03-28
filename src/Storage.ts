@@ -5,7 +5,7 @@ import {
 } from './types';
 
 export default class Storage<T> {
-  storage: PersistentStorage;
+  storage: PersistentStorage<PersistedData<T>>;
   key: string;
 
   constructor(options: ApolloPersistOptions<T>) {
@@ -20,7 +20,7 @@ export default class Storage<T> {
   }
 
   async write(data: PersistedData<T>): Promise<void> {
-    await this.storage.setItem(this.key, data.toString());
+    await this.storage.setItem(this.key, data);
   }
 
   async purge(): Promise<void> {

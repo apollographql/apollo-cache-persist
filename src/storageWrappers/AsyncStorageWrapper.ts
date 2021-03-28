@@ -12,7 +12,7 @@ import { PersistentStorage } from '../types';
  * });
  *
  */
-export class AsyncStorageWrapper implements PersistentStorage {
+export class AsyncStorageWrapper implements PersistentStorage<string> {
   // Actual type definition: https://github.com/react-native-async-storage/async-storage/blob/master/types/index.d.ts
   private storage;
 
