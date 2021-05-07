@@ -76,7 +76,7 @@
     "@types/jest": "24.9.1",
     "@types/node": "12.11.5",
     "@types/react-native": "0.63.37",
-    "apollo-cache-hermes": "0.8.14",
+    "apollo-cache-hermes": "0.8.16",
     "browserify": "16.5.0",
     "bundlesize": "0.18.0",
     "codecov": "3.8.0",

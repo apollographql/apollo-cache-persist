@@ -668,10 +668,10 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apollo-cache-hermes@0.8.14:
-  version "0.8.14"
-  resolved "https://registry.yarnpkg.com/apollo-cache-hermes/-/apollo-cache-hermes-0.8.14.tgz#2ee8cb7402576a73f961226ef24bc2c4ce70fcc6"
-  integrity sha512-dd5IGmL/Tzl/GYh9JjD3BxCv/bIt7iCf5dDGCYG1lQw/O53JhjqmP24qtIDey2pCkOZm7LhcQdr5uu2DmwuEGA==
+apollo-cache-hermes@0.8.16:
+  version "0.8.16"
+  resolved "https://registry.yarnpkg.com/apollo-cache-hermes/-/apollo-cache-hermes-0.8.16.tgz#6fbd566b9c560306317d6ca13cd6505a3dc6ff53"
+  integrity sha512-7m5Z4ggAyKSjmxWKVXCw2711WtgFRvUpFLyf4BGf7NMuE0aQcIRQJAEPCIDQ8+M4ej18RayxJk4r7jmOW2LFmQ==
   dependencies:
     "@apollo/client" "^3.1.2"
     "@wry/equality" "^0.2.0"
