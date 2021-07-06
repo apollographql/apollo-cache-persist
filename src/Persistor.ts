@@ -2,7 +2,7 @@ import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
 
-import { ApolloPersistOptions } from './types';
+import { ApolloPersistOptions, PersistenceMapperFunction } from './types';
 
 export interface PersistorConfig<T> {
   log: Log<T>;
@@ -16,17 +16,25 @@ export default class Persistor<T> {
   storage: Storage<T>;
   maxSize?: number;
   paused: boolean;
+  persistenceMapper?: PersistenceMapperFunction;
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
     options: ApolloPersistOptions<T>,
   ) {
-    const { maxSize = 1024 * 1024 } = options;
+    const {
+      maxSize = 1024 * 1024,
+      persistenceMapper,
+    } = options;
 
     this.log = log;
     this.cache = cache;
     this.storage = storage;
     this.paused = false;
+
+    if (persistenceMapper) {
+      this.persistenceMapper = persistenceMapper;
+    }
 
     if (maxSize) {
       this.maxSize = maxSize;
@@ -35,7 +43,11 @@ export default class Persistor<T> {
 
   async persist(): Promise<void> {
     try {
-      const data = this.cache.extract();
+      let data = this.cache.extract();
+
+      if (!this.paused && this.persistenceMapper) {
+        data = await this.persistenceMapper(data);
+      }
 
       if (
         this.maxSize != null &&

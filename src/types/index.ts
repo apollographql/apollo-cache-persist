@@ -8,6 +8,8 @@ export type TriggerUninstallFunction = () => void;
 
 export type TriggerFunction = (persist: () => void) => TriggerUninstallFunction;
 
+export type PersistenceMapperFunction = (data: any) => Promise<any>;
+
 export type PersistedData<T> = T | string | null;
 
 export interface PersistentStorage<T> {
@@ -24,5 +26,6 @@ export interface ApolloPersistOptions<TSerialized> {
   key?: string;
   serialize?: boolean;
   maxSize?: number | false;
+  persistenceMapper?: PersistenceMapperFunction;
   debug?: boolean;
 }
