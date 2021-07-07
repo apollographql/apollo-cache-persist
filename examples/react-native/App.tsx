@@ -25,68 +25,18 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
   useQuery,
+  createHttpLink,
 } from '@apollo/client';
 import {AsyncStorageWrapper, CachePersistor} from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const launchesGQL = gql`
-  query LaunchesQuery {
-    launches(limit: 10) {
-      id
-      mission_name
-      details
-      launch_date_utc
-    }
-  }
-`;
-
-type LaunchesQuery = {
-  launches: {
-    id: string;
-    mission_name: string;
-    details: string;
-    launch_date_utc: string;
-  }[];
-};
-
-const Launches = () => {
-  const {error, data, loading} = useQuery<LaunchesQuery>(launchesGQL, {
-    fetchPolicy: 'cache-and-network',
-  });
-
-  if (!data) {
-    // we don't have data yet
-
-    if (loading) {
-      // but we're loading some
-      return <Text style={styles.heading}>Loading initial data...</Text>;
-    }
-    if (error) {
-      // and we have an error
-      return <Text style={styles.heading}>Error loading data :(</Text>;
-    }
-    return <Text style={styles.heading}>Unknown error :(</Text>;
-  }
-
-  return (
-    <ScrollView>
-      {loading ? (
-        <Text style={styles.heading}>Loading fresh data...</Text>
-      ) : null}
-      {data.launches.map(launch => (
-        <View key={launch.id} style={styles.item}>
-          <Text style={styles.mission}>{launch.mission_name}</Text>
-          <Text style={styles.launchDate}>
-            {new Date(launch.launch_date_utc).toLocaleString()}
-          </Text>
-        </View>
-      ))}
-    </ScrollView>
-  );
-};
+import { Launches } from './src/Launches';
+import { Ships } from './src/Ships';
+import { persistenceMapper, createPersistLink } from './src/persistence';
 
 const App = () => {
   const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>();
+  const [display, setDisplay] = useState<number>(0);
   const [persistor, setPersistor] = useState<
     CachePersistor<NormalizedCacheObject>
   >();
@@ -99,12 +49,15 @@ const App = () => {
         storage: new AsyncStorageWrapper(AsyncStorage),
         debug: __DEV__,
         trigger: 'write',
+        persistenceMapper,
       });
       await newPersistor.restore();
       setPersistor(newPersistor);
+      const persistLink = createPersistLink();
+      const httpLink = createHttpLink({ uri: 'https://api.spacex.land/graphql' });
       setClient(
         new ApolloClient({
-          uri: 'https://api.spacex.land/graphql',
+          link: persistLink.concat(httpLink),
           cache,
         }),
       );
@@ -132,9 +85,10 @@ const App = () => {
     <ApolloProvider client={client}>
       <SafeAreaView style={{...StyleSheet.absoluteFillObject}}>
         <View style={styles.content}>
-          <Launches />
+          {display % 2 === 0 ? <Launches /> : <Ships />}
         </View>
         <View style={styles.controls}>
+          <Button title={`Show ${display  % 2 ? 'Launches' : 'Ships' }`} onPress={() => setDisplay(display + 1)} />
           <Button title={'Clear cache'} onPress={clearCache} />
           <Button title={'Reload app (requires dev mode)'} onPress={reload} />
         </View>
@@ -144,17 +98,6 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  heading: {
-    padding: 16,
-    fontWeight: 'bold',
-  },
-  item: {
-    padding: 16,
-  },
-  mission: {},
-  launchDate: {
-    fontSize: 12,
-  },
   content: {flex: 1},
   controls: {flex: 0},
 });
