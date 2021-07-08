@@ -170,5 +170,58 @@ describe('persistCache', () => {
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
     });
     xit('setting the trigger to background persists in the background', () => {});
+    it('passing a persistence mapper properly maps the persisted cache', async () => {
+      const storage = new MockStorage();
+      const cache = new InMemoryCache();
+      const persistenceMapper = async (data: any) => {
+        const parsed = JSON.parse(data);
+        delete parsed['Post:1'];
+        delete parsed['ROOT_QUERY']['posts'];
+        return JSON.stringify(parsed);
+      };
+
+      const mappableOperation = gql`
+        {
+          user(id: 1) {
+            id
+            first
+            last
+          }
+          posts {
+            id
+            title
+          }
+        }
+      `;
+
+      const mappableResult = { data: {
+        user: {
+          id: 1,
+          first: 'Jane',
+          last: 'Doe',
+          __typename: 'User',
+        },
+        posts: [
+          {
+            id: 1,
+            title: 'Apollo is awesome',
+            __typename: 'Post',
+          },
+        ],
+      }};
+
+      await simulateWrite({
+        result: mappableResult,
+        operation: mappableOperation,
+        persistOptions: { storage, persistenceMapper },
+      });
+
+      jest.runTimersToTime(1001);
+      // without this line, this test won't pass.
+      // see https://github.com/facebook/jest/issues/2157
+      await Promise.resolve();
+      const received = await storage.getItem('apollo-cache-persist');
+      expect(received).toMatchSnapshot();
+    });
   });
 });
