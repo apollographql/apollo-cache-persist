@@ -1,17 +1,23 @@
 export const persistenceMapper = (data: any) => {
   const parsed = JSON.parse(data);
 
-  const mapped = {};
-  const persistEntities = [];
+  const mapped: any = {};
+  const persistEntities: any[] = [];
   const rootQuery = parsed['ROOT_QUERY'];
 
-  mapped['ROOT_QUERY'] = Object.keys(rootQuery).reduce((obj, key) => {
+  mapped['ROOT_QUERY'] = Object.keys(rootQuery).reduce((obj: any, key: string) => {
     if (key === '__typename') return obj;
 
     if (/@persist$/.test(key)) {
       obj[key] = rootQuery[key];
-      const entities = rootQuery[key].map(item => item.__ref);
-      persistEntities.push(...entities);
+
+      if (Array.isArray(rootQuery[key])) {
+        const entities = rootQuery[key].map((item: any) => item.__ref);
+        persistEntities.push(...entities);
+      } else {
+        const entity = rootQuery[key].__ref;
+        persistEntities.push(entity);
+      }
     }
 
     return obj;
