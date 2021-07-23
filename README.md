@@ -157,6 +157,22 @@ persistor.getLogs(print);
 persistor.getSize();
 ```
 
+Additionally, you can control what portions of your cache are persisted by passing
+a `persistenceMapper` function as an optional paramemter to the `CachePersistor`. E.g.
+
+```ts
+const persistor = new CachePersistor({
+  ...
+  persistenceMapper: async (data: any) => {
+    // filter your cached data and queries
+    return filteredData;
+  },
+})
+```
+
+Take a look at the [examples](./examples/react-native/src/utils/persistence/persistenceMapper.ts)
+and [it's corresponding documentation](./examples/react-native/src/utils/persistence/README.md)
+
 ### Custom Triggers
 
 For control over persistence timing, provide a function to the `trigger` option.
@@ -210,16 +226,16 @@ including:
 
 *`AsyncStorage`
 [does not support](https://github.com/facebook/react-native/issues/12529#issuecomment-345326643)
-individual values in excess of 2 MB on Android. If you set `maxSize` to more than 2 MB or to `false`, 
+individual values in excess of 2 MB on Android. If you set `maxSize` to more than 2 MB or to `false`,
 use a different storage provider, such as
-[`react-native-mmkv-storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage) or 
+[`react-native-mmkv-storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage) or
 [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage).
 
 ### Using other storage providers
 
-`apollo3-cache-persist` supports stable versions of storage providers mentioned above. 
+`apollo3-cache-persist` supports stable versions of storage providers mentioned above.
 If you want to use other storage provider, or there's a breaking change in `next` version of supported provider,
-you can create your own wrapper. For an example of a simple wrapper have a look at [`AsyncStorageWrapper`](./src/storageWrappers/AsyncStorageWrapper.ts). 
+you can create your own wrapper. For an example of a simple wrapper have a look at [`AsyncStorageWrapper`](./src/storageWrappers/AsyncStorageWrapper.ts).
 
 If you found that stable version of supported provider is no-longer compatible, please [submit an issue or a Pull Request](https://github.com/apollographql/apollo-cache-persist/blob/master/CONTRIBUTING.md#issues).
 
@@ -280,7 +296,7 @@ const App = () => {
 
         init().catch(console.error);
     }, []);
-    
+
     if (!client) {
       return <h2>Initializing app...</h2>;
     }
@@ -318,15 +334,12 @@ persistCacheSync({
 
 #### I need to ensure certain data is not persisted. How do I filter my cache?
 
-Unfortunately, this is not yet possible. You can only persist and restore the
-cache in its entirety.
+You can optionally pass a `persistenceMapper` function to the `CachePersistor` which
+will allow you to control what parts of the Apollo Client cache get persisted. Please
+refer to the [Advanced Usage of the `CachePersistor`](#using-cachepersistor) for more
+details.
 
-This library depends upon the `extract` and `persist` methods defined upon the
-cache interface in Apollo Client 2.0. The payload returned and consumed by these
-methods is opaque and differs from cache to cache. As such, we cannot reliably
-transform the output.
-
-Alternatives have been recommended in
+Other alternatives have been recommended in
 [#2](https://github.com/apollographql/apollo3-cache-persist/issues/2#issuecomment-350823835),
 including using logic in your UI to filter potentially-outdated information.
 Furthermore, the [`maxSize` option](#additional-options) and
@@ -340,11 +353,6 @@ the web, you can use a service worker; on React Native, there’s
 The background task would start with an empty cache, query the most important
 data from your GraphQL API, and then persist. This strategy has the added
 benefit of ensuring the cache is loaded with fresh data when your app launches.
-
-Finally, it's worth mentioning that the Apollo community is in the early stages
-of designing fine-grained cache controls, including the ability to utilize
-directives and metadata to control cache policy on a per-key basis, so the
-answer to this question will eventually change.
 
 #### I've had a breaking schema change. How do I migrate or purge my cache?
 
