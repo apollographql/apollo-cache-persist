@@ -27,6 +27,8 @@ export const useApolloClient = () => {
       const cache = new InMemoryCache();
       let newPersistor = new CachePersistor({
         cache,
+        // https://github.com/apollographql/apollo-cache-persist/issues/426
+        // @ts-ignore
         storage: new AsyncStorageWrapper(AsyncStorage),
         debug: __DEV__,
         trigger: 'write',

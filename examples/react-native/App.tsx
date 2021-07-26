@@ -33,7 +33,7 @@ const App = () => {
   }, []);
 
   if (!client) {
-    return <Text style={styles.heading}>Initializing app...</Text>;
+    return <Text>Initializing app...</Text>;
   }
 
   return (
