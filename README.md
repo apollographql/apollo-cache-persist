@@ -1,4 +1,4 @@
-# apollo3-cache-persist [![npm version](https://badge.fury.io/js/apollo3-cache-persist.svg)](https://badge.fury.io/js/apollo3-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist)
+# apollo3-cache-persist [![npm version](https://badge.fury.io/js/apollo3-cache-persist.svg)](https://badge.fury.io/js/apollo3-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Simple persistence for all Apollo Client 3.0 cache implementations, including
 [`InMemoryCache`][0] and [`Hermes`][1].
@@ -205,14 +205,14 @@ const trigger = persist => {
 
 `apollo3-cache-persist` provides wrappers for the following storage providers, with no additional dependencies:
 
-| Storage provider | Platform	| Wrapper class	|
-|---	|---	|---	|
-| [`AsyncStorage`](https://github.com/react-native-async-storage/async-storage)*	| React Native	| `AsyncStorageWrapper`	|
-| `window.localStorage`	| web	| `LocalStorageWrapper`	|
-| `window.sessionStorage`	| web	| `SessionStorageWrapper`	|
-| [`localForage`](https://github.com/localForage/localForage)	| web	| `LocalForageWrapper`	|
-| [`Ionic storage`](https://ionicframework.com/docs/building/storage)	| web and mobile	| `IonicStorageWrapper`	|
-| [`MMKV Storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage)	| React Native	| `MMKVStorageWrapper`	|
+| Storage provider                                                                | Platform       | Wrapper class           |
+| ------------------------------------------------------------------------------- | -------------- | ----------------------- |
+| [`AsyncStorage`](https://github.com/react-native-async-storage/async-storage)\* | React Native   | `AsyncStorageWrapper`   |
+| `window.localStorage`                                                           | web            | `LocalStorageWrapper`   |
+| `window.sessionStorage`                                                         | web            | `SessionStorageWrapper` |
+| [`localForage`](https://github.com/localForage/localForage)                     | web            | `LocalForageWrapper`    |
+| [`Ionic storage`](https://ionicframework.com/docs/building/storage)             | web and mobile | `IonicStorageWrapper`   |
+| [`MMKV Storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage)      | React Native   | `MMKVStorageWrapper`    |
 
 `apollo3-cache-persist` uses the same storage provider API as
 [`redux-persist`](https://github.com/rt2zz/redux-persist), so you can also make
@@ -224,7 +224,7 @@ including:
 - [`redux-persist-fs-storage`](https://github.com/leethree/redux-persist-fs-storage)
 - [`redux-persist-cookie-storage`](https://github.com/abersager/redux-persist-cookie-storage)
 
-*`AsyncStorage`
+\*`AsyncStorage`
 [does not support](https://github.com/facebook/react-native/issues/12529#issuecomment-345326643)
 individual values in excess of 2 MB on Android. If you set `maxSize` to more than 2 MB or to `false`,
 use a different storage provider, such as
@@ -271,41 +271,41 @@ You can find all examples in the [examples](./examples/) directory.
 ##### React Using Hooks
 
 ```js
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {ApolloClient, ApolloProvider,} from '@apollo/client';
-import {InMemoryCache} from '@apollo/client/core';
-import {LocalStorageWrapper, persistCache} from 'apollo3-cache-persist';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { InMemoryCache } from '@apollo/client/core';
+import { LocalStorageWrapper, persistCache } from 'apollo3-cache-persist';
 
 const App = () => {
-    const [client, setClient] = useState();
+  const [client, setClient] = useState();
 
-    useEffect(() => {
-        async function init() {
-            const cache = new InMemoryCache();
-            await persistCache({
-                cache,
-                storage: new LocalStorageWrapper(window.localStorage),
-            })
-            setClient(
-                new ApolloClient({
-                    cache,
-                }),
-            );
-        }
-
-        init().catch(console.error);
-    }, []);
-
-    if (!client) {
-      return <h2>Initializing app...</h2>;
+  useEffect(() => {
+    async function init() {
+      const cache = new InMemoryCache();
+      await persistCache({
+        cache,
+        storage: new LocalStorageWrapper(window.localStorage),
+      });
+      setClient(
+        new ApolloClient({
+          cache,
+        }),
+      );
     }
 
-    return (
-        <ApolloProvider client={client}>
-            {/* the rest of your app goes here */}
-        </ApolloProvider>
-    );
+    init().catch(console.error);
+  }, []);
+
+  if (!client) {
+    return <h2>Initializing app...</h2>;
+  }
+
+  return (
+    <ApolloProvider client={client}>
+      {/* the rest of your app goes here */}
+    </ApolloProvider>
+  );
 };
 
 export default App;
@@ -418,3 +418,24 @@ as
 In some cases like user logout we want to wipe out application cache.
 To do it effectively with Apollo Cache Persist please use `client.clearStore()` method that will
 eventually reset persistence layer.
+
+## Release
+
+The standard release command for this project is:
+
+```sh
+yarn version [--new-version <version> | --major | --minor | --patch]
+```
+
+This command will:
+
+1. Generate/update the Changelog
+1. Bump the package version
+1. Tag & pushing the commit
+1. Publish the package to NPM (assuming you are logged in to NPM and have the correct access)
+
+e.g.
+
+```sh
+yarn version --patch // 1.0.0 -> 1.0.1
+```

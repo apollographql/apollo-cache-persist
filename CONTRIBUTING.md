@@ -13,12 +13,12 @@ Oh, and if you haven't already, sign up for the
 
 Here are some ways to contribute to the project, from easiest to most difficult:
 
-* [Reporting bugs](#reporting-bugs)
-* [Improving the documentation](#improving-the-documentation)
-* [Responding to issues](#responding-to-issues)
-* [Small bug fixes](#small-bug-fixes)
-* [Suggesting features](#feature-requests)
-* [Big pull requests](#big-prs)
+- [Reporting bugs](#reporting-bugs)
+- [Improving the documentation](#improving-the-documentation)
+- [Responding to issues](#responding-to-issues)
+- [Small bug fixes](#small-bug-fixes)
+- [Suggesting features](#feature-requests)
+- [Big pull requests](#big-prs)
 
 ## Issues
 
@@ -105,12 +105,30 @@ in work that can’t be merged in.
 Once there is a consensus on the need for a new feature, proceed as listed below
 under “Big PRs”.
 
+## Coding Rules
+
+To ensure consistency throughout the source code, keep these rules in mind as you are working:
+
+- All features or bug fixes must be tested by one or more specs (unit-tests).
+- All public API methods must be documented.
+- All commits adhere to the commit message format.
+
+### Commit Message Format
+
+This project utilizes conventional changelog for changelog generation. As such
+it's important that your commit messages follow a specific format. The easiest
+way to do this is by using either `npx cz` or `yarn run commit` instead of
+the conventional `git commit -m "..."`.
+
+Either of the above methods will bring up a CLI dialog that will walk you
+through the process.
+
 ## Big PRs
 
 This includes:
 
-* Big bug fixes
-* New features
+- Big bug fixes
+- New features
 
 For significant changes to a repository, it’s important to settle on a design
 before starting on the implementation. This way, we can make sure that major
