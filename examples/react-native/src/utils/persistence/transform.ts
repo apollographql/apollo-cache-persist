@@ -1,108 +1,116 @@
 /**
  * Taken from https://github.com/TallerWebSolutions/apollo-cache-instorage
  */
-import { visit, BREAK } from 'graphql';
-import { checkDocument, cloneDeep } from '@apollo/client';
+import { visit } from 'graphql';
+import { checkDocument, cloneDeep } from '@apollo/client/utilities';
 
 const PERSIST_FIELD = {
   kind: 'Field',
   name: {
     kind: 'Name',
-    value: '__persist'
-  }
-}
+    value: '__persist',
+  },
+};
 
-const addPersistFieldToSelectionSet = (selectionSet, isRoot = false) => {
+const addPersistFieldToSelectionSet = (selectionSet: any, isRoot: boolean = false) => {
   if (selectionSet.selections) {
     if (!isRoot) {
-      const alreadyHasThisField = selectionSet.selections.some(selection => {
+      const alreadyHasThisField = selectionSet.selections.some((selection: any) => {
         return (
           selection.kind === 'Field' && selection.name.value === '__typename'
-        )
+        );
       })
 
       if (!alreadyHasThisField) {
-        selectionSet.selections.push(PERSIST_FIELD)
+        selectionSet.selections.push(PERSIST_FIELD);
       }
     }
 
-    selectionSet.selections.forEach(selection => {
+    selectionSet.selections.forEach((selection: any) => {
       // Must not add __typename if we're inside an introspection query
       if (selection.kind === 'Field') {
         if (
           selection.name.value.lastIndexOf('__', 0) !== 0 &&
           selection.selectionSet
         ) {
-          addPersistFieldToSelectionSet(selection.selectionSet)
+          addPersistFieldToSelectionSet(selection.selectionSet);
         }
       }
       else if (selection.kind === 'InlineFragment') {
         if (selection.selectionSet) {
-          addPersistFieldToSelectionSet(selection.selectionSet)
+          addPersistFieldToSelectionSet(selection.selectionSet);
         }
       }
     })
   }
 }
 
-const addPersistFieldToDocument = doc => {
-  checkDocument(doc)
-  const docClone = cloneDeep(doc)
+const addPersistFieldToDocument = (doc: any) => {
+  checkDocument(doc);
+  const docClone = cloneDeep(doc);
 
-  docClone.definitions.forEach(definition => {
+  docClone.definitions.forEach((definition: any) => {
     const isRoot = definition.kind === 'OperationDefinition'
     addPersistFieldToSelectionSet(definition.selectionSet, isRoot)
-  })
+  });
 
-  return docClone
+  return docClone;
 }
 
-const extractPersistDirectivePaths = (originalQuery, directive = 'persist') => {
-  const paths = []
-  const fragmentPaths = {}
-  const fragmentPersistPaths = {}
+const extractPersistDirectivePaths = (originalQuery: any, directive: string = 'persist') => {
+  const paths: any[] = [];
+  const fragmentPaths: any = {};
+  const fragmentPersistPaths: any = {};
 
   const query = visit(originalQuery, {
     FragmentSpread: (
-      { name: { value: name } },
-      key,
-      parent,
-      path,
-      ancestors
-    ) => {
+      { name: { value: name } }: any,
+      // ts complains about these not being used, however they're positional
+      // parameters, so we can't remove them due to ancestors being needed.
+      // @ts-ignore
+      key: any, parent: any, path: any,
+      ancestors: any,
+    ): any => {
       const root = ancestors.find(
-        ({ kind }) =>
+        ({ kind }: any) =>
           kind === 'OperationDefinition' || kind === 'FragmentDefinition'
-      )
+      );
 
       const rootKey =
-        root.kind === 'FragmentDefinition' ? root.name.value : '$ROOT'
+        root.kind === 'FragmentDefinition' ? root.name.value : '$ROOT';
 
       const fieldPath = ancestors
-        .filter(({ kind }) => kind === 'Field')
-        .map(({ name: { value: name } }) => name)
+        .filter(({ kind }: any) => kind === 'Field')
+        .map(({ name: { value: name } }: any) => name);
 
-      fragmentPaths[name] = [rootKey].concat(fieldPath)
+      fragmentPaths[name] = [rootKey].concat(fieldPath);
     },
-    Directive: ({ name: { value: name } }, key, parent, path, ancestors) => {
+    Directive: (
+      { name: { value: name } }: any,
+      // ts complains about these not being used, however they're positional
+      // parameters, so we can't remove them due to ancestors being needed.
+      // @ts-ignore
+      key: any, parent: any, path: any,
+      ancestors: any,
+    ): any => {
       if (name === directive) {
         const fieldPath = ancestors
-          .filter(({ kind }) => kind === 'Field')
-          .map(({ name: { value: name } }) => name)
+          .filter(({ kind }: any) => kind === 'Field')
+          .map(({ name: { value: name } }: any) => name);
 
         const fragmentDefinition = ancestors.find(
-          ({ kind }) => kind === 'FragmentDefinition'
-        )
+          ({ kind }: any) => kind === 'FragmentDefinition'
+        );
 
         // If we are inside a fragment, we must save the reference.
         if (fragmentDefinition) {
-          fragmentPersistPaths[fragmentDefinition.name.value] = fieldPath
+          fragmentPersistPaths[fragmentDefinition.name.value] = fieldPath;
         }
         else if (fieldPath.length) {
-          paths.push(fieldPath)
+          paths.push(fieldPath);
         }
 
-        return null
+        return null;
       }
     }
   })
@@ -111,53 +119,38 @@ const extractPersistDirectivePaths = (originalQuery, directive = 'persist') => {
   if (Object.keys(fragmentPersistPaths).length) {
     visit(originalQuery, {
       FragmentSpread: (
-        { name: { value: name } },
-        key,
-        parent,
-        path,
-        ancestors
+        { name: { value: name } }: any,
+        // ts complains about these not being used, however they're positional
+        // parameters, so we can't remove them due to ancestors being needed.
+        // @ts-ignore
+        key: any, parent: any, path: any,
+        ancestors: any
       ) => {
         if (fragmentPersistPaths[name]) {
           let fieldPath = ancestors
-            .filter(({ kind }) => kind === 'Field')
-            .map(({ name: { value: name } }) => name)
+            .filter(({ kind }: any) => kind === 'Field')
+            .map(({ name: { value: name } }: any) => name);
 
-          fieldPath = fieldPath.concat(fragmentPersistPaths[name])
+          fieldPath = fieldPath.concat(fragmentPersistPaths[name]);
 
-          let fragment = name
-          let parent = fragmentPaths[fragment][0]
+          let fragment = name;
+          let parent = fragmentPaths[fragment][0];
 
           while (parent && parent !== '$ROOT' && fragmentPaths[parent]) {
-            fieldPath = fragmentPaths[parent].slice(1).concat(fieldPath)
-            parent = fragmentPaths[parent][0]
+            fieldPath = fragmentPaths[parent].slice(1).concat(fieldPath);
+            parent = fragmentPaths[parent][0];
           }
 
-          paths.push(fieldPath)
+          paths.push(fieldPath);
         }
       }
-    })
+    });
   }
 
-  return { query, paths }
-}
-
-const hasPersistDirective = doc => {
-  let hasDirective = false
-
-  visit(doc, {
-    Directive: ({ name: { value: name } }) => {
-      if (name === 'persist') {
-        hasDirective = true
-        return BREAK
-      }
-    }
-  })
-
-  return hasDirective
+  return { query, paths };
 }
 
 export {
   addPersistFieldToDocument,
   extractPersistDirectivePaths,
-  hasPersistDirective
 }

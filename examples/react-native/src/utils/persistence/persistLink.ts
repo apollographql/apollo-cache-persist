@@ -5,7 +5,7 @@ import { visit } from 'graphql';
 import { ApolloLink } from '@apollo/client';
 import traverse from 'traverse';
 
-import { extractPersistDirectivePaths, hasPersistDirective } from './transform';
+import { extractPersistDirectivePaths } from './transform';
 
 /**
  * Given a data result object path, return the equivalent query selection path.
@@ -13,13 +13,13 @@ import { extractPersistDirectivePaths, hasPersistDirective } from './transform';
  * @param {Array} path The data result object path. i.e.: ["a", 0, "b"]
  * @return {String} the query selection path. i.e.: "a.b"
  */
-const toQueryPath = path => path.filter(key => isNaN(Number(key))).join('.')
+const toQueryPath = (path: any[]) => path.filter(key => isNaN(Number(key))).join('.')
 
 /**
  * Given a data result object, attach __persist values.
  */
-const attachPersists = (paths, object) => {
-  const queryPaths = paths.map(toQueryPath)
+const attachPersists = (paths: any[], object: any) => {
+  const queryPaths = paths.map(toQueryPath);
 
   return traverse(object).map(function () {
     if (
@@ -45,54 +45,38 @@ const attachPersists = (paths, object) => {
 }
 
 class PersistLink extends ApolloLink {
-  /**
-   * InStorageCache shouldPersist implementation for a __persist field validation.
-   */
-  static shouldPersist (op, dataId, data) {
-    // console.log(dataId, data)
-    return dataId === 'ROOT_QUERY' || (!data || !!data.__persist)
-  }
-
-  /**
-   * InStorageCache addPersistField implementation to check for @perist directives.
-   */
-  static addPersistField = doc => hasPersistDirective(doc)
-
-  constructor () {
-    super()
-    this.directive = 'persist'
-  }
+  public directive: string = 'persist';
 
   /**
    * Link query requester.
    */
-  request = (operation, forward) => {
+  request = (operation: any, forward: any) => {
     const { query, paths } = extractPersistDirectivePaths(
       operation.query,
-      this.directive
-    )
+      this.directive,
+    );
     // Replace query with one without @persist directives.
-    operation.query = query
+    operation.query = query;
 
     // Remove requesting __persist fields.
     operation.query = visit(operation.query, {
-      Field: ({ name: { value: name } }, key, parent, path, ancestors) => {
+      Field: ({ name: { value: name } }: any): any => {
         if (name === '__persist') {
-          return null
+          return null;
         }
       }
     })
 
-    return forward(operation).map(result => {
+    return forward(operation).map((result: any) => {
       if (result.data) {
-        result.data = attachPersists(paths, result.data)
+        result.data = attachPersists(paths, result.data);
       }
 
-      return result
+      return result;
     })
   }
 }
 
-const createPersistLink = config => new PersistLink(config)
+const createPersistLink = () => new PersistLink();
 
-export { PersistLink, createPersistLink }
+export { PersistLink, createPersistLink };

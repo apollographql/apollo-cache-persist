@@ -1306,6 +1306,11 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
+"@types/traverse@^0.6.32":
+  version "0.6.32"
+  resolved "https://registry.yarnpkg.com/@types/traverse/-/traverse-0.6.32.tgz#f9fdfa40cd4898deaa975a14511aec731de8235e"
+  integrity sha512-RBz2uRZVCXuMg93WD//aTS5B120QlT4lR/gL+935QtGsKHLS6sCtZBaKfWjIfk7ZXv/r8mtGbwjVIee6/3XTow==
+
 "@types/ungap__global-this@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@types/ungap__global-this/-/ungap__global-this-0.3.1.tgz#18ce9f657da556037a29d50604335614ce703f4c"
@@ -1565,10 +1570,10 @@ anymatch@^3.0.3:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo3-cache-persist@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/apollo3-cache-persist/-/apollo3-cache-persist-0.9.1.tgz#191d9d93666a31b8921cce1b2d61ac0b6578540f"
-  integrity sha512-A6/SdCJmGLMLrL+mlsIijP3G+V7NvyG6likhkmTQBibU/+69UWxVs2qb7peYGOdiPT5QsxcaujDVCEgLzqC2OA==
+apollo3-cache-persist@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/apollo3-cache-persist/-/apollo3-cache-persist-0.10.0.tgz#8dd186818898bd433a9952fe4055adf3f4fb16a4"
+  integrity sha512-3W558cKQ9OymUaLMD3Mv8FuUmIDu/GP6aJA+5iLH6fw5MxG4dwF09fFz8NBHn/qfa/zrxv8AtDzKehZUPm107A==
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -6749,6 +6754,11 @@ tr46@^1.0.1:
   integrity sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=
   dependencies:
     punycode "^2.1.0"
+
+traverse@^0.6.6:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
+  integrity sha1-y99WD9e5r2MlAv7UD5GMFX6pcTc=
 
 ts-invariant@^0.6.0:
   version "0.6.0"
