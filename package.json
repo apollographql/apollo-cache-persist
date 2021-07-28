@@ -83,7 +83,7 @@
     "@types/node": "12.11.5",
     "@types/react-native": "0.63.37",
     "apollo-cache-hermes": "0.8.14",
-    "browserify": "16.5.0",
+    "browserify": "16.5.2",
     "bundlesize": "0.18.0",
     "codecov": "3.8.0",
     "commitizen": "^4.2.4",
