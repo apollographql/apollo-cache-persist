@@ -84,7 +84,7 @@
     "@types/react-native": "0.63.37",
     "apollo-cache-hermes": "0.8.14",
     "browserify": "16.5.0",
-    "bundlesize": "0.18.0",
+    "bundlesize": "0.18.1",
     "codecov": "3.8.0",
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
