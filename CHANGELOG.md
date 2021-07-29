@@ -1,3 +1,17 @@
+# [0.11.0](https://github.com/apollographql/apollo-cache-persist/compare/0.10.0...0.11.0) (2021-07-29)
+
+
+### Bug Fixes
+
+* **examples:** fix typescript compile issues in the react-native example project ([17b513b](https://github.com/apollographql/apollo-cache-persist/commit/17b513b97ef9fd06e3f6dc5d4c1cbd9ba16a52ab))
+
+
+### Features
+
+* **persistor:** add an optional persistence mapper function to allow cache filtration ([dc69b30](https://github.com/apollographql/apollo-cache-persist/commit/dc69b30f2241a7d5077ade116b6c89c21eedc2e5))
+
+
+
 ## [0.10.0](https://github.com/apollographql/apollo-cache-persist/compare/0.9.0...0.10.0) (2020-11-21)
 
 ### Features
