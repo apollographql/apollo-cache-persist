@@ -25,8 +25,10 @@ export class MMKVStorageWrapper implements PersistentStorage<any> {
 
   removeItem(key: string): void | Promise<void> {
     return new Promise((resolve, reject) => {
-      this.storage
-        .removeItem(key)
+      // Ensure the removeItem is thenable, even if it's not, by wrapping it to Promise.resolve
+      // The MMKV storage's removeItem is synchronous since 0.5.7, this Promise wrap allows backward compatibility
+      // https://stackoverflow.com/a/27746324/2078771
+      Promise.resolve(this.storage.removeItem(key))
         .then(() => resolve())
         .catch(() => reject());
     });
