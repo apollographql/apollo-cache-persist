@@ -1,6 +1,6 @@
 import { PersistentStorage } from '../types';
 
-export class IonicStorageWrapper implements PersistentStorage<string> {
+export class IonicStorageWrapper implements PersistentStorage<any> {
   // Actual type definition: https://github.com/ionic-team/ionic-storage/blob/main/src/storage.ts#L102
   private storage;
 
@@ -8,7 +8,7 @@ export class IonicStorageWrapper implements PersistentStorage<string> {
     this.storage = storage;
   }
 
-  getItem(key: string): string | Promise<string | null> | null {
+  getItem(key: string): any | Promise<any> | null {
     return this.storage.get(key);
   }
 
@@ -16,7 +16,7 @@ export class IonicStorageWrapper implements PersistentStorage<string> {
     return this.storage.remove(key);
   }
 
-  setItem(key: string, value: string): void | Promise<void> {
+  setItem(key: string, value: any): void | Promise<void> {
     return this.storage.set(key, value);
   }
 }

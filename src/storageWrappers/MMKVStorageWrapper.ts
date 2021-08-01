@@ -11,7 +11,7 @@ import { PersistentStorage } from '../types';
  * });
  *
  */
-export class MMKVStorageWrapper implements PersistentStorage<string> {
+export class MMKVStorageWrapper implements PersistentStorage<any> {
   // Actual type definition: https://github.com/ammarahm-ed/react-native-mmkv-storage/blob/master/index.d.ts#L27
   private storage;
 
@@ -19,7 +19,7 @@ export class MMKVStorageWrapper implements PersistentStorage<string> {
     this.storage = storage;
   }
 
-  getItem(key: string): string | Promise<string | null> | null {
+  getItem(key: string): any | Promise<any> | null {
     return this.storage.getItem(key);
   }
 
@@ -32,7 +32,7 @@ export class MMKVStorageWrapper implements PersistentStorage<string> {
     });
   }
 
-  setItem(key: string, value: string): void | Promise<void> {
+  setItem(key: string, value: any): void | Promise<void> {
     return new Promise((resolve, reject) => {
       this.storage
         .setItem(key, value)

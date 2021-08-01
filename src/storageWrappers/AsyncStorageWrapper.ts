@@ -12,7 +12,7 @@ import { PersistentStorage } from '../types';
  * });
  *
  */
-export class AsyncStorageWrapper implements PersistentStorage<string> {
+export class AsyncStorageWrapper implements PersistentStorage<any> {
   // Actual type definition: https://github.com/react-native-async-storage/async-storage/blob/master/types/index.d.ts
   private storage;
 
@@ -20,7 +20,7 @@ export class AsyncStorageWrapper implements PersistentStorage<string> {
     this.storage = storage;
   }
 
-  getItem(key: string): string | Promise<string | null> | null {
+  getItem(key: string): any | Promise<any> | null {
     return this.storage.getItem(key);
   }
 
@@ -28,7 +28,7 @@ export class AsyncStorageWrapper implements PersistentStorage<string> {
     return this.storage.removeItem(key);
   }
 
-  setItem(key: string, value: string): void | Promise<void> {
+  setItem(key: string, value: any): void | Promise<void> {
     return this.storage.setItem(key, value);
   }
 }

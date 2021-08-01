@@ -1,6 +1,6 @@
 import { PersistentStorage } from '../types';
 
-export class LocalForageWrapper implements PersistentStorage<string | object> {
+export class LocalForageWrapper implements PersistentStorage<any> {
   // Actual type definition: https://github.com/localForage/localForage/blob/master/typings/localforage.d.ts#L17
   private storage;
 
@@ -8,7 +8,7 @@ export class LocalForageWrapper implements PersistentStorage<string | object> {
     this.storage = storage;
   }
 
-  getItem(key: string): string | Promise<string | null> | null {
+  getItem(key: string): any | Promise<any> | null {
     return this.storage.getItem(key);
   }
 
@@ -16,7 +16,7 @@ export class LocalForageWrapper implements PersistentStorage<string | object> {
     return this.storage.removeItem(key);
   }
 
-  setItem(key: string, value: string): void | Promise<void> {
+  setItem(key: string, value: any): void | Promise<void> {
     return new Promise((resolve, reject) => {
       this.storage
         .setItem(key, value)
