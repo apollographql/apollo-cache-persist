@@ -104,8 +104,8 @@ const persistor = new CachePersistor({
 })
 ```
 
-Take a look at the [examples](./examples/react-native/src/utils/persistence/persistenceMapper.ts)
-and [it's corresponding documentation](./examples/react-native/src/utils/persistence/README.md)
+Take a look at the [examples](../examples/react-native/src/utils/persistence/persistenceMapper.ts)
+and [it's corresponding documentation](../examples/react-native/src/utils/persistence/README.md)
 
 ## Custom Triggers
 
