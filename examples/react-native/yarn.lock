@@ -1570,10 +1570,8 @@ anymatch@^3.0.3:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-apollo3-cache-persist@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/apollo3-cache-persist/-/apollo3-cache-persist-0.10.0.tgz#8dd186818898bd433a9952fe4055adf3f4fb16a4"
-  integrity sha512-3W558cKQ9OymUaLMD3Mv8FuUmIDu/GP6aJA+5iLH6fw5MxG4dwF09fFz8NBHn/qfa/zrxv8AtDzKehZUPm107A==
+apollo3-cache-persist@../../lib:
+  version "0.0.0"
 
 argparse@^1.0.7:
   version "1.0.10"
