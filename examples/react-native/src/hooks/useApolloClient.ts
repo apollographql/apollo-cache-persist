@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   ApolloClient,
   InMemoryCache,
   NormalizedCacheObject,
   createHttpLink,
 } from '@apollo/client';
-import { AsyncStorageWrapper, CachePersistor } from 'apollo3-cache-persist';
+import {AsyncStorageWrapper, CachePersistor} from 'apollo3-cache-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { persistenceMapper, createPersistLink } from '../utils/persistence';
+import {persistenceMapper, createPersistLink} from '../utils/persistence';
 
 export const useApolloClient = () => {
   const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>();
@@ -27,8 +27,6 @@ export const useApolloClient = () => {
       const cache = new InMemoryCache();
       let newPersistor = new CachePersistor({
         cache,
-        // https://github.com/apollographql/apollo-cache-persist/issues/426
-        // @ts-ignore
         storage: new AsyncStorageWrapper(AsyncStorage),
         debug: __DEV__,
         trigger: 'write',
@@ -37,7 +35,7 @@ export const useApolloClient = () => {
       await newPersistor.restore();
       setPersistor(newPersistor);
       const persistLink = createPersistLink();
-      const httpLink = createHttpLink({ uri: 'https://api.spacex.land/graphql' });
+      const httpLink = createHttpLink({uri: 'https://api.spacex.land/graphql'});
       setClient(
         new ApolloClient({
           link: persistLink.concat(httpLink),

@@ -18,13 +18,20 @@ export interface PersistentStorage<T> {
   removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
 
-export interface ApolloPersistOptions<TSerialized> {
+type StorageType<T, TSerialize extends boolean> = TSerialize extends true
+  ? PersistentStorage<string>
+  : PersistentStorage<T>;
+
+export interface ApolloPersistOptions<
+  TSerialized,
+  TSerialize extends boolean = true
+> {
   cache: ApolloCache<TSerialized>;
-  storage: PersistentStorage<PersistedData<TSerialized>>;
+  storage: StorageType<PersistedData<TSerialized>, TSerialize>;
   trigger?: 'write' | 'background' | TriggerFunction | false;
   debounce?: number;
   key?: string;
-  serialize?: boolean;
+  serialize?: TSerialize;
   maxSize?: number | false;
   persistenceMapper?: PersistenceMapperFunction;
   debug?: boolean;
