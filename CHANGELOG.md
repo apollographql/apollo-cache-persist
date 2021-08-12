@@ -1,3 +1,12 @@
+## [0.12.1](https://github.com/apollographql/apollo-cache-persist/compare/v0.12.0...v0.12.1) (2021-08-12)
+
+
+### Bug Fixes
+
+* **types:** fix localforage interface ([63f7158](https://github.com/apollographql/apollo-cache-persist/commit/63f71582763b6895c05dd3897117cdfdbb0a70c3))
+
+
+
 # [0.12.0](https://github.com/apollographql/apollo-cache-persist/compare/v0.11.0...v0.12.0) (2021-08-12)
 
 
