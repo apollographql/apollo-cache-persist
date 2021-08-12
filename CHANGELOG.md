@@ -1,3 +1,16 @@
+# [0.12.0](https://github.com/apollographql/apollo-cache-persist/compare/v0.11.0...v0.12.0) (2021-08-12)
+
+
+### Bug Fixes
+
+* **examples:** remove ts-ignore, fix peristenceMapper return type, apply codestyle ([c7619e2](https://github.com/apollographql/apollo-cache-persist/commit/c7619e2dfa6ac4971f845824466180d3c09d9c25))
+* **examples:** use locally built library version instead of published ([8f21bf7](https://github.com/apollographql/apollo-cache-persist/commit/8f21bf79baba89ca2d4f57432ea2b8a928c9acc2))
+* **types:** determine required storage type based on serialize option ([996c831](https://github.com/apollographql/apollo-cache-persist/commit/996c8315c1005c3030b9b814740616b3019daa7b))
+* **types:** MMKV wrapper - remove undefined, normalize to null ([852de5f](https://github.com/apollographql/apollo-cache-persist/commit/852de5f5466f8b7fb2e24d94cc313b286c6bf3b6))
+* **types:** provide simplistic storage interfaces ([56b1c55](https://github.com/apollographql/apollo-cache-persist/commit/56b1c5513505900b8bf87a289994d6fc3505ccd5)), closes [#426](https://github.com/apollographql/apollo-cache-persist/issues/426) [#431](https://github.com/apollographql/apollo-cache-persist/issues/431)
+
+
+
 # [0.11.0](https://github.com/apollographql/apollo-cache-persist/compare/0.10.0...0.11.0) (2021-07-29)
 
 
