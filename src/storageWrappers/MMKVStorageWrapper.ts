@@ -11,16 +11,15 @@ import { PersistentStorage } from '../types';
  * });
  *
  */
-export class MMKVStorageWrapper
-  implements PersistentStorage<string | null | undefined> {
+export class MMKVStorageWrapper implements PersistentStorage<string | null> {
   private storage;
 
   constructor(storage: MMKVStorageInterface) {
     this.storage = storage;
   }
 
-  getItem(key: string): Promise<string | null | undefined> {
-    return this.storage.getItem(key);
+  getItem(key: string): Promise<string | null> {
+    return this.storage.getItem(key) || null;
   }
 
   removeItem(key: string): Promise<void> {
@@ -34,7 +33,7 @@ export class MMKVStorageWrapper
     });
   }
 
-  setItem(key: string, value: string | null | undefined): Promise<void> {
+  setItem(key: string, value: string | null): Promise<void> {
     return new Promise((resolve, reject) => {
       this.storage
         .setItem(key, value)
