@@ -29,6 +29,9 @@ export class LocalForageWrapper
 interface LocalForageInterface {
   // Actual type definition: https://github.com/localForage/localForage/blob/master/typings/localforage.d.ts#L17
   getItem(key: string): Promise<string | null>;
-  setItem(key: string, value: string | object | null): Promise<void>;
+  setItem(
+    key: string,
+    value: string | object | null,
+  ): Promise<string | object | null>;
   removeItem(key: string): Promise<void>;
 }
