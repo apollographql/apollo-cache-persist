@@ -43,6 +43,6 @@ use a different storage provider, such as
 
 `apollo3-cache-persist` supports stable versions of storage providers mentioned above.
 If you want to use other storage provider, or there's a breaking change in `next` version of supported provider,
-you can create your own wrapper. For an example of a simple wrapper have a look at [`AsyncStorageWrapper`](./src/storageWrappers/AsyncStorageWrapper.ts).
+you can create your own wrapper. For an example of a simple wrapper have a look at [`AsyncStorageWrapper`](/src/storageWrappers/AsyncStorageWrapper.ts).
 
 If you found that stable version of supported provider is no-longer compatible, please [submit an issue or a Pull Request](https://github.com/apollographql/apollo-cache-persist/blob/master/CONTRIBUTING.md#issues).
