@@ -3,7 +3,7 @@
 Simple persistence for all Apollo Client 3.0 cache implementations, including
 [`InMemoryCache`][0] and [`Hermes`][1].
 
-Supports web and React Native. [See all storage providers.](./docs/storage-provider.md)
+Supports web and React Native. [See all storage providers.](./docs/storage-providers.md)
 
 [0]: https://github.com/apollographql/apollo-client/tree/master/src/cache/inmemory
 [1]: https://github.com/convoyinc/apollo-cache-hermes
