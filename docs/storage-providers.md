@@ -17,6 +17,7 @@
 | [`localForage`](https://github.com/localForage/localForage)                     | web            | `LocalForageWrapper`    |
 | [`Ionic storage`](https://ionicframework.com/docs/building/storage)             | web and mobile | `IonicStorageWrapper`   |
 | [`MMKV Storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage)      | React Native   | `MMKVStorageWrapper`    |
+| [`MMKV`](https://github.com/mrousavy/react-native-mmkv)                         | React Native   | `MMKVWrapper`           |
 
 
 ## Redux Persist Providers
