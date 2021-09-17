@@ -1,3 +1,12 @@
+# [0.13.0](https://github.com/apollographql/apollo-cache-persist/compare/v0.12.1...v0.13.0) (2021-09-17)
+
+
+### Features
+
+* **MMKVWrapper:** Added new storage wrapper ([1b16bdb](https://github.com/apollographql/apollo-cache-persist/commit/1b16bdb00e896f62ee379777f7224a156e16004f))
+
+
+
 ## [0.12.1](https://github.com/apollographql/apollo-cache-persist/compare/v0.12.0...v0.12.1) (2021-08-12)
 
 
