@@ -23,6 +23,10 @@ export class SessionStorageWrapper implements PersistentStorage<string | null> {
       return this.removeItem(key);
     }
   }
+
+  getSize(): number {
+    return new Blob(Object.values(this.storage)).size;
+  }
 }
 
 interface SessionStorageInterface {
@@ -30,4 +34,10 @@ interface SessionStorageInterface {
   getItem(key: string): string | null;
   setItem(key: string, value: string): void;
   removeItem(key: string): void;
+}
+
+declare class Blob {
+  // Actual type defintion: https://github.com/microsoft/TypeScript/blob/main/lib/lib.dom.d.ts#L2418
+  constructor(data: any);
+  readonly size: number;
 }

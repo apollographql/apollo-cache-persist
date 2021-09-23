@@ -28,6 +28,10 @@ export default class Storage<T> {
   }
 
   async getSize(): Promise<number | null> {
+    if (this.storage.getSize) {
+      return this.storage.getSize(this.key);
+    }
+
     const data = await this.storage.getItem(this.key);
 
     if (data == null) {
