@@ -104,7 +104,7 @@ persistCacheSync({
 
 You can optionally pass a `persistenceMapper` function to the `CachePersistor` which
 will allow you to control what parts of the Apollo Client cache get persisted. Please
-refer to the [Advanced Usage of the `CachePersistor`](#using-cachepersistor) for more
+refer to the [Advanced Usage of the `CachePersistor`](https://github.com/apollographql/apollo-cache-persist/blob/master/docs/advanced-usage.md#using-cachepersistor) for more
 details.
 
 Other alternatives have been recommended in
