@@ -89,7 +89,7 @@
     "commitizen": "^4.2.4",
     "conventional-changelog-cli": "^2.1.1",
     "cz-conventional-changelog": "3.3.0",
-    "danger": "7.1.4",
+    "danger": "10.7.1",
     "graphql": "15.4.0",
     "husky": "4.3.0",
     "jest": "24.9.0",
