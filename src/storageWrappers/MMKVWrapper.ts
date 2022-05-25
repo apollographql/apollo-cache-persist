@@ -37,10 +37,6 @@ export class MMKVWrapper implements PersistentStorage<string | null> {
 
 interface MMKVInterface {
     set: (key: string, value: boolean | string | number) => void;
-    getBoolean: (key: string) => boolean;
     getString: (key: string) => string | undefined;
-    getNumber: (key: string) => number;
     delete: (key: string) => void;
-    getAllKeys: () => string[];
-    clearAll: () => void;
 }
