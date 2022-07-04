@@ -1,3 +1,12 @@
+## [0.14.1](https://github.com/apollographql/apollo-cache-persist/compare/0.14.0...0.14.1) (2022-07-04)
+
+
+### Bug Fixes
+
+* **types:** remove unused keys ([5e83d71](https://github.com/apollographql/apollo-cache-persist/commit/5e83d7100ddbe60b833be45df626558c9666ff30))
+
+
+
 # [0.13.0](https://github.com/apollographql/apollo-cache-persist/compare/v0.12.1...v0.13.0) (2021-09-17)
 
 
