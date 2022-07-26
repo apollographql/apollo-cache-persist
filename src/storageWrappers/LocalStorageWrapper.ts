@@ -1,7 +1,7 @@
 import { PersistentStorage } from '../types';
 
 export class LocalStorageWrapper implements PersistentStorage<string | null> {
-  private storage;
+  protected storage;
 
   constructor(storage: LocalStorageInterface) {
     this.storage = storage;

@@ -1,7 +1,7 @@
 import { PersistentStorage } from '../types';
 
 export class IonicStorageWrapper implements PersistentStorage<string | null> {
-  private storage;
+  protected storage;
 
   constructor(storage: IonicStorageInterface) {
     this.storage = storage;

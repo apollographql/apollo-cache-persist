@@ -13,7 +13,7 @@ import { PersistentStorage } from '../types';
  *
  */
 export class AsyncStorageWrapper implements PersistentStorage<string | null> {
-  private storage;
+  protected storage;
 
   constructor(storage: AsyncStorageInterface) {
     this.storage = storage;
