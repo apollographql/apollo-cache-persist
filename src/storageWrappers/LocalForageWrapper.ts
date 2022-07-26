@@ -2,7 +2,7 @@ import { PersistentStorage } from '../types';
 
 export class LocalForageWrapper
   implements PersistentStorage<string | object | null> {
-  private storage;
+  protected storage;
 
   constructor(storage: LocalForageInterface) {
     this.storage = storage;

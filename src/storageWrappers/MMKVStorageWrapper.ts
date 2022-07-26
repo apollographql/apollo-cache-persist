@@ -12,7 +12,7 @@ import { PersistentStorage } from '../types';
  *
  */
 export class MMKVStorageWrapper implements PersistentStorage<string | null> {
-  private storage;
+  protected storage;
 
   constructor(storage: MMKVStorageInterface) {
     this.storage = storage;

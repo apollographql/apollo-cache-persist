@@ -1,7 +1,7 @@
 import { PersistentStorage } from '../types';
 
 export class SessionStorageWrapper implements PersistentStorage<string | null> {
-  private storage;
+  protected storage;
 
   constructor(storage: SessionStorageInterface) {
     this.storage = storage;
