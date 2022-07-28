@@ -16,6 +16,7 @@ export interface PersistentStorage<T> {
   getItem: (key: string) => Promise<T | null> | T | null;
   setItem: (key: string, value: T) => Promise<T> | Promise<void> | void | T;
   removeItem: (key: string) => Promise<T> | Promise<void> | void;
+  getSize?(key: string): Promise<number> | number | null;
 }
 
 type StorageType<T, TSerialize extends boolean> = TSerialize extends true
