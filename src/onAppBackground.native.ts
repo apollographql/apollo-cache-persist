@@ -12,6 +12,6 @@ export default () => (persist: () => void) => {
     }
   };
 
-  AppState.addEventListener('change', listener);
-  return () => AppState.removeEventListener('change', listener);
+  const subscription = AppState.addEventListener('change', listener);
+  return () => subscription.remove();
 };
