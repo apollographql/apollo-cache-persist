@@ -10,7 +10,7 @@ export interface TriggerConfig<T> {
   persistor: Persistor<T>;
 }
 
-export default class Trigger<T> {
+export default class Trigger<T, U extends boolean = true> {
   debounce: number;
   persistor: Persistor<T>;
   paused: boolean;
@@ -21,7 +21,7 @@ export default class Trigger<T> {
 
   constructor(
     { log, persistor }: TriggerConfig<T>,
-    options: ApolloPersistOptions<T>
+    options: ApolloPersistOptions<T, U>
   ) {
     const { defaultDebounce } = Trigger;
     const { cache, debounce, trigger = 'write' } = options;

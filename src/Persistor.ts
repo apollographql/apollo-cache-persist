@@ -10,7 +10,7 @@ export interface PersistorConfig<T> {
   storage: Storage<T>;
 }
 
-export default class Persistor<T> {
+export default class Persistor<T, U extends boolean = true> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
@@ -20,7 +20,7 @@ export default class Persistor<T> {
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
-    options: ApolloPersistOptions<T>,
+    options: ApolloPersistOptions<T, U>,
   ) {
     const {
       maxSize = 1024 * 1024,

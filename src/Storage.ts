@@ -4,11 +4,11 @@ import {
   PersistedData,
 } from './types';
 
-export default class Storage<T> {
+export default class Storage<T, U extends boolean = true> {
   storage: PersistentStorage<PersistedData<T>>;
   key: string;
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: ApolloPersistOptions<T, U>) {
     const { storage, key = 'apollo-cache-persist' } = options;
 
     this.storage = storage;
