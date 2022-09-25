@@ -1,11 +1,11 @@
 import { ApolloCache } from '@apollo/client/core';
 import { ApolloPersistOptions, PersistedData } from './types';
 
-export default class Cache<T> {
+export default class CacheLog<T, U extends boolean = true> {
   cache: ApolloCache<T>;
   serialize: boolean;
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: ApolloPersistOptions<T, U>) {
     const { cache, serialize = true } = options;
 
     this.cache = cache;

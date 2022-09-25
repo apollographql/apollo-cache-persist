@@ -6,14 +6,14 @@ import Trigger from './Trigger';
 
 import { ApolloPersistOptions, LogLine } from './types';
 
-export default class CachePersistor<T> {
+export default class CachePersistor<T, U extends boolean = true> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
   persistor: Persistor<T>;
   trigger: Trigger<T>;
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: ApolloPersistOptions<T, U>) {
     if (!options.cache) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in a cache. ' +
