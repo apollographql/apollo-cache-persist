@@ -5,3 +5,4 @@ export * from './LocalStorageWrapper';
 export * from './MMKVStorageWrapper';
 export * from './MMKVWrapper';
 export * from './SessionStorageWrapper';
+export * from './CapacitorPreferencesWrapper';
