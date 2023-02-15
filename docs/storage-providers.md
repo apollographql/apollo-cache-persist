@@ -9,15 +9,16 @@
 
 `apollo3-cache-persist` provides wrappers for the following storage providers, with no additional dependencies:
 
-| Storage provider                                                                | Platform       | Wrapper class           |
-| ------------------------------------------------------------------------------- | -------------- | ----------------------- |
-| [`AsyncStorage`](https://github.com/react-native-async-storage/async-storage)\* | React Native   | `AsyncStorageWrapper`   |
-| `window.localStorage`                                                           | web            | `LocalStorageWrapper`   |
-| `window.sessionStorage`                                                         | web            | `SessionStorageWrapper` |
-| [`localForage`](https://github.com/localForage/localForage)                     | web            | `LocalForageWrapper`    |
-| [`Ionic storage`](https://ionicframework.com/docs/building/storage)             | web and mobile | `IonicStorageWrapper`   |
-| [`MMKV Storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage)      | React Native   | `MMKVStorageWrapper`    |
-| [`MMKV`](https://github.com/mrousavy/react-native-mmkv)                         | React Native   | `MMKVWrapper`           |
+| Storage provider                                                                | Platform       | Wrapper class                 |
+|---------------------------------------------------------------------------------|----------------|-------------------------------|
+| [`AsyncStorage`](https://github.com/react-native-async-storage/async-storage)\* | React Native   | `AsyncStorageWrapper`         |
+| `window.localStorage`                                                           | web            | `LocalStorageWrapper`         |
+| `window.sessionStorage`                                                         | web            | `SessionStorageWrapper`       |
+| [`localForage`](https://github.com/localForage/localForage)                     | web            | `LocalForageWrapper`          |
+| [`Ionic storage`](https://ionicframework.com/docs/building/storage)             | web and mobile | `IonicStorageWrapper`         |
+| [`MMKV Storage`](https://github.com/ammarahm-ed/react-native-mmkv-storage)      | React Native   | `MMKVStorageWrapper`          |
+| [`MMKV`](https://github.com/mrousavy/react-native-mmkv)                         | React Native   | `MMKVWrapper`                 |
+| [`Capacitor Preferences`](https://capacitorjs.com/docs/apis/preferences)        | Capacitor      | `CapacitorPreferencesWrapper` |
 
 
 ## Redux Persist Providers
