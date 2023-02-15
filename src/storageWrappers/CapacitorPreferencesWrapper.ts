@@ -8,18 +8,19 @@ export class CapacitorPreferencesWrapper implements PersistentStorage<string | n
   }
 
   getItem(key: string): Promise<string | null> {
-    return this.storage.get({key: key}).then(r => r.value)
+    return this.storage.get({key: key}).then(r => r.value);
   }
 
   removeItem(key: string): Promise<void> {
-    return this.storage.remove({key: key})
+    return this.storage.remove({key: key});
   }
 
   setItem(key: string, value: string | null): Promise<void> {
     if (value) {
-      return this.storage.set({key: key, value: value})
+      // Capacitor Preferences does not support nullable values
+      return this.storage.set({key: key, value: value});
     } else {
-      return Promise.reject("Value was null")
+      return this.removeItem(key);
     }
   }
 }
