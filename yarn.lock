@@ -1955,7 +1955,7 @@ commander@^2.18.0, commander@^2.20.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
-commitizen@^4.0.3, commitizen@^4.2.4:
+commitizen@4.3.0, commitizen@^4.0.3:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/commitizen/-/commitizen-4.3.0.tgz#0d056c542a2d2b1f9b9aba981aa32575b2849924"
   integrity sha512-H0iNtClNEhT0fotHvGV3E9tDejDeS04sN1veIebsKYGMuGscFaswRoYJKmT3eW85eIJAs0F28bG2+a/9wCOfPw==
@@ -2025,7 +2025,7 @@ conventional-changelog-atom@^3.0.0:
   resolved "https://registry.yarnpkg.com/conventional-changelog-atom/-/conventional-changelog-atom-3.0.0.tgz#32de463a29db773de15382c96acda47930d3d24d"
   integrity sha512-pnN5bWpH+iTUWU3FaYdw5lJmfWeqSyrUkG+wyHBI9tC1dLNnHkbAOg1SzTQ7zBqiFrfo55h40VsGXWMdopwc5g==
 
-conventional-changelog-cli@^3.0.0:
+conventional-changelog-cli@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/conventional-changelog-cli/-/conventional-changelog-cli-3.0.0.tgz#e5b1e67550702b098b4e03d8401927fe4c462f3e"
   integrity sha512-3zMYi0IrfNd6AAHdPMrcgCg5DbcffiqNaEBf8cYrlntXPbBIXaELTbnRmUy5TQAe0Hkgi0J6+/VmRCkkJQflcQ==
