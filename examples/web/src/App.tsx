@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { render } from 'react-dom';
+import {useCallback, useEffect, useState} from 'react'
+
 
 import {
   ApolloClient,
@@ -10,30 +10,34 @@ import {
 import gql from 'graphql-tag';
 import { InMemoryCache } from '@apollo/client/core';
 import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist';
-import styles from './index.module.css';
+import styles from './App.module.css';
 
-const launchesGQL = gql`
-  query LaunchesQuery {
-    launches(limit: 10) {
-      id
-      mission_name
-      details
-      launch_date_utc
+const episodesGQL = gql`
+  query episodes {
+    episodes {
+      results {
+        episode
+        id
+        name
+        air_date
+      }
     }
   }
 `;
 
-type LaunchesQuery = {
-  launches: {
-    id: string;
-    mission_name: string;
-    details: string;
-    launch_date_utc: string;
-  }[];
+type EpisodesQuery = {
+  episodes: {
+    results: {
+        episode: string;
+        id: string;
+        name: string;
+        air_date: string;
+    }[];
+  }
 };
 
 const Launches = () => {
-  const { error, data, loading } = useQuery<LaunchesQuery>(launchesGQL, {
+  const { error, data, loading } = useQuery<EpisodesQuery>(episodesGQL, {
     fetchPolicy: 'cache-and-network',
   });
 
@@ -54,11 +58,11 @@ const Launches = () => {
   return (
     <div>
       {loading ? <h2>Loading fresh data...</h2> : null}
-      {data.launches.map(launch => (
-        <div key={launch.id} className={styles.item}>
-          <span>{launch.mission_name}</span>
+      {data.episodes.results.map(episode => (
+        <div key={episode.id} className={styles.item}>
+          <span>{episode.episode}: {episode.name}</span>
           <br />
-          <small>{new Date(launch.launch_date_utc).toLocaleString()}</small>
+          <small>{episode.air_date}</small>
         </div>
       ))}
     </div>
@@ -84,7 +88,7 @@ const App = () => {
       setPersistor(newPersistor);
       setClient(
         new ApolloClient({
-          uri: 'https://api.spacex.land/graphql',
+          uri: 'https://rickandmortyapi.com/graphql',
           cache,
         }),
       );
@@ -141,4 +145,4 @@ const App = () => {
   );
 };
 
-render(<App />, document.getElementById('root'));
+export default App
