@@ -92,7 +92,7 @@ persistor.getSize();
 ```
 
 Additionally, you can control what portions of your cache are persisted by passing
-a `persistenceMapper` function as an optional paramemter to the `CachePersistor`. E.g.
+a `persistenceMapper` function as an optional parameter to the `CachePersistor`. E.g.
 
 ```ts
 const persistor = new CachePersistor({
