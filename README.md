@@ -62,8 +62,6 @@ const client = new ApolloClient({
 });
 ```
 
-See a complete example in the [React Native example](./examples/react-native/App.tsx).
-
 #### Web
 
 ```js
@@ -86,7 +84,7 @@ const client = new ApolloClient({
 });
 ```
 
-See a complete example in the [web example](./examples/web/src/index.tsx).
+See a complete example in the [web example](./examples/web/src/App.tsx).
 
 ## Contributing
 

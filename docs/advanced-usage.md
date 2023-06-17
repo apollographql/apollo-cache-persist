@@ -104,9 +104,6 @@ const persistor = new CachePersistor({
 })
 ```
 
-Take a look at the [examples](../examples/react-native/src/utils/persistence/persistenceMapper.ts)
-and [it's corresponding documentation](../examples/react-native/src/utils/persistence/README.md)
-
 ## Custom Triggers
 
 For control over persistence timing, provide a function to the `trigger` option.

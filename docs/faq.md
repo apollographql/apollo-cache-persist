@@ -30,11 +30,11 @@ of the 'write' trigger on web, we've omitted a 'background' trigger on web.
 resolve once the cache has been restored, which you can await before rendering
 your app.
 
-This library, like Apollo Client, is framework agnostic; however, since many
+This library, like Apollo Client, is framework-agnostic; however, since many
 people have asked, here's an example of how to handle this in React. PRs with
 examples from other frameworks are welcome.
 
-You can find all examples in the [examples](./examples/) directory.
+You can find all examples in the [examples](./../examples) directory.
 
 ## React Using Hooks
 
@@ -110,8 +110,7 @@ details.
 Other alternatives have been recommended in
 [#2](https://github.com/apollographql/apollo3-cache-persist/issues/2#issuecomment-350823835),
 including using logic in your UI to filter potentially-outdated information.
-Furthermore, the [`maxSize` option](#additional-options) and
-[methods on `CachePersistor`](#using-cachepersistor) provide facilities to
+Furthermore, the `maxSize` option and methods on `CachePersistor` provide facilities to
 manage the growth of the cache.
 
 For total control over the cache contents, you can setup a background task to
@@ -126,11 +125,11 @@ benefit of ensuring the cache is loaded with fresh data when your app launches.
 
 For the same reasons given in the preceding answer, it's not possible to migrate
 or transform your persisted cache data. However, by using the
-[methods on `CachePersistor`](#using-cachepersistor), it's simple to reset the
+methods on `CachePersistor`, it's simple to reset the
 cache upon changes to the schema.
 
 Simply instantiate a `CachePersistor` and only call `restore()` if the app's
-schema hasn't change. (You'll need to track your schema version yourself.)
+schema hasn't changed. (You'll need to track your schema version yourself.)
 
 Here's an example of how this could look:
 
