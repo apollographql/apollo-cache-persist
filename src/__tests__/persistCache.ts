@@ -10,6 +10,7 @@ describe('persistCache', () => {
   describe('setup', () => {
     it('requires a cache', async () => {
       try {
+        // @ts-expect-error cache is required
         await persistCache({ storage: new MockStorage() });
         fail('invoking persistCache without a cache should throw an error');
       } catch (e) {
@@ -20,6 +21,7 @@ describe('persistCache', () => {
     });
     it('requires storage', async () => {
       try {
+        // @ts-expect-error storage is required
         await persistCache({ cache: new InMemoryCache() });
         fail('invoking persistCache without storage should throw an error');
       } catch (e) {
@@ -128,7 +130,7 @@ describe('persistCache', () => {
       });
 
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
-      jest.runTimersToTime(debounce + 1);
+      jest.advanceTimersByTime(debounce + 1);
       expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
     });
     it('passing in key customizes the storage key', async () => {
@@ -141,13 +143,12 @@ describe('persistCache', () => {
         persistOptions: { key, storage },
       });
 
-      jest.runTimersToTime(1001);
+      jest.advanceTimersByTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
       expect(await storage.getItem(key)).toMatchSnapshot();
     });
     it('setting maxSize purges the Apollo cache & storage if it crosses a threshold', async () => {
       const storage = new MockStorage();
-      const cache = new InMemoryCache();
 
       await simulateWrite({
         result,
@@ -155,7 +156,7 @@ describe('persistCache', () => {
         persistOptions: { storage, maxSize: 20 },
       });
 
-      jest.runTimersToTime(1001);
+      jest.advanceTimersByTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toMatchSnapshot();
     });
     xit('setting the trigger to background does not persist on a write', async () => {
@@ -166,13 +167,13 @@ describe('persistCache', () => {
         persistOptions: { trigger: 'background', storage },
       });
 
-      jest.runTimersToTime(1001);
+      jest.advanceTimersByTime(1001);
       expect(await storage.getItem('apollo-cache-persist')).toBe(undefined);
     });
     xit('setting the trigger to background persists in the background', () => {});
     it('passing a persistence mapper properly maps the persisted cache', async () => {
       const storage = new MockStorage();
-      const cache = new InMemoryCache();
+
       const persistenceMapper = async (data: any) => {
         const parsed = JSON.parse(data);
         delete parsed['Post:1'];
@@ -216,7 +217,7 @@ describe('persistCache', () => {
         persistOptions: { storage, persistenceMapper },
       });
 
-      jest.runTimersToTime(1001);
+      jest.advanceTimersByTime(1001);
       // without this line, this test won't pass.
       // see https://github.com/facebook/jest/issues/2157
       await Promise.resolve();

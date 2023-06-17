@@ -20,12 +20,9 @@ export default class Persistor<T> {
 
   constructor(
     { log, cache, storage }: PersistorConfig<T>,
-    options: ApolloPersistOptions<T>,
+    options: Pick<ApolloPersistOptions<T>, 'maxSize' | 'persistenceMapper'>,
   ) {
-    const {
-      maxSize = 1024 * 1024,
-      persistenceMapper,
-    } = options;
+    const { maxSize = 1024 * 1024, persistenceMapper } = options;
 
     this.log = log;
     this.cache = cache;

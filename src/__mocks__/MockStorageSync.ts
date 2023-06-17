@@ -1,6 +1,6 @@
 import { PersistentStorage } from '../types';
 
-export default class MockStorageSync implements PersistentStorage {
+export default class MockStorageSync implements PersistentStorage<any> {
   storage: Map<string, string>;
 
   constructor() {

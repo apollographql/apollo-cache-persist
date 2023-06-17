@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`persistCache advanced usage passing a persistence mapper properly maps the persisted cache 1`] = `"{\\"User:1\\":{\\"id\\":1,\\"__typename\\":\\"User\\",\\"first\\":\\"Jane\\",\\"last\\":\\"Doe\\"},\\"ROOT_QUERY\\":{\\"__typename\\":\\"Query\\",\\"user({\\\\\\"id\\\\\\":1})\\":{\\"__ref\\":\\"User:1\\"}}}"`;
+exports[`persistCache advanced usage passing a persistence mapper properly maps the persisted cache 1`] = `"{"User:1":{"__typename":"User","id":1,"first":"Jane","last":"Doe"},"ROOT_QUERY":{"__typename":"Query","user({\\"id\\":1})":{"__ref":"User:1"}}}"`;
 
-exports[`persistCache advanced usage passing in debounce configures the debounce interval 1`] = `"{\\"ROOT_QUERY\\":{\\"__typename\\":\\"Query\\",\\"hello\\":\\"world\\"}}"`;
+exports[`persistCache advanced usage passing in debounce configures the debounce interval 1`] = `"{"ROOT_QUERY":{"__typename":"Query","hello":"world"}}"`;
 
-exports[`persistCache advanced usage passing in key customizes the storage key 1`] = `"{\\"ROOT_QUERY\\":{\\"__typename\\":\\"Query\\",\\"hello\\":\\"world\\"}}"`;
+exports[`persistCache advanced usage passing in key customizes the storage key 1`] = `"{"ROOT_QUERY":{"__typename":"Query","hello":"world"}}"`;
 
 exports[`persistCache advanced usage setting maxSize purges the Apollo cache & storage if it crosses a threshold 1`] = `undefined`;
 

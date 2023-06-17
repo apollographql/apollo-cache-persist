@@ -14,20 +14,20 @@ describe('Storage', () => {
   });
 
   describe('when data is an object', () => {
-    it ('writes an object to persistent storage', async () => {
+    it('writes an object to persistent storage', async () => {
       const obj = {
-        yo: 'yo yo'
-      }
+        yo: 'yo yo',
+      };
 
       await expect(storage.write(obj)).resolves.toBe(undefined);
       await expect(storage.read()).resolves.toBe(obj);
-    })
-  })  
+    });
+  });
 
   describe('when data is a string', () => {
-    it ('writes a string to persistent storage', async () => {
+    it('writes a string to persistent storage', async () => {
       await expect(storage.write('yo yo yo')).resolves.toBe(undefined);
       await expect(storage.read()).resolves.toBe('yo yo yo');
-    })
-  })
+    });
+  });
 });

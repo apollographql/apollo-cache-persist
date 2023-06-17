@@ -35,7 +35,7 @@
     "prebuild": "npm run clean",
     "precommit": "lint-staged",
     "test": "jest",
-    "test:watch": "jest --watchAll --onlyChanged",
+    "test:watch": "jest --watchAll",
     "coverage": "jest --coverage",
     "watch": "tsc -w -p .",
     "publish:git": "git push && git push --tags",
@@ -56,22 +56,23 @@
   },
   "jest": {
     "moduleFileExtensions": [
-      "ts",
       "js",
-      "json"
+      "json",
+      "ts"
     ],
     "transform": {
-      "\\.ts$": "ts-jest"
+      "\\.ts$": [
+        "ts-jest",
+        {
+          "babelConfig": true
+        }
+      ]
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
-    "globals": {
-      "ts-jest": {
-        "useBabelrc": true
-      }
-    },
     "transformIgnorePatterns": [
       "node_modules/(?!apollo-cache-hermes)"
-    ]
+    ],
+    "preset": "ts-jest"
   },
   "dependencies": {},
   "peerDependencies": {

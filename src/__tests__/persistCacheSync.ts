@@ -5,8 +5,10 @@ import {
   Observable,
   ApolloLink,
   InMemoryCache,
+  NormalizedCacheObject,
 } from '@apollo/client/core';
 import gql from 'graphql-tag';
+import { ApolloPersistOptions } from '../types';
 
 jest.useFakeTimers();
 describe('persistCacheSync', () => {
@@ -21,7 +23,11 @@ describe('persistCacheSync', () => {
       const storage = new MockStorageSync();
       const cache = new InMemoryCache();
 
-      const persistOptions = { cache, storage };
+      const persistOptions: ApolloPersistOptions<NormalizedCacheObject> = {
+        cache,
+        storage,
+      };
+      // @ts-ignore
       const cachePersistor = new SynchronousCachePersistor(persistOptions);
 
       const link = new ApolloLink(() => Observable.of(result));
@@ -29,7 +35,7 @@ describe('persistCacheSync', () => {
       expect(cache.extract()).toEqual({});
 
       await client.query({ query: operation });
-      jest.runTimersToTime(
+      jest.advanceTimersByTime(
         persistOptions.debounce ? persistOptions.debounce + 1 : 1001,
       );
 

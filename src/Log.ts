@@ -7,7 +7,7 @@ export default class Log<T> {
   static buffer = 30;
   static prefix = '[apollo-cache-persist]';
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: Pick<ApolloPersistOptions<T>, 'debug'>) {
     const { debug = false } = options;
 
     this.debug = debug;

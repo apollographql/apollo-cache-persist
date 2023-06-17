@@ -5,7 +5,7 @@ export default class Cache<T> {
   cache: ApolloCache<T>;
   serialize: boolean;
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: Pick<ApolloPersistOptions<T>, 'cache' | 'serialize'>) {
     const { cache, serialize = true } = options;
 
     this.cache = cache;

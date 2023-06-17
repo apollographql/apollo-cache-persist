@@ -21,7 +21,7 @@ export default class Trigger<T> {
 
   constructor(
     { log, persistor }: TriggerConfig<T>,
-    options: ApolloPersistOptions<T>
+    options: Pick<ApolloPersistOptions<T>, 'cache' | 'debounce' | 'trigger'>,
   ) {
     const { defaultDebounce } = Trigger;
     const { cache, debounce, trigger = 'write' } = options;

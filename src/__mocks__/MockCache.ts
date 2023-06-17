@@ -1,12 +1,14 @@
 import Cache from '../Cache';
 import { ApolloPersistOptions, PersistedData } from '../types';
 
-export default class MockCache<T> implements Cache<T> {
+export default class MockCache<T, U extends boolean = true>
+  implements Cache<T>
+{
   cache: null;
   serialize: boolean;
   data: PersistedData<T>;
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: Pick<ApolloPersistOptions<T, U>, 'serialize'>) {
     const { serialize = true } = options;
     this.serialize = serialize;
   }

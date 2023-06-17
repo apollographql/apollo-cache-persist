@@ -17,14 +17,14 @@ export default class CachePersistor<T> {
     if (!options.cache) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in a cache. ' +
-          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.'
+          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.',
       );
     }
 
     if (!options.storage) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in an underlying storage provider. ' +
-          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers'
+          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers',
       );
     }
 
@@ -36,9 +36,10 @@ export default class CachePersistor<T> {
 
     this.log = log;
     this.cache = cache;
-    this.storage = storage;
-    this.persistor = persistor;
-    this.trigger = trigger;
+    // TODO: remove type assertion
+    this.storage = storage as Storage<T>;
+    this.persistor = persistor as Persistor<T>;
+    this.trigger = trigger as Trigger<T>;
   }
 
   /**

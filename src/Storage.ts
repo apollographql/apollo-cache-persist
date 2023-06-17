@@ -8,7 +8,7 @@ export default class Storage<T> {
   storage: PersistentStorage<PersistedData<T>>;
   key: string;
 
-  constructor(options: ApolloPersistOptions<T>) {
+  constructor(options: Pick<ApolloPersistOptions<T>, 'storage' | 'key'>) {
     const { storage, key = 'apollo-cache-persist' } = options;
 
     this.storage = storage;
