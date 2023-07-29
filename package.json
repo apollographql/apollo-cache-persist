@@ -27,8 +27,6 @@
     "bundle": "rollup -c",
     "clean": "rimraf lib/* && rimraf coverage/*",
     "coverage:upload": "codecov",
-    "deploy": "./scripts/deploy.sh",
-    "filesize": "npm run build && npm run build:browser && bundlesize",
     "minify:browser": "uglifyjs -c -m -o ./lib/bundle.min.js -- ./lib/bundle.js",
     "postbuild": "npm run bundle",
     "prebuild": "npm run clean",
@@ -41,12 +39,6 @@
     "publish:npm": "yarn run build && npm publish --access public",
     "commit": "cz"
   },
-  "bundlesize": [
-    {
-      "path": "./lib/bundle.min.js",
-      "threshold": "3 Kb"
-    }
-  ],
   "lint-staged": {
     "*.{md,ts,js,json}": [
       "prettier --write es5",
