@@ -78,7 +78,7 @@
     "browserify": "17.0.0",
     "codecov": "3.8.3",
     "commitizen": "4.3.0",
-    "conventional-changelog-cli": "3.0.0",
+    "conventional-changelog-cli": "4.1.0",
     "cz-conventional-changelog": "3.3.0",
     "graphql": "16.7.1",
     "husky": "8.0.3",
