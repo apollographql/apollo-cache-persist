@@ -87,7 +87,7 @@
     "prettier": "3.0.0",
     "react": "18.2.0",
     "rimraf": "5.0.1",
-    "rollup": "3.27.0",
+    "rollup": "3.29.4",
     "ts-jest": "29.1.1",
     "typescript": "5.1.6",
     "uglify-js": "3.17.4"
