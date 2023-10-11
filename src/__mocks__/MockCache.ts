@@ -6,11 +6,13 @@ export default class MockCache<T, U extends boolean = true>
 {
   cache: null;
   serialize: boolean;
+  includeOptimistic: boolean;
   data: PersistedData<T>;
 
-  constructor(options: Pick<ApolloPersistOptions<T, U>, 'serialize'>) {
-    const { serialize = true } = options;
+  constructor(options: Pick<ApolloPersistOptions<T, U>, 'serialize' | 'includeOptimistic'>) {
+    const { serialize = true, includeOptimistic = false } = options;
     this.serialize = serialize;
+    this.includeOptimistic = includeOptimistic;
   }
 
   extract(): PersistedData<T> {

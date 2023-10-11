@@ -4,16 +4,18 @@ import { ApolloPersistOptions, PersistedData } from './types';
 export default class Cache<T> {
   cache: ApolloCache<T>;
   serialize: boolean;
+  includeOptimistic: boolean;
 
-  constructor(options: Pick<ApolloPersistOptions<T>, 'cache' | 'serialize'>) {
-    const { cache, serialize = true } = options;
+  constructor(options: Pick<ApolloPersistOptions<T>, 'cache' | 'serialize' | 'includeOptimistic'>) {
+    const { cache, serialize = true, includeOptimistic = false } = options;
 
     this.cache = cache;
     this.serialize = serialize;
+    this.includeOptimistic = includeOptimistic;
   }
 
   extract(): PersistedData<T> {
-    let data: PersistedData<T> = this.cache.extract() as T;
+    let data: PersistedData<T> = this.cache.extract(this.includeOptimistic) as T;
 
     if (this.serialize) {
       data = JSON.stringify(data) as string;
