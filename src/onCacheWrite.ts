@@ -10,6 +10,7 @@ export default <T>({ cache }: TriggerFunctionConfig<T>) => (
   const write = cache.write;
   const evict = cache.evict;
   const modify = cache.modify;
+  const gc = cache.gc;
 
   cache.write = (...args: any[]) => {
     const result = write.apply(cache, args);
@@ -26,10 +27,17 @@ export default <T>({ cache }: TriggerFunctionConfig<T>) => (
     persist();
     return result;
   };
+  cache.gc = (...args: any[]) => {
+    const result = gc.apply(cache, args);
+    persist();
+    return result;
+  };
+
 
   return () => {
     cache.write = write;
     cache.evict = evict;
     cache.modify = modify;
+    cache.gc = gc;
   };
 };
