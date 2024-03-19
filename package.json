@@ -72,7 +72,7 @@
   "devDependencies": {
     "@apollo/client": "3.7.17",
     "@types/jest": "29.5.3",
-    "@types/node": "20.4.5",
+    "@types/node": "20.11.30",
     "@types/react-native": "0.72.2",
     "apollo-cache-hermes": "0.8.16",
     "browserify": "17.0.0",
