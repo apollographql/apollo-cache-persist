@@ -73,7 +73,7 @@
     "@apollo/client": "3.7.17",
     "@types/jest": "29.5.3",
     "@types/node": "20.4.5",
-    "@types/react-native": "0.72.2",
+    "@types/react-native": "0.73.0",
     "apollo-cache-hermes": "0.8.16",
     "browserify": "17.0.0",
     "codecov": "3.8.3",
