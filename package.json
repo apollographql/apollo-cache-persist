@@ -65,7 +65,6 @@
     ],
     "preset": "ts-jest"
   },
-  "dependencies": {},
   "peerDependencies": {
     "@apollo/client": "3.7.17"
   },
@@ -96,5 +95,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
