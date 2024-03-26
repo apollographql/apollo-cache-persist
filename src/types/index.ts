@@ -35,4 +35,5 @@ export interface ApolloPersistOptions<
   maxSize?: number | false;
   persistenceMapper?: PersistenceMapperFunction;
   debug?: boolean;
+  includeOptimistic?: boolean;
 }
