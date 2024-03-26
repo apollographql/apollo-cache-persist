@@ -1,3 +1,18 @@
+# [0.15.0](https://github.com/apollographql/apollo-cache-persist/compare/0.14.1...0.15.0) (2024-03-26)
+
+
+### Bug Fixes
+
+* persist cache on garbage collection ([330a9f4](https://github.com/apollographql/apollo-cache-persist/commit/330a9f4a617a46c95497e4e1db13b1461235436a))
+* **tests:** make tests pass ([e431a56](https://github.com/apollographql/apollo-cache-persist/commit/e431a56c46c3f677d1ef9cdf97e2b8cc6f990fe3))
+
+
+### Features
+
+* add semgrep job ([db674af](https://github.com/apollographql/apollo-cache-persist/commit/db674af5453882c499b1f48edb379fe09d7fe5a4))
+
+
+
 ## [0.14.1](https://github.com/apollographql/apollo-cache-persist/compare/0.14.0...0.14.1) (2022-07-04)
 
 
