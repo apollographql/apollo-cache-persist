@@ -6,3 +6,5 @@ package-lock.json
 yarn-error.log
 npm-debug.log
 .vscode
+
+.yarn/*
