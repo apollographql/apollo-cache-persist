@@ -1,14 +1,15 @@
 import { PersistentStorage } from '../types';
 
-export class LocalForageWrapper
-  implements PersistentStorage<string | object | null> {
+export class LocalForageWrapper<T = string | object | null>
+  implements PersistentStorage<T>
+{
   protected storage;
 
-  constructor(storage: LocalForageInterface) {
+  constructor(storage: LocalForageInterface<T>) {
     this.storage = storage;
   }
 
-  getItem(key: string): Promise<string | null> {
+  getItem(key: string): Promise<T | null> {
     return this.storage.getItem(key);
   }
 
@@ -16,7 +17,7 @@ export class LocalForageWrapper
     return this.storage.removeItem(key);
   }
 
-  setItem(key: string, value: string | object | null): Promise<void> {
+  setItem(key: string, value: T | null): Promise<void> {
     return new Promise((resolve, reject) => {
       this.storage
         .setItem(key, value)
@@ -26,12 +27,9 @@ export class LocalForageWrapper
   }
 }
 
-interface LocalForageInterface {
+export interface LocalForageInterface<T = string | object | null> {
   // Actual type definition: https://github.com/localForage/localForage/blob/master/typings/localforage.d.ts#L17
-  getItem(key: string): Promise<string | null>;
-  setItem(
-    key: string,
-    value: string | object | null,
-  ): Promise<string | object | null>;
+  getItem(key: string): Promise<T | null>;
+  setItem(key: string, value: T | null): Promise<T | null>;
   removeItem(key: string): Promise<void>;
 }
