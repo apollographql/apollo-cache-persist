@@ -2135,12 +2135,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.11.30":
+"@types/node@npm:*":
   version: 20.11.30
   resolution: "@types/node@npm:20.11.30"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/867cfaf969c6d8850d8d7304e7ab739898a50ecb1395b61ff2335644f5f48d7a46fbc4a14cee967aed65ec134b61a746edae70d1f32f11321ccf29165e3bc4e6
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.14.9":
+  version: 20.14.9
+  resolution: "@types/node@npm:20.14.9"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10c0/911ffa444dc032897f4a23ed580c67903bd38ea1c5ec99b1d00fa10b83537a3adddef8e1f29710cbdd8e556a61407ed008e06537d834e48caf449ce59f87d387
   languageName: node
   linkType: hard
 
@@ -2490,7 +2499,7 @@ __metadata:
   dependencies:
     "@apollo/client": "npm:3.9.9"
     "@types/jest": "npm:29.5.12"
-    "@types/node": "npm:20.11.30"
+    "@types/node": "npm:20.14.9"
     "@types/react-native": "npm:0.73.0"
     apollo-cache-hermes: "npm:0.8.16"
     browserify: "npm:17.0.0"
@@ -2510,7 +2519,7 @@ __metadata:
     typescript: "npm:5.4.3"
     uglify-js: "npm:3.17.4"
   peerDependencies:
-    "@apollo/client": 3.7.17
+    "@apollo/client": ^3.7.17
   languageName: unknown
   linkType: soft
 
