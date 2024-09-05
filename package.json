@@ -66,10 +66,10 @@
     "preset": "ts-jest"
   },
   "peerDependencies": {
-    "@apollo/client": "^3.7.17"
+    "@apollo/client": "3.11.8"
   },
   "devDependencies": {
-    "@apollo/client": "3.9.9",
+    "@apollo/client": "3.11.8",
     "@types/jest": "29.5.12",
     "@types/node": "20.11.30",
     "@types/react-native": "0.73.0",
