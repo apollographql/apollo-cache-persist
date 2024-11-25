@@ -2510,7 +2510,7 @@ __metadata:
     typescript: "npm:5.4.3"
     uglify-js: "npm:3.17.4"
   peerDependencies:
-    "@apollo/client": 3.7.17
+    "@apollo/client": ^3.7.17
   languageName: unknown
   linkType: soft
 
