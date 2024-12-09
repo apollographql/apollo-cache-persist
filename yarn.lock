@@ -2493,7 +2493,7 @@ __metadata:
     "@types/node": "npm:20.11.30"
     "@types/react-native": "npm:0.73.0"
     apollo-cache-hermes: "npm:0.8.16"
-    browserify: "npm:17.0.0"
+    browserify: "npm:17.0.1"
     codecov: "npm:3.8.3"
     commitizen: "npm:4.3.0"
     conventional-changelog-cli: "npm:4.1.0"
@@ -2510,7 +2510,7 @@ __metadata:
     typescript: "npm:5.4.3"
     uglify-js: "npm:3.17.4"
   peerDependencies:
-    "@apollo/client": 3.7.17
+    "@apollo/client": ^3.7.17
   languageName: unknown
   linkType: soft
 
@@ -2928,9 +2928,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserify@npm:17.0.0":
-  version: 17.0.0
-  resolution: "browserify@npm:17.0.0"
+"browserify@npm:17.0.1":
+  version: 17.0.1
+  resolution: "browserify@npm:17.0.1"
   dependencies:
     JSONStream: "npm:^1.0.3"
     assert: "npm:^1.4.0"
@@ -2949,7 +2949,7 @@ __metadata:
     duplexer2: "npm:~0.1.2"
     events: "npm:^3.0.0"
     glob: "npm:^7.1.0"
-    has: "npm:^1.0.0"
+    hasown: "npm:^2.0.0"
     htmlescape: "npm:^1.1.0"
     https-browserify: "npm:^1.0.0"
     inherits: "npm:~2.0.1"
@@ -2982,7 +2982,7 @@ __metadata:
     xtend: "npm:^4.0.0"
   bin:
     browserify: bin/cmd.js
-  checksum: 10c0/d6fe26f21c23cc7f734ecf67fb9e64a11d4cfebce0ca31bc9cefbb26bcf9363a136289b26f154262a15144912a8ebec4b5a834fee5d67eb354d21e2687a86f90
+  checksum: 10c0/d55cb025620ad2ef52082b499305ac0d5fbca67994d6e34793fefa5aee1e8f16739c1b1aa29ba705bc4d76f93afa3f844b23ff7e870f802d3bb32f72bf17dc8e
   languageName: node
   linkType: hard
 
@@ -5041,13 +5041,6 @@ __metadata:
   dependencies:
     has-symbols: "npm:^1.0.3"
   checksum: 10c0/a8b166462192bafe3d9b6e420a1d581d93dd867adb61be223a17a8d6dad147aa77a8be32c961bb2f27b3ef893cae8d36f564ab651f5e9b7938ae86f74027c48c
-  languageName: node
-  linkType: hard
-
-"has@npm:^1.0.0":
-  version: 1.0.4
-  resolution: "has@npm:1.0.4"
-  checksum: 10c0/82c1220573dc1f0a014a5d6189ae52a1f820f99dfdc00323c3a725b5002dcb7f04e44f460fea7af068474b2dd7c88cbe1846925c84017be9e31e1708936d305b
   languageName: node
   linkType: hard
 

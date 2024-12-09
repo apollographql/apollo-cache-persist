@@ -74,7 +74,7 @@
     "@types/node": "20.11.30",
     "@types/react-native": "0.73.0",
     "apollo-cache-hermes": "0.8.16",
-    "browserify": "17.0.0",
+    "browserify": "17.0.1",
     "codecov": "3.8.3",
     "commitizen": "4.3.0",
     "conventional-changelog-cli": "4.1.0",
