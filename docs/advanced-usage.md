@@ -16,7 +16,7 @@ persistCache({
    */
 
   // Reference to your Apollo cache.
-  cache: ApolloCache<TSerialized>,
+  cache: ApolloCache,
 
   // Reference to your storage provider wrapped in a storage wrapper implementing PersistentStorage interface.
   storage: PersistentStorage,

@@ -1,11 +1,11 @@
 import { ApolloCache } from '@apollo/client/core';
 
-export interface TriggerFunctionConfig<T> {
-  cache: ApolloCache<T>;
+export interface TriggerFunctionConfig {
+  cache: ApolloCache;
 }
 
-export default <T>({ cache }: TriggerFunctionConfig<T>) => (
-  persist: () => void,
+export default ({ cache }: TriggerFunctionConfig) => (
+  persist: () => void
 ) => {
   const write = cache.write;
   const evict = cache.evict;
@@ -32,7 +32,6 @@ export default <T>({ cache }: TriggerFunctionConfig<T>) => (
     persist();
     return result;
   };
-
 
   return () => {
     cache.write = write;

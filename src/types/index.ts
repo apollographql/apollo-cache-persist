@@ -26,7 +26,7 @@ export interface ApolloPersistOptions<
   TSerialized,
   TSerialize extends boolean = true
 > {
-  cache: ApolloCache<TSerialized>;
+  cache: ApolloCache;
   storage: StorageType<PersistedData<TSerialized>, TSerialize>;
   trigger?: 'write' | 'background' | TriggerFunction | false;
   debounce?: number;

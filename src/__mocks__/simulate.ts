@@ -3,8 +3,8 @@ import {
   ApolloLink,
   DocumentNode,
   InMemoryCache,
-  Observable,
 } from '@apollo/client/core';
+import { of } from 'rxjs';
 
 import { persistCache } from '../';
 import MockStorage from './MockStorage';
@@ -24,7 +24,7 @@ export const simulateApp = async <T>({
 
   await persistCache({ ...persistOptions, cache, storage });
 
-  const link = new ApolloLink(() => Observable.of(result));
+  const link = new ApolloLink(() => of(result));
   const client = new ApolloClient({ cache, link });
 
   await client.query({ query: operation });
@@ -33,7 +33,8 @@ export const simulateApp = async <T>({
   );
 
   // cache is now persisted
-  const cache2 = cache.constructor();
+  // @ts-ignore
+  const cache2 = new cache.constructor();
   await persistCache({ ...persistOptions, cache: cache2, storage });
   const client2 = new ApolloClient({ cache: cache2, link });
 
@@ -54,7 +55,7 @@ export const simulateWrite = async <T>({
 
   await persistCache({ ...persistOptions, cache, storage });
 
-  const link = new ApolloLink(() => Observable.of(result));
+  const link = new ApolloLink(() => of(result));
   const client = new ApolloClient({ cache, link });
   await client.query({ query: operation });
 };

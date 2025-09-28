@@ -52,6 +52,7 @@ describe('persistCache', () => {
         operation,
         result,
         persistOptions: {
+          // @ts-ignore
           cache: new Hermes(),
         },
       });
@@ -104,6 +105,7 @@ describe('persistCache', () => {
         operation,
         result,
         persistOptions: {
+          // @ts-ignore
           cache: new Hermes(),
         },
       });

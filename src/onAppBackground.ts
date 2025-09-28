@@ -5,7 +5,7 @@ import onCacheWrite from './onCacheWrite';
 
 export interface TriggerFunctionConfig<T> {
   log: Log<T>;
-  cache: ApolloCache<T>;
+  cache: ApolloCache;
 }
 
 export default <T>({ log, cache }: TriggerFunctionConfig<T>) => (

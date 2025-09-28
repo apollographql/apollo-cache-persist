@@ -66,10 +66,10 @@
     "preset": "ts-jest"
   },
   "peerDependencies": {
-    "@apollo/client": "^3.7.17"
+    "@apollo/client": "^3.7.17 || ^4.0.6"
   },
   "devDependencies": {
-    "@apollo/client": "3.9.9",
+    "@apollo/client": "4.0.6",
     "@types/jest": "29.5.12",
     "@types/node": "20.11.30",
     "@types/react-native": "0.73.0",
@@ -87,6 +87,7 @@
     "react": "18.2.0",
     "rimraf": "5.0.5",
     "rollup": "4.13.0",
+    "rxjs": "^7.8.2",
     "ts-jest": "29.1.2",
     "typescript": "5.4.3",
     "uglify-js": "3.17.4"

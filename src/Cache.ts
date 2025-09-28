@@ -2,7 +2,7 @@ import { ApolloCache } from '@apollo/client/core';
 import { ApolloPersistOptions, PersistedData } from './types';
 
 export default class Cache<T> {
-  cache: ApolloCache<T>;
+  cache: ApolloCache;
   serialize: boolean;
 
   constructor(options: Pick<ApolloPersistOptions<T>, 'cache' | 'serialize'>) {
