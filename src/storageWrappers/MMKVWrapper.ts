@@ -24,7 +24,10 @@ export class MMKVWrapper implements PersistentStorage<string | null> {
   }
 
   removeItem(key: string): void {
-    return this.storage.delete(key);
+    if(this.storage.delete) {
+      return this.storage.delete(key);  
+    }
+    return this.storage.remove(key);
   }
 
   setItem(key: string, value: string | null): void {
