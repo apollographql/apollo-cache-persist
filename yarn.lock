@@ -2498,7 +2498,7 @@ __metadata:
     commitizen: "npm:4.3.0"
     conventional-changelog-cli: "npm:4.1.0"
     cz-conventional-changelog: "npm:3.3.0"
-    graphql: "npm:16.8.1"
+    graphql: "npm:16.15.0"
     husky: "npm:9.0.11"
     jest: "npm:29.7.0"
     lint-staged: "npm:15.2.2"
@@ -2510,7 +2510,7 @@ __metadata:
     typescript: "npm:5.4.3"
     uglify-js: "npm:3.17.4"
   peerDependencies:
-    "@apollo/client": 3.7.17
+    "@apollo/client": ^3.7.17
   languageName: unknown
   linkType: soft
 
@@ -4973,10 +4973,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:16.8.1":
-  version: 16.8.1
-  resolution: "graphql@npm:16.8.1"
-  checksum: 10c0/129c318156b466f440914de80dbf7bc67d17f776f2a088a40cb0da611d19a97c224b1c6d2b13cbcbc6e5776e45ed7468b8432f9c3536724e079b44f1a3d57a8a
+"graphql@npm:16.15.0":
+  version: 16.15.0
+  resolution: "graphql@npm:16.15.0"
+  checksum: 10c0/b97c78a02dab6392cdc492e78290bca479b5881dbeeefaed79cc88128b0e9a810feea043da61c5cd086f1af645dc9c46d61ed5297995031d8542a11c94f7cd0f
   languageName: node
   linkType: hard
 
